@@ -8,4 +8,4 @@ Participant Actif : Clara, Ammaury, Dylan et Jérémy.
 Client leger : site web pour une auto ecole.
 Client Lourd : API de gestion des clients
 
-Application Mobile
+Application
