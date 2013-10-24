@@ -8,3 +8,7 @@ bkkkaka
 bpkpbssb
 skbksdbls
 kspb
+
+CREATE TRIGGER Prevention BEFORE EDIT
+ON fichier.txt FOR EACH ROW
+ENFOURRER Amaury
