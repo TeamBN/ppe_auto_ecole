@@ -25,7 +25,7 @@ public class BDD {
 		}
 		catch (ClassNotFoundException exp)
 		{
-			System.out.println("erreur de chargement du pilot");
+			System.out.println("erreur de chargement du pilote");
 			
 		}
 	}
@@ -66,5 +66,4 @@ public class BDD {
 		return this.maConnexion;
 		
 	}
-	
 }

@@ -3,7 +3,9 @@ public class ClasseMain {
 	
 	public static void main (String[] args)
 	{
-		Fenetre fen = new Fenetre();
+		Voiture voit = new Voiture();
+		
+		voit.saisir();
+		voit.afficher();
 	}
-
 }

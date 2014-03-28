@@ -1,9 +1,16 @@
 
 public class Moniteur {
 	
-	private int idm = 0;
-	private String nomm = ""; 
-	private String prenomm = "";
+	private int idm;
+	private String nomm;
+	private String prenomm;
+	
+	public Moniteur()
+	{
+		this.idm = 0;
+		this.nomm ="";
+		this.prenomm="";
+	}
 
 	public Moniteur(int idm, String nomm, String prenomm )
 	{
@@ -41,5 +48,4 @@ public class Moniteur {
 	public void setPrenomm(String prenomm) {
 		this.prenomm = prenomm;
 	}
-
 }
