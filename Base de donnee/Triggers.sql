@@ -177,6 +177,18 @@ DELIMITER ;
 
 -- Modification dans etudiant = modification dans client
 
+DROP TRIGGER After_Update_Etudiant;
+DELIMITER //
+CREATE TRIGGER After_Update_Etudiant
+AFTER UPDATE ON Etudiant
+FOR EACH ROW
+BEGIN
+
+	UPDATE client SET Client.IdC = new.IdC where Client.IdC=old.IdC;
+	
+END //
+DELIMITER ;
+
 
 
 
