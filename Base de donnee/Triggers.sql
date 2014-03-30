@@ -25,6 +25,10 @@ BEGIN
 
 	END IF;
 	
+	END //
+	
+	DELIMITER ;
+	
 	--Rajouter +1 au nombre de passage de permis si un client est déjà sur la table, sinon 1.
 	DECLARE nbexp int;
 	SELECT COUNT(*) INTO nbexp FROM ExamenP WHERE new.IdC=IdC;
@@ -71,71 +75,89 @@ DELIMITER;
 -- Héritage Client / Etudiant, empêcher l'insert si client déjà salarié
 -- Empêcher de recréer un même étudiant avec un id différent (qu'il soit créé en Salarié ou Etudiant)
 -- Si l'étudiant a plus de 25 ans, pas de taux de réduction.
-drop trigger Before_Etudiant;
-DELIMITER //
-CREATE TRIGGER Before_Etudiant
-BEFORE INSERT ON Etudiant 
-FOR EACH ROW 
-BEGIN 
-	
-	DECLARE nbe int;
-	DECLARE nbe2 int;
-	DECLARE nbe3 int;
+drop trigger Verif_Etu;
+DELIMITER // 
 
+CREATE TRIGGER Verif_Etu 
+BEFORE INSERT ON Etudiant
+FOR EACH ROW
+BEGIN
+
+DECLARE nbe int;
+
+SELECT MAX(IdC) into nbe FROM Client;
+
+IF nbe is NULL 
+THEN
+SET nbe=0;
+end if;
+
+IF new.IdC = 0 
+then 
+	SET new.IdC = nbe + 1;
+END IF;
+
+
+
+SELECT COUNT(IdC) into nbe
+FROM Client
+WHERE IdC=new.IdC;
+
+IF nbe = 0
+	then 
+			INSERT INTO Client(IdC) VALUES (new.IdC);
+END IF;
+
+
+
+SELECT COUNT(IdC) INTO nbe FROM Salarie WHERE IdC=new.IdC;
+
+if nbe > 0
+
+THEN 
+	DELETE FROM Etudiant WHERE 2=0;
+
+end if;
+
+	IF YEAR(CURDATE() - YEAR(new.Datenaiss) > 25)
+	THEN 
+		SET new.taux_reduction=0;
 	
+	END IF;
 	
-		
-	SELECT COUNT(*) INTO nbe FROM Salarie WHERE Salarie.IdC=new.IdC;
-	
-	SELECT COUNT(*) INTO nbe2 FROM Etudiant WHERE new.NomE=NomE
+SELECT COUNT(*) INTO nbe FROM Etudiant WHERE new.NomE=NomE
 		AND new.PrenomE=PrenomE AND new.AdresseE=AdresseE AND new.CpE=CpE
 		AND new.VilleE=VilleE AND new.DateNaiss=DateNaiss
 		AND new.Telephone=Telephone AND new.nom_formation=nom_formation
-		AND new.NomEta=NomEta;	
-	
-	SELECT COUNT(*) INTO nbe3 FROM Salarie WHERE new.NomE=Salarie.NomS
+		AND new.NomEta=NomEta;
+		
+	IF nbe > 0 
+		THEN	
+		DELETE FROM Etudiant WHERE 2=0;
+		
+	END IF;
+
+
+
+SELECT COUNT(*) INTO nbe FROM Salarie WHERE new.NomE=Salarie.NomS
 		AND new.PrenomE=Salarie.PrenomS AND new.AdresseE=Salarie.AdresseS
 		AND new.CpE=Salarie.CpS AND new.VilleE=Salarie.VilleS AND new.DateNaiss=Salarie.DateNaiss
 		AND new.Telephone=Salarie.Telephone;
 		
-	
-	IF nbe > 0 OR nbe2 > 0 OR nbe3 <> 0
-	THEN 
-		DELETE FROM `Deja salarie`;
-				
-	ELSE
-		INSERT INTO Client(IdC) VALUES(Last_Insert_ID());
-	END IF;
-	
-	
-	
-	IF (SELECT ADDDATE((SELECT new.DateNaiss FROM Etudiant), INTERVAL 25 YEAR)) > CURDATE()
-	
-		THEN 
-			SET new.taux_reduction=0;
-	
-	ELSE
-			SET new.taux_reduction=15;
-	
-	END IF;
-	
-	
-END //
-DELIMITER ;
-
-/*
-	
+	IF nbe > 0 
+		THEN	
+		DELETE FROM Etudiant WHERE 2=0;
 		
-IF (SELECT ADDDATE((SELECT new.DateNaiss FROM Etudiant), INTERVAL 25 YEAR)) > CURDATE()
-	
-	THEN 
-		SET new.taux_reduction=0;
-	
-	ELSE
-		SET new.taux_reduction=15;
-	
 	END IF;
-	*/
+	
+
+END //
+	
+DELIMITER ;
+	
+
+
+
 
 -- Suppression dans etudiant = suppression dans client
 
@@ -155,17 +177,6 @@ DELIMITER ;
 
 -- Modification dans etudiant = modification dans client
 
-DROP TRIGGER After_Update_Etudiant;
-DELIMITER //
-CREATE TRIGGER After_Update_Etudiant
-AFTER UPDATE ON Etudiant
-FOR EACH ROW
-BEGIN
-
-	UPDATE client SET Client.IdC = new.IdC where Client.IdC=old.IdC;
-	
-END //
-Delimiter ;
 
 
 
@@ -179,37 +190,79 @@ Delimiter ;
 -- Héritage Client / Salarié, empêcher l'insert si client déjà étudiant 
 -- Vérifie l'existance du client dans la table salarié et étudiant afin de ne pas le dupliquer
 
-drop trigger Before_Insert_Salarie;
-DELIMITER //
-CREATE TRIGGER Before_Insert_Salarie
-BEFORE INSERT ON Salarie 
-FOR EACH ROW 
-BEGIN 
+DROP TRIGGER Verif_Salarie;
+DELIMITER // 
+CREATE TRIGGER Verif_Salarie 
+BEFORE INSERT ON Salarie
+FOR EACH ROW
+BEGIN
+
+DECLARE nbs int;
+
+SELECT MAX(IdC) into nbs FROM Client;
+
+	IF nbs is NULL 
+		THEN
+			SET nbs=0;
+	END IF;
+
+	IF new.IdC = 0 
+		THEN
+			SET new.IdC = nbs + 1;
+	END IF;
+
+
+SELECT COUNT(IdC) into nbs FROM Client WHERE IdC=new.IdC;
+
+	IF nbs = 0
+		THEN 
+			INSERT INTO Client(IdC) VALUES (new.IdC);
+	END IF;
+
+
+
+SELECT COUNT(IdC) INTO nbs FROM Etudiant WHERE IdC=new.IdC;
+
+	IF nbs > 0
+		THEN 
+			DELETE FROM Salarie WHERE 2=0;
+
+	END IF;
+
+
 	
-	DECLARE nbe int;
-	DECLARE nbe2 int;
-	DECLARE nbe3 int;
-	SELECT COUNT(*) INTO nbe FROM Etudiant WHERE Etudiant.IdC=new.IdC;
-	SELECT COUNT(*) INTO nbe2 FROM Salarie WHERE new.NomS=NomS
-		AND new.PrenomS=PrenomS	AND new.AdresseS=AdresseS AND new.CpS=CpS
+SELECT COUNT(*) INTO nbs FROM Salarie WHERE new.NomS=NomS
+		AND new.PrenomS=PrenomS AND new.AdresseS=AdresseS AND new.CpS=CpS
 		AND new.VilleS=VilleS AND new.DateNaiss=DateNaiss
 		AND new.Telephone=Telephone AND new.nom_entreprise=nom_entreprise;
-	
-	SELECT COUNT(*) INTO nbe3 FROM Etudiant WHERE new.NomS=NomE
-		AND new.PrenomS=PrenomE AND new.AdresseS=AdresseE
-		AND new.CpS=CpE AND new.VilleS=VilleE AND new.DateNaiss=Etudiant.DateNaiss
-		AND new.Telephone=Etudiant.Telephone;
-	IF nbe > 0 OR nbe2 > 0 OR nbe3 > 0
-	THEN 
-		DELETE FROM Salarie WHERE 2=0;
-				
-	ELSE
-		INSERT INTO Client (IdC) VALUES('');
 		
+	IF nbs > 0 
+		THEN	
+			DELETE FROM Salarie WHERE 2=0;
 		
 	END IF;
+
+
+
+SELECT COUNT(*) INTO nbs FROM Etudiant WHERE new.NomS=Etudiant.NomE
+		AND new.PrenomS=Etudiant.PrenomE AND new.AdresseS=Etudiant.AdresseE
+		AND new.CpS=Etudiant.CpE AND new.VilleS=Etudiant.VilleE AND new.DateNaiss=Etudiant.DateNaiss
+		AND new.Telephone=Etudiant.Telephone;
+		
+	IF nbs > 0 
+		THEN	
+			DELETE FROM Salarie WHERE 2=0;
+		
+	END IF;
+	
+
 END //
+	
 DELIMITER ;
+	
+
+
+
 
 
 
@@ -225,7 +278,7 @@ BEGIN
 	DELETE FROM Client Where Client.IdC = old.IdC;
 	
 END //
-DELIMITER;
+DELIMITER ;
 
 
 
@@ -241,7 +294,7 @@ BEGIN
 	UPDATE client SET Client.IdC = new.IdC where Client.IdC=old.IdC;
 	
 END //
-Delimiter;
+Delimiter ;
 
 
 
@@ -262,3 +315,32 @@ Delimiter;
 ---------------------------------------------Client---------------------------------------
 
 -- INVERSE HERITAGE 
+drop trigger Herit_Client;
+DELIMITER //
+CREATE TRIGGER Herit_Client
+AFTER DELETE ON Client
+FOR EACH ROW
+BEGIN
+
+DECLARE nbc int;
+DECLARE nbc2 int;
+
+SELECT COUNT(*) INTO nbc FROM Salarie WHERE old.IdC=IdC;
+SELECT COUNT(*) INTO nbc2 FROM Etudiant WHERE old.IdC=IdC;
+
+IF nbc > 0 or nbc2 > 0
+	THEN
+		IF nbc > 0
+			THEN
+				DELETE FROM Salarie WHERE old.IdC=IdC;
+		ELSE
+				DELETE FROM Etudiant WHERE old.IdC=IdC;
+		END IF;
+		
+ELSE		
+	INSERT INTO Archives_Client VALUES(old.IdC);
+END IF;
+
+END //
+
+DELIMITER ;
