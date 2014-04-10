@@ -71,6 +71,26 @@ public class Lecon
 			}
 			return null;
 		}
-}
-	
 
+		public void insererMoniteur(Moniteur unMon)
+		{
+			String requete ="insert into moniteur (nomm, prenomm) values ('";
+			requete += unMon.getIdmm()+"', "+unMon.getNomm()+");";
+				try
+				{
+					BDD uneBDD = new BDD ("localhost", "root","","autoecole");
+					uneBDD.seConnecter();
+					Statement unStat = uneBDD.getMaConnexion().createStatement();
+					unStat.execute(requete);
+					unStat.close();
+					uneBDD.seConnecter();
+				}
+				catch(SQLException exp)
+				{
+					System.out.println("Erreur d'execution de la requete:" + requete);
+				}
+		}
+				
+				}
+		}
+}
