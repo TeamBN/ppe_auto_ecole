@@ -36,11 +36,11 @@ ENGINE = InnoDB;
 
 CREATE TABLE Voiture (
 IdV int(3) not null Auto_Increment Primary Key,
-Immatriculation varchar(15) not null,
+Immatriculation char(7) not null,
 Modele varchar(20) ,
-DateAchat DATETIME not null,
-NbrKm int DEFAULT '0',
-Conso DECIMAL (2,2)
+DateAchat DATE not null,
+NbrKm float(12,2) DEFAULT '0',
+Conso DECIMAL (3,2)
 )
 Engine = InnoDB;
 
