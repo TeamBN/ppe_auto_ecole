@@ -34,3 +34,13 @@ CLOSE CV;
 END //
 
 DELIMITER ;
+
+
+-------Set Resultat=non sur tous les examens anterieurs aux oui
+ 
+drop procedure if exists update_examenp;
+
+
+
+
+

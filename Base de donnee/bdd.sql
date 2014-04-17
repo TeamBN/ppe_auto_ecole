@@ -11,7 +11,7 @@ ENGINE = InnoDB;
 CREATE TABLE ExamenP (
 IdExaP int NOT NULL AUTO_INCREMENT Primary key,
 Date_Inscri_Permis DATE NOT NULL,
-Nb_Passage_Permis int(1) DEFAULT 0,
+Nb_Passage_Permis int(1) DEFAULT 1,
 ResultatP ENUM ('oui', 'non'),
 IdC int NOT NULL, FOREIGN KEY (IdC) REFERENCES Client (IdC)
 )
@@ -21,7 +21,7 @@ ENGINE = InnoDB;
 CREATE TABLE ExamenC (
 IdExaC int not null AUTO_INCREMENT Primary key,
 Date_Inscri_Code DATE NOT NULL,
-Nb_Passage_Code int DEFAULT 0,
+Nb_Passage_Code int DEFAULT 1,
 ResultatC ENUM ('oui', 'non'),
 IdC int not null, FOREIGN KEY (IdC) REFERENCES Client (IdC)
 )

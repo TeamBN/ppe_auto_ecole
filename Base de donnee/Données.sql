@@ -35,3 +35,7 @@ INSERT INTO Salarie VALUES
 (' ', 'Gromart', 'Laurence', '195 rue de l\'union', '75002', 'Paris', '1967-08-13', '0142516438', 'Krimun'),
 (' ', 'Sharif', 'Mickael', '99 rue Rikoto', '75008', 'Paris', '1969-02-28', '0156942158', 'Bratisla'),
 (' ', 'Lagare', 'Renaud', '03 rue Omnio', '75015', 'Paris', '1985-01-14', '0125468591', 'Egura');
+
+
+INSERT INTO ExamenC VALUES('', '2010-09-09', 3, 'oui', 31);
+INSERT INTO ExamenP VALUES('', '2014-09-22', 0, null, 31);

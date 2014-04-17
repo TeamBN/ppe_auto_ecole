@@ -1,6 +1,8 @@
 ﻿--------------------------------------------Table ExamenP---------------------------------------------
 
 -- Vérifier l'obtention du code dans les 24 dernier mois avant le passage du permis, et la majorité du client.
+--Rajouter +1 au nombre de passage de permis si un client est déjà sur la table, sinon 1.
+
 drop trigger IF EXISTS Before_Insert_Permis;
 DELIMITER //
 CREATE TRIGGER Before_Insert_Permis
@@ -9,40 +11,66 @@ FOR EACH ROW
 BEGIN
 	DECLARE nb int;
 	DECLARE msg varchar(100);
-	SELECT COUNT(*) INTO nb FROM ExamenC WHERE IdC=new.IdC AND Resultat='oui';
+	SELECT COUNT(*) INTO nb FROM ExamenC WHERE IdC=new.IdC AND ResultatC='oui';
 	IF nb = 0 
-			THEN SET msg = 'Le client n''est pas titulaire du code de la route';
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg; 
-	ELSEIF DATE_ADD((SELECT DateNaiss FROM Etudiant WHERE Etudiant.IdC=Last_Insert_ID()), INTERVAL 18 YEAR) < (SELECT Date_Inscri_Permis FROM ExamenP WHERE IdC=Last_Insert_Id())
-			THEN SET msg = 'L''etudiant ne sera pas majeur au moment du passage du permis';
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg; 
-	ELSEIF DATE_ADD((SELECT DateNaiss FROM Salarie WHERE Salarie.IdC=Last_Insert_ID()), INTERVAL 18 YEAR) < ( SELECT Date_Inscri_Permis FROM ExamenP WHERE IdC=Last_Insert_Id())
-			THEN SET msg = 'Le salarie ne sera pas majeur au moment du passage du permis';
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg; 
-	ELSEIF DATE_ADD((SELECT Date_Inscri_Code FROM ExamenC WHERE ExamenC.IdC=Last_Insert_ID() AND ResultatC = 'oui' ), INTERVAL 2 YEAR) > ( SELECT Date_Inscri_Permis FROM ExamenP WHERE IdC=Last_Insert_Id())
-			THEN SET msg = 'Le code aura expire a cette date, il faut le repasser avant de passer le permis';
-				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg; 
+			THEN 
+				DELETE FROM `Le client n''est pas titulaire du code de la route`;
+				 
+	ELSEIF
+			nb > 0 AND
+			(SELECT (ADDDATE((SELECT DateNaiss
+			FROM Etudiant
+			WHERE Etudiant.IdC=new.IdC), INTERVAL 18 YEAR))) > new.Date_Inscri_Permis
+			
+			THEN
+				DELETE FROM `L''etudiant n''est pas majeur`;
 
-	END IF;
+	ELSEIF
+			nb > 0 AND
+			(SELECT (ADDDATE((SELECT DateNaiss
+			FROM Salarie
+			WHERE Salarie.IdC=new.IdC), INTERVAL 18 YEAR))) > new.Date_Inscri_Permis
+			
+			THEN 
+				DELETE FROM `Le salarie n''est pas majeur`;
+				
+	ELSEIF 
+			nb > 0 AND
+			(SELECT (ADDDATE((SELECT Date_Inscri_Code FROM ExamenC WHERE ExamenC.IdC=new.IdC AND ResultatC = 'oui'), INTERVAL 2 YEAR ))) < (SELECT new.Date_Inscri_Permis)
+			
+			THEN 
+				DELETE FROM `Code expire`;
+				
 	
-	END //
-	
-	DELIMITER ;
-	
-	--Rajouter +1 au nombre de passage de permis si un client est déjà sur la table, sinon 1.
-	DECLARE nbexp int;
-	SELECT COUNT(*) INTO nbexp FROM ExamenP WHERE new.IdC=IdC;
-	IF nbexp <> 0 
-	THEN
-		SET new.Nb_Passage_Permis = nbexp + 1;
-	ELSE
-		SET new.Nb_Passage_Permis = 1;
-	
-	END IF;
+				
+	END IF;		
+		
+		SELECT COUNT(*) INTO nb FROM ExamenP WHERE IdC=new.IdC;
+		IF nb <> 0 
+			THEN
+				SELECT COUNT(*) INTO nb FROM ExamenP WHERE new.Date_Inscri_Permis=Date_Inscri_Permis;
+				IF	
+					nb <> 0
+					THEN
+						DELETE FROM `Passage du permis deja programme a ce jour`;
+						
+				ELSE
+					SET new.Nb_Passage_Permis = 1;
+				END IF;
+		
+		
+		ELSE		
+			SET new.Nb_Passage_Permis = 1;
+		END IF;
+				
 	
 END //
 
-DELIMITER;
+DELIMITER ;
+
+
+
+
 
 --------------------------------------------Table ExamenC---------------------------------------------
 
@@ -66,7 +94,7 @@ BEGIN
 	END IF;
 END //
 
-DELIMITER;
+DELIMITER ;
 	
 	
 	 
@@ -169,6 +197,7 @@ FOR EACH ROW
 BEGIN 
 
 	DELETE FROM Client Where Client.IdC = old.IdC;
+
 	
 END //
 DELIMITER ;
