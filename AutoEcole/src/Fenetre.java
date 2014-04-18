@@ -1,28 +1,22 @@
-import java.awt.Color;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
+import java.util.LinkedList;
 
-import javax.swing.JTextPane;
+import javax.swing.*;
 
 public class Fenetre extends JFrame implements ActionListener, ItemListener 
 {	
+		
 	/*Le serialVersionUID est une version universelle identifiant pour une classe Serializable*/
 	private static final long serialVersionUID = 1L;
 	
-	private Moniteur unMoniteur = new Moniteur();
+	/**********************************************************/
+	private Lecon uneLecon = new Lecon();
 	
+	/**********************************************************/
 	 /* Panel d'ajout de Moniteur */
     private JPanel PAjoutm = new JPanel();
     private JLabel Ltitre = new JLabel("Ajout d'un Moniteur");
@@ -84,22 +78,22 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      this.add(Bajouter);
 	      this.add(Bquitter);
 	      this.add(PAjoutm);
+	      
+	    // Rendre les boutons cliquables
 	      Bajouter.addActionListener(this);
 	      Bannuler.addActionListener(this);
 	      Bquitter.addActionListener(this);
 	      Benregistrer.addActionListener(this);
+	      
 	}
-
-	@Override
-	public void itemStateChanged(ItemEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	
+	public void actionPerformed (ActionEvent ev)
+	{
+		Object ae = ev.getSource();
+		if(ae == Bquitter)
+		{
+			System.out.println("Fin du programme");
+			System.exit(0);
+		}
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	    }
 }
