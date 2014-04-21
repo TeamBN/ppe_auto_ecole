@@ -2,6 +2,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -17,7 +19,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	private Lecon uneLecon = new Lecon();
 	
 	/**********************************************************/
-	 /* Panel d'ajout de Moniteur */
+	/* Panel d'ajout de Moniteur */
     private JPanel PAjoutm = new JPanel();
     private JLabel Ltitre = new JLabel("Ajout d'un Moniteur");
     private JTextField Tnomm = new JTextField();
@@ -95,5 +97,42 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			System.out.println("Fin du programme");
 			System.exit(0);
 		}
+		else if (ae == Benregistrer)
+		{
+			this.insererMoniteur();	
+		}
+	}
+	
+	public void insererMoniteur ()
+	    {
+	        try{
+	            String nomm = Tnomm.getText();
+	            String prenomm = Tprenomm.getText();
+	            Moniteur unMoniteur = new Moniteur(0, nomm, prenomm);
+	            uneLecon.insererMoniteur(unMoniteur);
+	            JOptionPane.showMessageDialog(this, "Insertion Effectuée", "Insertion", JOptionPane.OK_OPTION);
+	        }
+	       catch (NumberFormatException exp){
+	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.OK_OPTION);
+	       }
+	        
+	    }
+	
+	 public void annuler (){
+	        this.Tnomm.setText("");
+	        this.Tprenomm.setText("");
+	    }
+	    
+	public void itemStateChanged(ItemEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Lecon getUneLecon() {
+		return uneLecon;
+	}
+
+	public void setUneLecon(Lecon uneLecon) {
+		this.uneLecon = uneLecon;
 	}
 }
