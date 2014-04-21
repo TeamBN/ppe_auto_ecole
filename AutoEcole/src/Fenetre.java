@@ -19,24 +19,49 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	private Lecon uneLecon = new Lecon();
 	
 	/**********************************************************/
+	/* Barre de Menu */
+	private JMenuBar menuBar = new JMenuBar();
+	private JMenu MenuClient = new JMenu("Client");
+	private JMenu MenuMoniteur = new JMenu("Moniteur");
+	private JMenu MenuVoiture = new JMenu("Voiture");
+	private JMenu MenuPlanning = new JMenu("Planning");
+	
+	/* Sous menu Client */
+	private JMenuItem MlisteClient = new JMenuItem("Liste");
+	private JMenuItem MajouterClient = new JMenuItem("Ajouter");
+	private JMenuItem MmodifierClient = new JMenuItem("Modifier");
+	private JMenuItem MsuppressionClient = new JMenuItem("Suppression");
+	
+	/* Sous menu Moniteur */
+	private JMenuItem MlisteMoniteur = new JMenuItem("Liste");
+	private JMenuItem MajouterMoniteur = new JMenuItem("Ajouter");
+	private JMenuItem MmodifierMoniteur = new JMenuItem("Modifier");
+	private JMenuItem MsuppressionMoniteur = new JMenuItem("Suppression");
+	
+	/* Sous menu Voiture */
+	private JMenuItem MlisteVoiture = new JMenuItem("Liste");
+	private JMenuItem MajouterVoiture = new JMenuItem("Ajouter");
+	private JMenuItem MmodifierVoiture = new JMenuItem("Modifier");
+	private JMenuItem MsuppressionVoiture = new JMenuItem("Suppression");
+
+	
 	/* Panel d'ajout de Moniteur */
     private JPanel PAjoutm = new JPanel();
-    private JLabel Ltitre = new JLabel("Ajout d'un Moniteur");
+    private JLabel Ltitre = new JLabel("Moniteur");
     private JTextField Tnomm = new JTextField();
     private JTextField Tprenomm = new JTextField();
     private JButton Bannuler = new JButton("Annuler");
     private JButton Benregistrer = new JButton("Enregistrer");
-    private JButton Bajouter = new JButton("Ajouter");
+    private JButton Bmoniteur = new JButton("Moniteur");
     private JButton Bquitter = new JButton("Quitter");
-    private JComboBox Cidm = new JComboBox();
     private JLabel Lnomm = new JLabel("Nom : ");
     private JLabel Lprenomm = new JLabel("Prenom: ");
-    private JLabel Lidm = new JLabel("Id Moniteur");
 	
 	public Fenetre()
 	{
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
+		// Desactivation du Layout
 		this.setLayout(null);
 		// Rendre la fenêtre visible
 		this.setVisible(true);
@@ -51,7 +76,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		  PAjoutm.setBounds(110, 50, 300, 300);
 	      PAjoutm.setLayout(null);
 	      PAjoutm.setVisible(true);
-	      Ltitre.setBounds(100, 20, 200, 20);
+	      Ltitre.setBounds(140, 10, 200, 20);
 	      PAjoutm.add(Ltitre);
 	      Lnomm.setBounds(10, 40, 100, 20);
 	      PAjoutm.add(Lnomm);
@@ -62,33 +87,58 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PAjoutm.add(Lprenomm);
 	      Tprenomm.setBounds(120, 70, 100, 20);
 	      PAjoutm.add(Tprenomm);
-	      
-	      Lidm.setBounds(10, 130, 100, 20);
-	      PAjoutm.add(Lidm);
-	      Cidm.setBounds(120, 130, 100, 20);
-	      PAjoutm.add(Cidm);
 	        
 	      Bannuler.setBounds(50, 180, 100, 20);
 	      PAjoutm.add(Bannuler);
 	      Benregistrer.setBounds(160, 180, 100, 20);
 	      PAjoutm.add(Benregistrer);
 	        
-	      Bajouter.setBounds(10, 50, 100, 20);
-	      PAjoutm.add(Bajouter);
+	      Bmoniteur.setBounds(10, 50, 100, 20);
+	      PAjoutm.add(Bmoniteur);
 	      Bquitter.setBounds(280, 280, 100, 20);
 	      PAjoutm.add(Bquitter);
-	      this.add(Bajouter);
+	      this.add(Bmoniteur);
 	      this.add(Bquitter);
 	      this.add(PAjoutm);
 	      
 	    // Rendre les boutons cliquables
-	      Bajouter.addActionListener(this);
+	      Bmoniteur.addActionListener(this);
 	      Bannuler.addActionListener(this);
 	      Bquitter.addActionListener(this);
 	      Benregistrer.addActionListener(this);
 	      
+	   /****************Barre de Menu ***************/
+	     //Ajout des différents menus dans la barre de menu
+	     menuBar.add(MenuClient);
+	     menuBar.add(MenuMoniteur);
+	     menuBar.add(MenuVoiture);
+	     menuBar.add(MenuPlanning);
+	     
+	    // Ajout des sous-menus des menus
+	    /************ Menu Client ************************/
+	     this.MenuClient.add(MlisteClient);
+	     this.MenuClient.add(MajouterClient);
+	     this.MenuClient.add(MmodifierClient);
+	     this.MenuClient.add(MsuppressionClient);
+	     
+	     /************ Menu Moniteur ************************/
+	     this.MenuMoniteur.add(MlisteMoniteur);
+	     this.MenuMoniteur.add(MajouterMoniteur);
+	     this.MenuMoniteur.add(MmodifierMoniteur);
+	     this.MenuMoniteur.add(MsuppressionMoniteur);
+	     
+	     /************ Menu Client ************************/
+	     this.MenuVoiture.add(MlisteVoiture);
+	     this.MenuVoiture.add(MajouterVoiture);
+	     this.MenuVoiture.add(MmodifierVoiture);
+	     this.MenuVoiture.add(MsuppressionVoiture);
+	    
+	     //Ajout de la barre de menu sur la fenêtre
+	     this.setJMenuBar(menuBar);
+	      
 	}
 	
+	// Lier les boutons à une action bien définie
 	public void actionPerformed (ActionEvent ev)
 	{
 		Object ae = ev.getSource();
@@ -101,6 +151,10 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		{
 			this.insererMoniteur();	
 		}
+		else if (ae == Bannuler)
+		{
+			this.annuler();
+		}
 	}
 	
 	public void insererMoniteur ()
@@ -110,18 +164,19 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	            String prenomm = Tprenomm.getText();
 	            Moniteur unMoniteur = new Moniteur(0, nomm, prenomm);
 	            uneLecon.insererMoniteur(unMoniteur);
-	            JOptionPane.showMessageDialog(this, "Insertion Effectuée", "Insertion", JOptionPane.OK_OPTION);
+	            JOptionPane.showMessageDialog(this, "Insertion Effectuée", "Insertion", JOptionPane.INFORMATION_MESSAGE);
 	        }
 	       catch (NumberFormatException exp){
-	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.OK_OPTION);
+	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.ERROR_MESSAGE);
 	       }
 	        
 	    }
 	
-	 public void annuler (){
+	 public void annuler ()
+	 {
 	        this.Tnomm.setText("");
 	        this.Tprenomm.setText("");
-	    }
+	 }
 	    
 	public void itemStateChanged(ItemEvent arg0) {
 		// TODO Auto-generated method stub
