@@ -19,12 +19,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	private Lecon uneLecon = new Lecon();
 	
 	/**********************************************************/
-	/* Barre de Menu */
+	
+	/***************** Barre de Menu **************************/
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu MenuClient = new JMenu("Client");
 	private JMenu MenuMoniteur = new JMenu("Moniteur");
 	private JMenu MenuVoiture = new JMenu("Voiture");
 	private JMenu MenuPlanning = new JMenu("Planning");
+	private JMenu MenuProgramme = new JMenu ("Programme");
 	
 	/* Sous menu Client */
 	private JMenuItem MlisteClient = new JMenuItem("Liste");
@@ -43,8 +45,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	private JMenuItem MajouterVoiture = new JMenuItem("Ajouter");
 	private JMenuItem MmodifierVoiture = new JMenuItem("Modifier");
 	private JMenuItem MsuppressionVoiture = new JMenuItem("Suppression");
-
 	
+	/* Sous menu Programme */
+	private JMenuItem Mquitter = new JMenuItem ("Quitter");
+	private JMenuItem Mapropos = new JMenuItem ("À propos");
+	
+	
+	/****************************** Panel **********************************/
+
 	/* Panel d'ajout de Moniteur */
     private JPanel PAjoutm = new JPanel();
     private JLabel Ltitre = new JLabel("Moniteur");
@@ -52,8 +60,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JTextField Tprenomm = new JTextField();
     private JButton Bannuler = new JButton("Annuler");
     private JButton Benregistrer = new JButton("Enregistrer");
-    private JButton Bmoniteur = new JButton("Moniteur");
-    private JButton Bquitter = new JButton("Quitter");
     private JLabel Lnomm = new JLabel("Nom : ");
     private JLabel Lprenomm = new JLabel("Prenom: ");
 	
@@ -75,7 +81,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		/* Panel Ajout Moniteur */
 		  PAjoutm.setBounds(110, 50, 300, 300);
 	      PAjoutm.setLayout(null);
-	      PAjoutm.setVisible(true);
+	      PAjoutm.setVisible(false);
 	      Ltitre.setBounds(140, 10, 200, 20);
 	      PAjoutm.add(Ltitre);
 	      Lnomm.setBounds(10, 40, 100, 20);
@@ -92,48 +98,47 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PAjoutm.add(Bannuler);
 	      Benregistrer.setBounds(160, 180, 100, 20);
 	      PAjoutm.add(Benregistrer);
-	        
-	      Bmoniteur.setBounds(10, 50, 100, 20);
-	      PAjoutm.add(Bmoniteur);
-	      Bquitter.setBounds(280, 280, 100, 20);
-	      PAjoutm.add(Bquitter);
-	      this.add(Bmoniteur);
-	      this.add(Bquitter);
+	       
 	      this.add(PAjoutm);
 	      
-	    // Rendre les boutons cliquables
-	      Bmoniteur.addActionListener(this);
-	      Bannuler.addActionListener(this);
-	      Bquitter.addActionListener(this);
-	      Benregistrer.addActionListener(this);
+	     // Rendre les boutons cliquables
+	     Bannuler.addActionListener(this);
+	     Benregistrer.addActionListener(this);
+	     MajouterMoniteur.addActionListener(this);
+	     Mquitter.addActionListener(this);
 	      
-	   /****************Barre de Menu ***************/
-	     //Ajout des différents menus dans la barre de menu
-	     menuBar.add(MenuClient);
-	     menuBar.add(MenuMoniteur);
-	     menuBar.add(MenuVoiture);
-	     menuBar.add(MenuPlanning);
+	     /********** Barre de Menu ***************/
+	     /* Ajout des différents menus dans la barre de menu */
+	      menuBar.add(MenuClient);
+	      menuBar.add(MenuMoniteur);
+	      menuBar.add(MenuVoiture);
+	      menuBar.add(MenuPlanning);
+	      menuBar.add(MenuProgramme);
 	     
-	    // Ajout des sous-menus des menus
-	    /************ Menu Client ************************/
+	     /************ Ajout des sous-menus des menus *******************/
+	     // Item du menu Client
 	     this.MenuClient.add(MlisteClient);
 	     this.MenuClient.add(MajouterClient);
 	     this.MenuClient.add(MmodifierClient);
 	     this.MenuClient.add(MsuppressionClient);
 	     
-	     /************ Menu Moniteur ************************/
+	     // Item du menu Moniteur
 	     this.MenuMoniteur.add(MlisteMoniteur);
 	     this.MenuMoniteur.add(MajouterMoniteur);
 	     this.MenuMoniteur.add(MmodifierMoniteur);
 	     this.MenuMoniteur.add(MsuppressionMoniteur);
 	     
-	     /************ Menu Client ************************/
+	     // Item du Menu Voiture
 	     this.MenuVoiture.add(MlisteVoiture);
 	     this.MenuVoiture.add(MajouterVoiture);
 	     this.MenuVoiture.add(MmodifierVoiture);
 	     this.MenuVoiture.add(MsuppressionVoiture);
+	     
+	     // Item du Menu Programme
+	     this.MenuProgramme.add(Mquitter);
+	     this.MenuProgramme.add(Mapropos);
 	    
-	     //Ajout de la barre de menu sur la fenêtre
+	     /* Ajout de la barre de menu sur la fenêtre */
 	     this.setJMenuBar(menuBar);
 	      
 	}
@@ -142,15 +147,20 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	public void actionPerformed (ActionEvent ev)
 	{
 		Object ae = ev.getSource();
-		if(ae == Bquitter)
+		if(ae == Mquitter)
 		{
 			System.out.println("Fin du programme");
 			System.exit(0);
+		}
+		else if (ae == MajouterMoniteur)
+		{
+			PAjoutm.setVisible(true);
 		}
 		else if (ae == Benregistrer)
 		{
 			this.insererMoniteur();	
 		}
+		
 		else if (ae == Bannuler)
 		{
 			this.annuler();
