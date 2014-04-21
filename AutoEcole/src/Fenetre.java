@@ -53,6 +53,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	
 	/****************************** Panel **********************************/
 
+	/* Panel liste de Moniteur */
+	private JPanel PListem = new JPanel();
+	private JList ListeMoniteur = new JList();
+	
+	
 	/* Panel d'ajout de Moniteur */
     private JPanel PAjoutm = new JPanel();
     private JLabel Ltitre = new JLabel("Moniteur");
@@ -78,6 +83,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		// Termine bien le processus lorsqu'on clique sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		/* Panel Liste Moniteur */
+		PListem.setBounds(110,50,300,300);
+		PListem.setLayout(null);
+		PListem.setVisible(false);
+		
+		ListeMoniteur.setBounds(10, 70, 100, 20);
+		PListem.add(ListeMoniteur);
+		
 		/* Panel Ajout Moniteur */
 		  PAjoutm.setBounds(110, 50, 300, 300);
 	      PAjoutm.setLayout(null);
@@ -100,12 +113,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PAjoutm.add(Benregistrer);
 	       
 	      this.add(PAjoutm);
+	      this.add(PListem);
 	      
 	     // Rendre les boutons cliquables
 	     Bannuler.addActionListener(this);
 	     Benregistrer.addActionListener(this);
 	     MajouterMoniteur.addActionListener(this);
 	     Mquitter.addActionListener(this);
+	     MlisteMoniteur.addActionListener(this);
 	      
 	     /********** Barre de Menu ***************/
 	     /* Ajout des différents menus dans la barre de menu */
@@ -156,9 +171,16 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		{
 			PAjoutm.setVisible(true);
 		}
+		else if (ae == MlisteMoniteur)
+		{
+			PListem.setVisible(true);
+			PAjoutm.setVisible(false);
+		}
 		else if (ae == Benregistrer)
 		{
-			this.insererMoniteur();	
+			this.insererMoniteur();
+			this.Tnomm.setText("");
+			this.Tprenomm.setText("");
 		}
 		
 		else if (ae == Bannuler)
