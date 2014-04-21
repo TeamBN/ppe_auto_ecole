@@ -16,7 +16,6 @@ public class Lecon
 	public void chargerMoniteurs()
 	{
 		String requete = "Select * from moniteur;";
-		this.LesMoniteurs.clear();
 		
 		try
 		{
@@ -75,7 +74,7 @@ public class Lecon
 		public void insererMoniteur(Moniteur unMon)
 		{
 			String requete ="insert into moniteur (nomm, prenomm) values ('";
-			requete += unMon.getIdmm()+"', "+unMon.getNomm()+");";
+			requete += unMon.getNomm()+"', '"+unMon.getPrenomm()+"');";
 				try
 				{
 					BDD uneBDD = new BDD ("localhost", "root","","autoecole");
@@ -90,7 +89,17 @@ public class Lecon
 					System.out.println("Erreur d'execution de la requete:" + requete);
 				}
 		}
-				
-				}
+		
+		public void afficherLesMoniteurs ()
+		{
+			for (int i = 0; i<this.LesMoniteurs.size(); i++)
+			{
+				System.out.println("-----------------------");
+			this.LesMoniteurs.get(i).afficher();
+			}
+		}
+		
+		public LinkedList<Moniteur> getLesMoniteurs(){
+	        return this.LesMoniteurs;
 		}
 }
