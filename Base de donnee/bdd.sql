@@ -4,7 +4,9 @@ CREATE DATABASE autoecole CHARACTER SET 'utf8';
 use autoecole
 
 CREATE TABLE Client (
-IdC int(3) NOT NULL AUTO_INCREMENT Primary key
+IdC int(3) NOT NULL AUTO_INCREMENT Primary key,
+Login varchar(15),
+MDP varchar(20)
 )
 ENGINE = InnoDB;
 
@@ -100,5 +102,14 @@ Telephone char(10) NOT NULL,
 nom_entreprise varchar(30) default 'SansEmploi',
 FOREIGN KEY (IdC) REFERENCES Client(IdC)
 ON DELETE CASCADE
+)
+Engine = InnoDB;
+
+CREATE TABLE ArchiveClient (
+NumC int(3) NOT NULL,
+NomC varchar(25) NOT NULL,
+PrenomC varchar(25) NOT NULL,
+Date_Obtention_Permis DATE NOT NULL,
+Date_Obtention_Code DATE NOT NULL
 )
 Engine = InnoDB;

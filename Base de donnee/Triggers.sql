@@ -36,7 +36,7 @@ BEGIN
 				
 	ELSEIF 
 			nb > 0 AND
-			(SELECT (ADDDATE((SELECT Date_Inscri_Code FROM ExamenC WHERE ExamenC.IdC=new.IdC AND ResultatC = 'oui'), INTERVAL 2 YEAR ))) < (SELECT new.Date_Inscri_Permis)
+			(SELECT (ADDDATE((SELECT Date_Inscri_Code FROM ExamenC WHERE ExamenC.IdC=new.IdC AND ResultatC = 'oui'), INTERVAL 3 YEAR ))) < (SELECT new.Date_Inscri_Permis)
 			
 			THEN 
 				DELETE FROM `Code expire`;
@@ -46,13 +46,13 @@ BEGIN
 	END IF;		
 		
 		SELECT COUNT(*) INTO nb FROM ExamenP WHERE IdC=new.IdC;
-		IF nb <> 0 
+		IF nb > 0 
 			THEN
-				SELECT COUNT(*) INTO nb FROM ExamenP WHERE new.Date_Inscri_Permis=Date_Inscri_Permis;
+				SELECT COUNT(*) INTO nb FROM ExamenP WHERE new.Date_Inscri_Permis=Date_Inscri_Permis AND new.IdC=IdC;
 				IF	
-					nb <> 0
+					nb > 0
 					THEN
-						DELETE FROM `Passage du permis deja programme a ce jour`;
+						DELETE FROM ExamenP WHERE 2=0;
 						
 				ELSE
 					SET new.Nb_Passage_Permis = 1;
@@ -385,3 +385,28 @@ END IF;
 END //
 
 DELIMITER ;
+
+
+
+
+-- 	Trigger archives client pour suppr les clients qui ont eu le permis de la table examen et code---------------
+DROP TRIGGER Before_Insert_ArchiveClient;
+DELIMITER //
+CREATE TRIGGER Before_Insert_ArchiveClient
+BEFORE INSERT ON ArchiveClient
+FOR EACH ROW
+BEGIN 
+
+DELETE FROM ExamenP WHERE ExamenP.IdC = (SELECT IdC FROM ArchiveClient);
+DELETE FROM ExamenC WHERE ExamenC.IdC = (SELECT IdC FROM ArchiveClient);
+
+END //
+DELIMITER ;
+
+
+
+
+
+
+
+
