@@ -4,14 +4,16 @@ CREATE DATABASE autoecole CHARACTER SET 'utf8';
 use autoecole
 
 CREATE TABLE Client (
-IdC int(3) NOT NULL AUTO_INCREMENT Primary key
+IdC int(3) NOT NULL AUTO_INCREMENT Primary key,
+Login varchar(15),
+MDP varchar(20)
 )
 ENGINE = InnoDB;
 
 CREATE TABLE ExamenP (
 IdExaP int NOT NULL AUTO_INCREMENT Primary key,
 Date_Inscri_Permis DATE NOT NULL,
-Nb_Passage_Permis int(1) DEFAULT 0,
+Nb_Passage_Permis int(1) DEFAULT 1,
 ResultatP ENUM ('oui', 'non'),
 IdC int NOT NULL, FOREIGN KEY (IdC) REFERENCES Client (IdC)
 )
@@ -21,7 +23,7 @@ ENGINE = InnoDB;
 CREATE TABLE ExamenC (
 IdExaC int not null AUTO_INCREMENT Primary key,
 Date_Inscri_Code DATE NOT NULL,
-Nb_Passage_Code int DEFAULT 0,
+Nb_Passage_Code int DEFAULT 1,
 ResultatC ENUM ('oui', 'non'),
 IdC int not null, FOREIGN KEY (IdC) REFERENCES Client (IdC)
 )
@@ -100,5 +102,14 @@ Telephone char(10) NOT NULL,
 nom_entreprise varchar(30) default 'SansEmploi',
 FOREIGN KEY (IdC) REFERENCES Client(IdC)
 ON DELETE CASCADE
+)
+Engine = InnoDB;
+
+CREATE TABLE ArchiveClient (
+NumC int(3) NOT NULL,
+NomC varchar(25) NOT NULL,
+PrenomC varchar(25) NOT NULL,
+Date_Obtention_Permis DATE NOT NULL,
+Date_Obtention_Code DATE NOT NULL
 )
 Engine = InnoDB;
