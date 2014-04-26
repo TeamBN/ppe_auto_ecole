@@ -14,7 +14,7 @@ public class Voiture {
 		this.conso = 0;
 	}
 
-	public Voiture (String immatriculation, String modele, String dateachat, int nbrkm, int conso){
+	public Voiture (String immatriculation, String modele, String dateachat, int nbrkm, float conso){
 		//initialise les attributs de la classe avec les valeurs en arguments
 		this.immatriculation = immatriculation;
 		this.modele = modele;
@@ -25,11 +25,11 @@ public class Voiture {
 	
 	public void saisir(){
 		//saisie au clavier de l'ensemble des attibuts
-		this.modele = Console.saisirChaine("Saisir la modele");
+		this.modele = Console.saisirChaine("Saisir le modele");
 		this.immatriculation = Console.saisirChaine("Saisir l'immatriculation");
 		this.dateachat = Console.saisirChaine("Saisir la date d'achat");
 		this.nbrkm = Console.saisirEntier("Saisir le nombre de km");
-		this.conso = Console.saisirEntier("Saisir la consommation");
+		this.conso = Console.saisirReel("Saisir la consommation");
 	}
 	
 	public void afficher(){
@@ -43,6 +43,7 @@ public class Voiture {
 	
 	public String toString(){
 		//retourne les attibuts sous forme d'une chaine
+		
 		return this.immatriculation+"|"+this.modele+"|"+this.nbrkm;
 	}
 }

@@ -25,7 +25,7 @@ public class BDD {
 		}
 		catch (ClassNotFoundException exp)
 		{
-			System.out.println("erreur de chargement du pilot");
+			System.out.println("erreur de chargement du pilote");
 			
 		}
 	}
@@ -41,7 +41,7 @@ public class BDD {
 		}
 		catch(SQLException exp)
 		{
-			System.out.println("connextion impossible au serveur"+url);
+			System.out.println("connexion impossible au serveur"+url);
 		}
 	}
 	
@@ -66,5 +66,4 @@ public class BDD {
 		return this.maConnexion;
 		
 	}
-	
 }

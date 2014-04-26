@@ -1,3 +1,5 @@
+import javax.swing.UIManager;
+
 
 public class ClasseMain {
 	
@@ -5,5 +7,4 @@ public class ClasseMain {
 	{
 		Fenetre fen = new Fenetre();
 	}
-
 }

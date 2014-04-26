@@ -1,9 +1,16 @@
 
 public class Moniteur {
 	
-	private int idm = 0;
-	private String nomm = ""; 
-	private String prenomm = "";
+	private int idm;
+	private String nomm;
+	private String prenomm;
+	
+	public Moniteur()
+	{
+		this.idm = 0;
+		this.nomm ="";
+		this.prenomm="";
+	}
 
 	public Moniteur(int idm, String nomm, String prenomm )
 	{
@@ -16,6 +23,13 @@ public class Moniteur {
 	{
 		this.nomm = Console.saisirChaine("Saisir le nom du Moniteur");
 		this.prenomm = Console.saisirChaine("Saisir le prénom du Moniteur");
+	}
+	
+	public void afficher ()
+	{
+		System.out.println("id Moniteur : " + this.idm);
+		System.out.println("Nom du moniteur : " + this.nomm);
+		System.out.println("Prenom du Moniteur : " + this.prenomm);
 	}
 
 	public int getIdm() {
@@ -41,5 +55,4 @@ public class Moniteur {
 	public void setPrenomm(String prenomm) {
 		this.prenomm = prenomm;
 	}
-
 }
