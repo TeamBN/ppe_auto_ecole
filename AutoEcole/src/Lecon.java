@@ -3,6 +3,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import javax.swing.event.ListSelectionListener;
+
 
 public class Lecon 
 {
@@ -16,10 +18,11 @@ public class Lecon
 	public void chargerMoniteurs()
 	{
 		String requete = "Select * from moniteur;";
+		this.LesMoniteurs.clear();
 		
 		try
 		{
-			BDD uneBDD = new BDD("localhost","root"," ","autoecole");
+			BDD uneBDD = new BDD("localhost","root","","autoecole");
 			uneBDD.seConnecter();
 			Statement unStat = uneBDD.getMaConnexion().createStatement();
 			ResultSet unRes = unStat.executeQuery(requete);
@@ -41,7 +44,8 @@ public class Lecon
 			System.out.println("Erreur d'execution de la requête"+requete);
 		}
 	}
-		public Moniteur selectUnMoniteur(int id)
+	
+	public Moniteur selectUnMoniteur(int id)
 		{
 			String requete =" Select * From moniteur where idmm"+id+";";
 			
