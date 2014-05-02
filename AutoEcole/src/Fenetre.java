@@ -1,7 +1,10 @@
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -78,7 +81,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
 		// Desactivation du Layout
-		this.setLayout(null);
+		getContentPane().setLayout(null);
 		// Rendre la fenêtre visible
 		this.setVisible(true);
 		// Definition de la taille de la fenêtre
@@ -89,7 +92,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/* Panel Liste Moniteur */
-		PListem.setBounds(0, 0, 300, 300);
+		PListem.setBounds(20, 30, 300, 300);
 		PListem.setLayout(null);
 		PListem.setVisible(false);
 		LtitreLstM.setBounds(150, 0, 100, 30 );
@@ -119,8 +122,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PAjoutm.add(Benregistrer);
 	      
 	      /* Ajout des panel sur le GetContent */
-	      this.add(PAjoutm);
-	      this.add(PListem);
+	      getContentPane().add(PAjoutm);
+	      getContentPane().add(PListem);
 	      
 	     // Rendre les boutons cliquables
 	     Bannuler.addActionListener(this);
@@ -163,7 +166,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	     /* Ajout de la barre de menu sur la fenêtre */
 	     this.setJMenuBar(menuBar);
 	     
+	     
 	}
+	//action sur la liste des moniteurs 
+	
+	
 	
 	// Lier les boutons à une action bien définie
 	public void actionPerformed (ActionEvent ev)
@@ -186,10 +193,27 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PAjoutm.setVisible(false);
 			uneLecon.chargerMoniteurs();
 			
-			 uneTable = new JTable();
-			 uneTable.setBounds(50, 50, 300, 300);
-             this.validate();
-             PListem.add(uneTable);
+			
+			Object [][] donnees= this.listeMoniteurs();
+			 uneTable = new JTable(donnees, titreTable);
+			 JScrollPane uneScroll = new JScrollPane(uneTable);
+			 
+			 uneScroll.setBounds(10, 25, 280, 250);
+             PListem.validate();
+             PListem.add(uneScroll);
+             uneTable.addMouseListener(new MouseAdapter() {
+   	    	  public void mouseClicked(MouseEvent e) {
+   	    	     if (e.getClickCount() == 1) { // check if a double click
+   	    	       JOptionPane.showMessageDialog (getParent(), "hh", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
+   	    	     }
+   	    	     else 
+   	    	     {
+   	    		       JOptionPane.showMessageDialog (getParent(), "gggg", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
+   	    			    
+   	    	     }
+   	    	   }
+   	    	});
+   	    
 		}
 		else if (ae == Benregistrer)
 		{
@@ -207,6 +231,19 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.annuler();
 		}
 	}
+	
+	public Object [][] listeMoniteurs()
+    {
+    	Object [] [] tab = new Object [this.uneLecon.getLesMoniteurs().size()] [3];
+    	for (int i=0; i<this.uneLecon.getLesMoniteurs().size(); i++)
+    	{
+    		tab[i] [0] = ""+ this.uneLecon.getLesMoniteurs().get(i).getIdm();
+    		tab[i] [1] = ""+ this.uneLecon.getLesMoniteurs().get(i).getNomm();
+    		tab[i] [2] = ""+ this.uneLecon.getLesMoniteurs().get(i).getPrenomm();
+   
+    	}
+    	return tab;
+    }
 	
 	public void insererMoniteur ()
 	    {
