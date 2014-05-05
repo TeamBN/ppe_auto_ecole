@@ -36,8 +36,8 @@ END //
 DELIMITER ;
 
 
--------Set Resultat=non sur tous les examens anterieurs aux oui et archiver toutes les informations concernant l'étudiant qui a eu son permis
- -- nom, prenom, date examen, nombre de passage pour l'avoir
+/* Set Resultat=non sur tous les examens anterieurs aux oui et archiver toutes les informations concernant l'étudiant qui a eu son permis
+  nom, prenom, date examen, nombre de passage pour l'avoir */
 drop procedure if exists update_archive_etudiant;
 DELIMITER //
 CREATE Procedure update_archive_etudiant()

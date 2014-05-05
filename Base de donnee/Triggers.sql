@@ -1,8 +1,8 @@
-﻿--------------------------------------------Table ExamenP---------------------------------------------
+﻿/*------------------------------------------Table ExamenP---------------------------------------------
 
 -- Vérifier l'obtention du code dans les 24 dernier mois avant le passage du permis, et la majorité du client.
 --Rajouter +1 au nombre de passage de permis si un client est déjà sur la table, sinon 1.
-
+*/
 drop trigger IF EXISTS Before_Insert_Permis;
 DELIMITER //
 CREATE TRIGGER Before_Insert_Permis
@@ -72,11 +72,11 @@ DELIMITER ;
 
 
 
---------------------------------------------Table ExamenC---------------------------------------------
+/*--------------------------------------------Table ExamenC---------------------------------------------
 
 --Rajouter +1 au nombre de passage de code si un client est déjà sur la table, sinon 1.
-
-DROP TRIGGER Before_Insert_ExamenC;
+*/
+DROP TRIGGER if exists Before_Insert_ExamenC;
 DELIMITER //
 CREATE TRIGGER Before_Insert_ExamenC
 BEFORE INSERT ON ExamenC
@@ -98,12 +98,12 @@ DELIMITER ;
 	
 	
 	 
---------------------------------------------Table Etudiant---------------------------------------------
+/*--------------------------------------------Table Etudiant---------------------------------------------
 
 -- Héritage Client / Etudiant, empêcher l'insert si client déjà salarié
 -- Empêcher de recréer un même étudiant avec un id différent (qu'il soit créé en Salarié ou Etudiant)
--- Si l'étudiant a plus de 25 ans, pas de taux de réduction.
-drop trigger Verif_Etu;
+-- Si l'étudiant a plus de 25 ans, pas de taux de réduction. */
+drop trigger if exists Verif_Etu;
 DELIMITER // 
 
 CREATE TRIGGER Verif_Etu 
@@ -187,9 +187,9 @@ DELIMITER ;
 
 
 
--- Suppression dans etudiant = suppression dans client
+/*-- Suppression dans etudiant = suppression dans client */
 
-DROP TRIGGER After_Delete_Etudiant;
+DROP TRIGGER if exists After_Delete_Etudiant;
 DELIMITER //
 CREATE TRIGGER After_Delete_Etudiant
 AFTER DELETE ON Etudiant
@@ -204,9 +204,9 @@ DELIMITER ;
 
 
 
--- Modification dans etudiant = modification dans client
+/* -- Modification dans etudiant = modification dans client */
 
-DROP TRIGGER After_Update_Etudiant;
+DROP TRIGGER if exists After_Update_Etudiant;
 DELIMITER //
 CREATE TRIGGER After_Update_Etudiant
 AFTER UPDATE ON Etudiant
@@ -226,12 +226,12 @@ DELIMITER ;
 
 
 
---------------------------------------------Table Salarié---------------------------------------------
+/* --------------------------------------------Table Salarié---------------------------------------------
 
 -- Héritage Client / Salarié, empêcher l'insert si client déjà étudiant 
 -- Vérifie l'existance du client dans la table salarié et étudiant afin de ne pas le dupliquer
-
-DROP TRIGGER Verif_Salarie;
+*/ 
+DROP TRIGGER if exists Verif_Salarie;
 DELIMITER // 
 CREATE TRIGGER Verif_Salarie 
 BEFORE INSERT ON Salarie
@@ -307,9 +307,9 @@ DELIMITER ;
 
 
 
--- Suppression dans salarié = suppression dans client
+/* -- Suppression dans salarié = suppression dans client */
 
-DROP TRIGGER After_Delete_Salarie;
+DROP TRIGGER if exists After_Delete_Salarie;
 DELIMITER //
 CREATE TRIGGER After_Delete_Salarie
 AFTER DELETE ON Salarie
@@ -323,9 +323,9 @@ DELIMITER ;
 
 
 
--- Modification dans salarié = modification dans client
-
-DROP TRIGGER After_Update_Salarie;
+/* -- Modification dans salarié = modification dans client */
+ 
+DROP TRIGGER if exists After_Update_Salarie;
 DELIMITER //
 CREATE TRIGGER After_Update_Salarie
 AFTER UPDATE ON Salarie
@@ -342,8 +342,8 @@ Delimiter ;
 
 
 
---------------------------------------------Table Planning---------------------------------------------
--- Un moniteur ne peut donner une
+/*--------------------------------------------Table Planning---------------------------------------------
+-- Un moniteur ne peut donner une */
 
 
 
@@ -353,10 +353,11 @@ Delimiter ;
 
 
 
----------------------------------------------Client---------------------------------------
+/*---------------------------------------------Client---------------------------------------
 
 -- INVERSE HERITAGE 
-drop trigger Herit_Client;
+*/
+drop trigger if exists Herit_Client;
 DELIMITER //
 CREATE TRIGGER Herit_Client
 AFTER DELETE ON Client
@@ -389,8 +390,9 @@ DELIMITER ;
 
 
 
--- 	Trigger archives client pour suppr les clients qui ont eu le permis de la table examen et code---------------
-DROP TRIGGER Before_Insert_ArchiveClient;
+/*-- 	Trigger archives client pour suppr les clients qui ont eu le permis de la table examen et code---------------
+*/
+DROP TRIGGER if exists Before_Insert_ArchiveClient;
 DELIMITER //
 CREATE TRIGGER Before_Insert_ArchiveClient
 BEFORE INSERT ON ArchiveClient
