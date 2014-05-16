@@ -55,8 +55,9 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 
 	/* Panel liste de Moniteur */
 	private JPanel PListem = new JPanel();
-	private JList ListeMoniteur = new JList();
-	
+	private JLabel LtitreLstM = new JLabel ("Liste Moniteur");
+    private String titreTable[] = new String  [3];
+    private JTable uneTable;
 	
 	/* Panel d'ajout de Moniteur */
     private JPanel PAjoutm = new JPanel();
@@ -67,9 +68,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JButton Benregistrer = new JButton("Enregistrer");
     private JLabel Lnomm = new JLabel("Nom : ");
     private JLabel Lprenomm = new JLabel("Prenom: ");
-	
+    
 	public Fenetre()
 	{
+		titreTable[0]="Idm";
+    	titreTable[1]="Nomm";
+    	titreTable[2]="Prenomm";
+    	
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
 		// Desactivation du Layout
@@ -84,12 +89,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/* Panel Liste Moniteur */
-		PListem.setBounds(110,50,300,300);
+		PListem.setBounds(0, 0, 300, 300);
 		PListem.setLayout(null);
 		PListem.setVisible(false);
+		LtitreLstM.setBounds(150, 0, 100, 30 );
+		PListem.add(LtitreLstM);
 		
-		ListeMoniteur.setBounds(10, 70, 100, 20);
-		PListem.add(ListeMoniteur);
 		
 		/* Panel Ajout Moniteur */
 		  PAjoutm.setBounds(110, 50, 300, 300);
@@ -97,6 +102,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PAjoutm.setVisible(false);
 	      Ltitre.setBounds(140, 10, 200, 20);
 	      PAjoutm.add(Ltitre);
+	      
 	      Lnomm.setBounds(10, 40, 100, 20);
 	      PAjoutm.add(Lnomm);
 	      Tnomm.setBounds(120, 40, 100, 20);
@@ -111,7 +117,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PAjoutm.add(Bannuler);
 	      Benregistrer.setBounds(160, 180, 100, 20);
 	      PAjoutm.add(Benregistrer);
-	       
+	      
+	      /* Ajout des panel sur le GetContent */
 	      this.add(PAjoutm);
 	      this.add(PListem);
 	      
@@ -155,7 +162,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	    
 	     /* Ajout de la barre de menu sur la fenêtre */
 	     this.setJMenuBar(menuBar);
-	      
+	     
 	}
 	
 	// Lier les boutons à une action bien définie
@@ -169,12 +176,20 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		}
 		else if (ae == MajouterMoniteur)
 		{
+			PListem.setVisible(false);
 			PAjoutm.setVisible(true);
+			
 		}
 		else if (ae == MlisteMoniteur)
 		{
 			PListem.setVisible(true);
 			PAjoutm.setVisible(false);
+			uneLecon.chargerMoniteurs();
+			
+			 uneTable = new JTable();
+			 uneTable.setBounds(50, 50, 300, 300);
+             this.validate();
+             PListem.add(uneTable);
 		}
 		else if (ae == Benregistrer)
 		{
@@ -182,7 +197,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.Tnomm.setText("");
 			this.Tprenomm.setText("");
 		}
-		
+		else if (ae == MsuppressionMoniteur)
+		{
+			PListem.setVisible(false);
+			PAjoutm.setVisible(false);
+		}
 		else if (ae == Bannuler)
 		{
 			this.annuler();
@@ -201,7 +220,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	       catch (NumberFormatException exp){
 	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.ERROR_MESSAGE);
 	       }
-	        
 	    }
 	
 	 public void annuler ()
@@ -209,7 +227,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	        this.Tnomm.setText("");
 	        this.Tprenomm.setText("");
 	 }
-	    
+	 
 	public void itemStateChanged(ItemEvent arg0) {
 		// TODO Auto-generated method stub
 		
