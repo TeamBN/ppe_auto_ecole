@@ -1,12 +1,12 @@
 /* Création Table ArchiveVoiture et Création Procédure Stockée remplissant ArchiveV avec les données supprimées de old.voiture
 */
-drop table ArchiveV;
-CREATE Table ArchiveV 
+
+CREATE Table IF NOT EXISTS ArchiveV 
 AS Select *, curdate() date_archive
 FROM voiture
 WHERE 2=0;
 
-drop procedure histovoiture;
+drop procedure if exists histovoiture;
 DELIMITER //
 CREATE Procedure HistoVoiture()
 BEGIN 

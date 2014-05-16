@@ -113,3 +113,10 @@ Date_Obtention_Permis DATE NOT NULL,
 Date_Obtention_Code DATE NOT NULL
 )
 Engine = InnoDB;
+
+
+CREATE TABLE Identifiants (
+Id_Identifiants int(3),
+MdP varchar(10) default 0,
+Login varchar(10) default 0)
+Engine = InnoDB;

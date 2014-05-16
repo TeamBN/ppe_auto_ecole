@@ -10,6 +10,7 @@ BEFORE INSERT ON ExamenP
 FOR EACH ROW 
 BEGIN
 	DECLARE nb int;
+	DECLARE nb2 int;
 	DECLARE msg varchar(100);
 	SELECT COUNT(*) INTO nb FROM ExamenC WHERE IdC=new.IdC AND ResultatC='oui';
 	IF nb = 0 
@@ -48,14 +49,14 @@ BEGIN
 		SELECT COUNT(*) INTO nb FROM ExamenP WHERE IdC=new.IdC;
 		IF nb > 0 
 			THEN
-				SELECT COUNT(*) INTO nb FROM ExamenP WHERE new.Date_Inscri_Permis=Date_Inscri_Permis AND new.IdC=IdC;
+				SELECT COUNT(*) INTO nb2 FROM ExamenP WHERE new.Date_Inscri_Permis=Date_Inscri_Permis AND new.IdC=IdC;
 				IF	
-					nb > 0
+					nb2 > 0
 					THEN
 						DELETE FROM ExamenP WHERE 2=0;
 						
 				ELSE
-					SET new.Nb_Passage_Permis = 1;
+					SET new.Nb_Passage_Permis = nb+1;
 				END IF;
 		
 		
@@ -342,14 +343,57 @@ Delimiter ;
 
 
 
-/*--------------------------------------------Table Planning---------------------------------------------
--- Un moniteur ne peut donner une */
+/*--------------------------------------------Table Moniteur--------------------------------------------
 
+--Heritage Identifiants / moniteur à l'insert */
+drop trigger if exists Before_Insert_Moniteur;
+DELIMITER //
+CREATE TRIGGER Before_Insert_Moniteur
+BEFORE INSERT ON Moniteur
+FOR EACH ROW 
+BEGIN
+	
+	INSERT INTO Identifiants(Id_Identifiants, MdP, Login) 
+	Values(
+	new.IdM,
+	new.PrenomM,
+	new.NomM);
+		
+	
+	
+END // 
+DELIMITER ;
 
+ /*Sur l'update */
+drop trigger if exists Before_Update_Moniteur;
+DELIMITER //
+CREATE TRIGGER Before_Update_Moniteur
+BEFORE UPDATE ON Moniteur
+FOR EACH ROW 
+BEGIN
+	
+	UPDATE Identifiants 
+	SET Id_Identifiants=New.IdM WHERE Id_Identifiants=old.IdM;
+	
+	
+END // 
+DELIMITER ;
 
+ /*Sur Le delete*/ 
+drop trigger if exists Before_Delete_Moniteur;
+DELIMITER //
+CREATE TRIGGER Before_Delete_Moniteur
+BEFORE DELETE ON Moniteur
+FOR EACH ROW 
+BEGIN
+	
+	DELETE FROM Identifiants
+	WHERE Id_Identifiants=old.IdM;
 
-
-
+	
+	
+END // 
+DELIMITER ; 
 
 
 
