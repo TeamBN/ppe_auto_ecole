@@ -83,3 +83,16 @@ VALUES
 ('2014-02-15', NULL, 2),
 ('2014-12-21', 'oui', 2);
 
+
+INSERT INTO Moniteur(NomM, PrenomM)
+VALUES
+('plafe', 'jean'),
+('bozan', 'mathieu'),
+('tifu', 'richard'),
+('eden', 'adam'),
+('girolle', 'stefanie'),
+('clover', 'lamy'),
+('ficache', 'samy'),
+('kookla', 'james'),
+('seaurme', 'anna'),
+('lujere', 'yves');

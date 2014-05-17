@@ -353,12 +353,23 @@ BEFORE INSERT ON Moniteur
 FOR EACH ROW 
 BEGIN
 	
-	INSERT INTO Identifiants(Id_Identifiants, MdP, Login) 
-	Values(
-	new.IdM,
-	new.PrenomM,
-	new.NomM);
+	DECLARE nbs int;
+	DECLARE nb5 int;
+		SELECT COUNT(*) INTO nb5 FROM Identifiants INNER JOIN Moniteur ON Identifiants.Id_Identifiants=Moniteur.IdM;
+		SELECT MAX(IdM) into nbs FROM Moniteur;
+		IF nbs is null
+			THEN
+				SET nbs = 0;
 		
+		ELSEIF (nb5 > 0)
+			THEN
+				SET new.IdM=nbs+1;
+				INSERT INTO Identifiants(Id_Identifiants, MdP, Login) 
+				Values(
+					nbs+1,
+					new.PrenomM,
+					new.NomM);
+		END IF;
 	
 	
 END // 
