@@ -43,31 +43,36 @@ DELIMITER //
 CREATE Procedure update_archive_etudiant()
 BEGIN
 
-DECLARE Fini int default 0;
-DECLARE NumC int;
-DECLARE NomC, prenomC varchar (25);
-DECLARE Date_Obtention_Code DATE;
-DECLARE Date_Obtention_Permis DATE;
-/*   + les variables nécessaires */
-
-DECLARE CP cursor FOR Select Client.IdC, NomE, PrenomE, Date_Inscri_Permis, Date_Inscri_Code
-FROM Client, Etudiant, ExamenP, ExamenC
-WHERE Client.IdC = Etudiant.IdC AND ExamenP.IdC=Client.IdC AND ExamenC.IdC=Client.IdC AND ResultatP='oui' AND ResultatC='oui';
 
 
-DECLARE Continue HANDLER for not found set fini=1; 
-/* Declare une variable continue qui va faire executer la procedure jusqu'à ce que fini soit = à 1 sans se préoccuper des erreurs */ 
+		DECLARE Fini int default 0;
+		DECLARE NumC int;
+		DECLARE NomC, prenomC varchar (25);
+		DECLARE Date_Obtention_Code DATE;
+		DECLARE Date_Obtention_Permis DATE;
+		DECLARE Nb_Tentatives_Permis int;
+		/*   + les variables nécessaires */
 
-Open CP;
-Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code; 
-/* Positionne chaque variable déclarée dans la declaration du CV dans chaque champ NumC,etc... */
-	WHILE Fini <> 1 
-	DO 
-		INSERT INTO ArchiveClient /* nom des tables archives */
-		VALUES ( NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code);
-	Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code;
-	END WHILE;
-Close CP;
+		DECLARE CP cursor FOR Select Client.IdC, NomE, PrenomE, Date_Inscri_Permis, Date_Inscri_Code, Nb_Passage_Permis
+		FROM Client, Etudiant, ExamenP, ExamenC
+		WHERE Client.IdC = Etudiant.IdC AND ExamenP.IdC=Client.IdC AND ExamenC.IdC=Client.IdC AND ResultatP='oui' AND ResultatC='oui';
+
+
+		DECLARE Continue HANDLER for not found set fini=1; 
+		/* Declare une variable continue qui va faire executer la procedure jusqu'à ce que fini soit = à 1 sans se préoccuper des erreurs */ 
+		
+
+		Open CP;
+		Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code, Nb_Tentatives_Permis; 
+		/* Positionne chaque variable déclarée dans la declaration du CV dans chaque champ NumC,etc... */
+			WHILE Fini <> 1 
+			DO 
+				INSERT INTO ArchiveClient /* nom des tables archives */
+				VALUES ( NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code, Nb_Tentatives_Permis);
+			Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code, Nb_Tentatives_Permis;
+			END WHILE;
+		Close CP;
+
 call update_archive_salarie();
 END //
 DELIMITER ;
@@ -84,9 +89,10 @@ DECLARE NumC int;
 DECLARE NomC, prenomC varchar (25);
 DECLARE Date_Obtention_Code DATE;
 DECLARE Date_Obtention_Permis DATE;
+DECLARE Nb_Tentatives_Permis int;
 /*   + les variables nécessaires */
 
-DECLARE CP cursor FOR Select Client.IdC, NomS, PrenomS, Date_Inscri_Permis, Date_Inscri_Code
+DECLARE CP cursor FOR Select Client.IdC, NomS, PrenomS, Date_Inscri_Permis, Date_Inscri_Code, Nb_Passage_Permis
 FROM Client, Salarie, ExamenP, ExamenC
 WHERE Client.IdC = Salarie.IdC AND ExamenP.IdC=Client.IdC AND ExamenC.IdC=Client.IdC AND ResultatP='oui' AND ResultatC='oui';
 
@@ -95,13 +101,13 @@ DECLARE Continue HANDLER for not found set fini=1;
 /* Declare une variable continue qui va faire executer la procedure jusqu'à ce que fini soit = à 1 sans se préoccuper des erreurs */ 
 
 Open CP;
-Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code; 
+Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code, Nb_Tentatives_Permis; 
 /* Positionne chaque variable déclarée dans la declaration du CV dans chaque champ NumC,etc... */
 	WHILE Fini <> 1 
 	DO 
 		INSERT INTO ArchiveClient /* nom des tables archives */
-		VALUES ( NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code);
-	Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code;
+		VALUES ( NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code, Nb_Tentatives_Permis);
+	Fetch CP INTO NumC, NomC, PrenomC, Date_Obtention_Permis, Date_Obtention_Code, Nb_Tentatives_Permis;
 	END WHILE;
 Close CP;
 END //

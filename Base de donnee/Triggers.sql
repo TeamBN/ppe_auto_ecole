@@ -453,14 +453,14 @@ CREATE TRIGGER Before_Insert_ArchiveClient
 BEFORE INSERT ON ArchiveClient
 FOR EACH ROW
 BEGIN 
+	
 
-DELETE FROM ExamenP WHERE ExamenP.IdC = (SELECT IdC FROM ArchiveClient);
-DELETE FROM ExamenC WHERE ExamenC.IdC = (SELECT IdC FROM ArchiveClient);
+	
+	DELETE FROM ExamenP WHERE IdC IN(SELECT NumC FROM ArchiveClient);
+	DELETE FROM ExamenC WHERE IdC IN(SELECT NumC FROM ArchiveClient);	
 
 END //
 DELIMITER ;
-
-
 
 
 
