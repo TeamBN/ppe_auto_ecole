@@ -84,18 +84,18 @@ VALUES
 ('2014-12-21', 'oui', 2);
 
 
-INSERT INTO Moniteur(NomM, PrenomM)
+INSERT INTO Moniteur(IdM, NomM, PrenomM)
 VALUES
-('plafe', 'jean'),
-('bozan', 'mathieu'),
-('tifu', 'richard'),
-('eden', 'adam'),
-('girolle', 'stefanie'),
-('clover', 'lamy'),
-('ficache', 'samy'),
-('kookla', 'james'),
-('seaurme', 'anna'),
-('lujere', 'yves');
+(1, 'plafe', 'jean'),
+(2, 'bozan', 'mathieu'),
+(3, 'tifu', 'richard'),
+(4, 'eden', 'adam'),
+(5, 'girolle', 'stefanie'),
+(6, 'clover', 'lamy'),
+(7, 'ficache', 'samy'),
+(8, 'kookla', 'james'),
+(9, 'seaurme', 'anna'),
+(10, 'lujere', 'yves');
 
 
 INSERT INTO voiture(Immatriculation, Modele, DateAchat, NbrKm, Conso) VALUES

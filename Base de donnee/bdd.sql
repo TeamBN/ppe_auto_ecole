@@ -117,7 +117,8 @@ Engine = InnoDB;
 
 
 CREATE TABLE Identifiants (
-Id_Identifiants int(3),
+Id_Identifiants int(3) not null Auto_Increment Primary Key,
 MdP varchar(10) default 0,
-Login varchar(10) default 0)
+Login varchar(10) default 0,
+IdM int(3) not null)
 Engine = InnoDB;
