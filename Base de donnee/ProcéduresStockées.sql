@@ -19,7 +19,7 @@ DECLARE HNbrKm float (12,2) DEFAULT '0';
 Declare HConso DECIMAL (10,2);
 DECLARE CV cursor for select * 
 	from voiture
-	where datediff(curdate(), DateAchat)/365 > 2 AND NbrKm > 50000;
+	where datediff(curdate(), DateAchat)/365 > 2 OR NbrKm > 50000;
 	
 DECLARE Continue HANDLER for not found set fini=1;
 OPEN CV;
