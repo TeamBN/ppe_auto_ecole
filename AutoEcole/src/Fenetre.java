@@ -5,6 +5,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
 
 import javax.swing.*;
 
-public class Fenetre extends JFrame implements ActionListener, ItemListener 
+public class Fenetre extends JFrame implements ActionListener, ItemListener
 {	
 		
 	/*Le serialVersionUID est une version universelle identifiant pour une classe Serializable*/
@@ -24,7 +25,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/**********************************************************/
 	
 	/***************** Barre de Menu **************************/
-	private JMenuBar menuBar = new JMenuBar();
+	private JMenuBar BarreMenu = new JMenuBar();
 	private JMenu MenuClient = new JMenu("Client");
 	private JMenu MenuMoniteur = new JMenu("Moniteur");
 	private JMenu MenuVoiture = new JMenu("Voiture");
@@ -56,21 +57,30 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	
 	/****************************** Panel **********************************/
 
-	/* Panel liste de Moniteur */
+	/* Panel liste de Moniteur =LSTM */
 	private JPanel PListem = new JPanel();
-	private JLabel LtitreLstM = new JLabel ("Liste Moniteur");
+	private JLabel LtitrepnlLSTM = new JLabel ("Liste Moniteur");
     private String titreTable[] = new String  [3];
     private JTable uneTable;
 	
-	/* Panel d'ajout de Moniteur */
+	/* Panel d'ajout de Moniteur = AM*/
     private JPanel PAjoutm = new JPanel();
-    private JLabel Ltitre = new JLabel("Moniteur");
-    private JTextField Tnomm = new JTextField();
-    private JTextField Tprenomm = new JTextField();
+    private JLabel LtitrepnlAM = new JLabel("Moniteur");
+    private JLabel LnomAM = new JLabel("Nom : ");
+    private JLabel LprenomAM = new JLabel("Prenom: ");
+    private JTextField TnomAM = new JTextField();
+    private JTextField TprenomAM = new JTextField();
     private JButton Bannuler = new JButton("Annuler");
     private JButton Benregistrer = new JButton("Enregistrer");
-    private JLabel Lnomm = new JLabel("Nom : ");
-    private JLabel Lprenomm = new JLabel("Prenom: ");
+
+    
+    /* Panel modification Moniteur = MM */
+    private JPanel Pmodifm = new JPanel();
+    private JLabel LtitrepnlModifm = new JLabel ("Modification Moniteur");
+    private JLabel TnomMM = new JLabel();
+    private JLabel TprenomMM = new JLabel();
+    private JTextField LnomMM = new JTextField();
+    private JTextField LprenomMM = new JTextField();
     
 	public Fenetre()
 	{
@@ -81,7 +91,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
 		// Desactivation du Layout
-		getContentPane().setLayout(null);
+		this.getContentPane().setLayout(null);
 		// Rendre la fenêtre visible
 		this.setVisible(true);
 		// Definition de la taille de la fenêtre
@@ -95,26 +105,26 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		PListem.setBounds(20, 30, 300, 300);
 		PListem.setLayout(null);
 		PListem.setVisible(false);
-		LtitreLstM.setBounds(150, 0, 100, 30 );
-		PListem.add(LtitreLstM);
+		LtitrepnlLSTM.setBounds(140, 0, 100, 30 );
+		PListem.add(LtitrepnlLSTM);
 		
 		
 		/* Panel Ajout Moniteur */
 		  PAjoutm.setBounds(110, 50, 300, 300);
 	      PAjoutm.setLayout(null);
 	      PAjoutm.setVisible(false);
-	      Ltitre.setBounds(140, 10, 200, 20);
-	      PAjoutm.add(Ltitre);
+	      LtitrepnlAM.setBounds(140, 10, 200, 20);
+	      PAjoutm.add(LtitrepnlAM);
 	      
-	      Lnomm.setBounds(10, 40, 100, 20);
-	      PAjoutm.add(Lnomm);
-	      Tnomm.setBounds(120, 40, 100, 20);
-	      PAjoutm.add(Tnomm);
+	      LnomAM.setBounds(10, 40, 100, 20);
+	      PAjoutm.add(LnomAM);
+	      TnomAM.setBounds(120, 40, 100, 20);
+	      PAjoutm.add(TnomAM);
 	        
-	      Lprenomm.setBounds(10, 70, 100, 20);
-	      PAjoutm.add(Lprenomm);
-	      Tprenomm.setBounds(120, 70, 100, 20);
-	      PAjoutm.add(Tprenomm);
+	      LprenomAM.setBounds(10, 70, 100, 20);
+	      PAjoutm.add(LprenomAM);
+	      TprenomAM.setBounds(120, 70, 100, 20);
+	      PAjoutm.add(TprenomAM);
 	        
 	      Bannuler.setBounds(50, 180, 100, 20);
 	      PAjoutm.add(Bannuler);
@@ -134,11 +144,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      
 	     /********** Barre de Menu ***************/
 	     /* Ajout des différents menus dans la barre de menu */
-	      menuBar.add(MenuClient);
-	      menuBar.add(MenuMoniteur);
-	      menuBar.add(MenuVoiture);
-	      menuBar.add(MenuPlanning);
-	      menuBar.add(MenuProgramme);
+	      BarreMenu.add(MenuClient);
+	      BarreMenu.add(MenuMoniteur);
+	      BarreMenu.add(MenuVoiture);
+	      BarreMenu.add(MenuPlanning);
+	      BarreMenu.add(MenuProgramme);
 	     
 	     /************ Ajout des sous-menus des menus *******************/
 	     // Item du menu Client
@@ -164,13 +174,10 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	     this.MenuProgramme.add(Mapropos);
 	    
 	     /* Ajout de la barre de menu sur la fenêtre */
-	     this.setJMenuBar(menuBar);
+	     this.setJMenuBar(BarreMenu);
 	     
 	     
-	}
-	//action sur la liste des moniteurs 
-	
-	
+	} 
 	
 	// Lier les boutons à une action bien définie
 	public void actionPerformed (ActionEvent ev)
@@ -193,24 +200,27 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PAjoutm.setVisible(false);
 			uneLecon.chargerMoniteurs();
 			
-			
 			Object [][] donnees= this.listeMoniteurs();
-			 uneTable = new JTable(donnees, titreTable);
-			 JScrollPane uneScroll = new JScrollPane(uneTable);
+			uneTable = new JTable(donnees, titreTable);
+			JScrollPane uneScroll = new JScrollPane(uneTable);
 			 
-			 uneScroll.setBounds(10, 25, 280, 250);
-             PListem.validate();
-             PListem.add(uneScroll);
+			uneScroll.setBounds(10, 25, 280, 250);
+            PListem.validate();
+            PListem.add(uneScroll);
+             
+           //action sur la liste des moniteurs
              uneTable.addMouseListener(new MouseAdapter() {
-   	    	  public void mouseClicked(MouseEvent e) {
-   	    	     if (e.getClickCount() == 1) { // check if a double click
-   	    	       JOptionPane.showMessageDialog (getParent(), "hh", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
-   	    	     }
-   	    	     else 
-   	    	     {
-   	    		       JOptionPane.showMessageDialog (getParent(), "gggg", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
-   	    			    
-   	    	     }
+   	    	 public void mouseClicked(MouseEvent e)
+   	    	 {
+   	    	   if (e.getClickCount() == 1) 
+   	    	   { // check if a double click
+   	    	       JOptionPane.showMessageDialog (getParent(), "if", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
+   	    	    }
+   	    	   else 
+   	    	    {
+   	    	    	 JOptionPane.showMessageDialog (getParent(), "else", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
+   	    	     
+   	    	    }
    	    	   }
    	    	});
    	    
@@ -218,8 +228,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		else if (ae == Benregistrer)
 		{
 			this.insererMoniteur();
-			this.Tnomm.setText("");
-			this.Tprenomm.setText("");
+			this.TnomAM.setText("");
+			this.TprenomAM.setText("");
 		}
 		else if (ae == MsuppressionMoniteur)
 		{
@@ -228,12 +238,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		}
 		else if (ae == Bannuler)
 		{
-			this.annuler();
+			this.annulerMoniteur();
 		}
 	}
 	
 	public Object [][] listeMoniteurs()
-    {
+	{
     	Object [] [] tab = new Object [this.uneLecon.getLesMoniteurs().size()] [3];
     	for (int i=0; i<this.uneLecon.getLesMoniteurs().size(); i++)
     	{
@@ -248,8 +258,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	public void insererMoniteur ()
 	    {
 	        try{
-	            String nomm = Tnomm.getText();
-	            String prenomm = Tprenomm.getText();
+	            String nomm = TnomAM.getText();
+	            String prenomm = TprenomAM.getText();
 	            Moniteur unMoniteur = new Moniteur(0, nomm, prenomm);
 	            uneLecon.insererMoniteur(unMoniteur);
 	            JOptionPane.showMessageDialog(this, "Insertion Effectuée", "Insertion", JOptionPane.INFORMATION_MESSAGE);
@@ -259,14 +269,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	       }
 	    }
 	
-	 public void annuler ()
+	 public void annulerMoniteur ()
 	 {
-	        this.Tnomm.setText("");
-	        this.Tprenomm.setText("");
+	        this.TnomAM.setText("");
+	        this.TprenomAM.setText("");
 	 }
 	 
-	public void itemStateChanged(ItemEvent arg0) {
-		// TODO Auto-generated method stub
+	public void itemStateChanged(ItemEvent arg0) 
+	{
 		
 	}
 
