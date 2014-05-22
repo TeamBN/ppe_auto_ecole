@@ -354,24 +354,18 @@ FOR EACH ROW
 BEGIN
 	
 	DECLARE nbs int;
-	DECLARE nb5 int;
-		SELECT COUNT(*) INTO nb5 FROM Identifiants INNER JOIN Moniteur ON Identifiants.Id_Identifiants=Moniteur.IdM;
-		SELECT MAX(IdM) into nbs FROM Moniteur;
-		IF nbs is null
-			THEN
-				SET nbs = 0;
+	
+		SELECT COUNT(*) INTO nbs FROM Moniteur WHERE NomM=new.NomM AND PrenomM=new.PrenomM;
 		
-		ELSEIF (nb5 > 0)
+		IF nbs > 0 
 			THEN
-				SET new.IdM=nbs+1;
-				INSERT INTO Identifiants(Id_Identifiants, MdP, Login) 
-				Values(
-					nbs+1,
-					new.PrenomM,
-					new.NomM);
+				DELETE FROM `moniteur deja existant`;
+		ELSE
+			INSERT INTO Identifiants(MdP, Login, IdM) VALUES(
+			new.NomM,
+			new.PrenomM,
+			new.IdM);
 		END IF;
-	
-	
 END // 
 DELIMITER ;
 
@@ -384,7 +378,7 @@ FOR EACH ROW
 BEGIN
 	
 	UPDATE Identifiants 
-	SET Id_Identifiants=New.IdM WHERE Id_Identifiants=old.IdM;
+	SET Identifiants.IdM=New.IdM WHERE Identifiants.IdM=old.IdM;
 	
 	
 END // 
@@ -399,7 +393,7 @@ FOR EACH ROW
 BEGIN
 	
 	DELETE FROM Identifiants
-	WHERE Id_Identifiants=old.IdM;
+	WHERE Identifiants.IdM=old.IdM;
 
 	
 	
@@ -462,8 +456,24 @@ BEGIN
 END //
 DELIMITER ;
 
+/* --------------------------------------------Identifiants------------------------------------------------------------*/
 
+DROP TRIGGER IF EXISTS Before_Insert_Identifiants;
+DELIMITER //
+CREATE TRIGGER Before_Insert_Identifiants
+BEFORE INSERT ON Identifiants
+FOR EACH ROW
+BEGIN
 
+DECLARE nb int;
+SELECT COUNT(Id_Identifiants) INTO nb FROM Identifiants;
+IF nb = 0
+THEN
+	SET new.Id_Identifiants=1;
+ELSE
+	SET new.Id_Identifiants=(SELECT MAX(Id_Identifiants) FROM Identifiants)+1;
+END IF;
 
-
+END //
+DELIMITER ;
 
