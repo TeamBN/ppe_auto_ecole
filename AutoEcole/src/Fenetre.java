@@ -41,7 +41,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/* Sous menu Moniteur */
 	private JMenuItem MlisteMoniteur = new JMenuItem("Liste");
 	private JMenuItem MajouterMoniteur = new JMenuItem("Ajouter");
-	private JMenuItem MmodifierMoniteur = new JMenuItem("Modifier");
 	private JMenuItem MsuppressionMoniteur = new JMenuItem("Suppression");
 	
 	/* Sous menu Voiture */
@@ -131,9 +130,17 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      Benregistrer.setBounds(160, 180, 100, 20);
 	      PAjoutm.add(Benregistrer);
 	      
+	      /* Panel Modifier Moniteur */
+	      Pmodifm.setBounds(110, 50, 300, 300);
+	      Pmodifm.setLayout(null);
+	      Pmodifm.setVisible(false);
+	      LtitrepnlModifm.setBounds(140, 10, 200, 20);
+	      Pmodifm.add(LtitrepnlModifm);
+	      
 	      /* Ajout des panel sur le GetContent */
 	      getContentPane().add(PAjoutm);
 	      getContentPane().add(PListem);
+	      getContentPane().add(Pmodifm);
 	      
 	     // Rendre les boutons cliquables
 	     Bannuler.addActionListener(this);
@@ -160,7 +167,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	     // Item du menu Moniteur
 	     this.MenuMoniteur.add(MlisteMoniteur);
 	     this.MenuMoniteur.add(MajouterMoniteur);
-	     this.MenuMoniteur.add(MmodifierMoniteur);
 	     this.MenuMoniteur.add(MsuppressionMoniteur);
 	     
 	     // Item du Menu Voiture
@@ -208,21 +214,24 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
             PListem.validate();
             PListem.add(uneScroll);
              
-           //action sur la liste des moniteurs
+           /*//action sur la liste des moniteurs
              uneTable.addMouseListener(new MouseAdapter() {
    	    	 public void mouseClicked(MouseEvent e)
    	    	 {
    	    	   if (e.getClickCount() == 1) 
    	    	   { // check if a double click
-   	    	       JOptionPane.showMessageDialog (getParent(), "if", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
-   	    	    }
+   	    	       JOptionPane.showMessageDialog (getParent(), "test", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
+   	    	       
+   	    	       PListem.setVisible(false);
+   	    	       Pmodifm.setVisible(true);
+   	    	   }
    	    	   else 
    	    	    {
    	    	    	 JOptionPane.showMessageDialog (getParent(), "else", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
    	    	     
    	    	    }
    	    	   }
-   	    	});
+   	    	});*/
    	    
 		}
 		else if (ae == Benregistrer)

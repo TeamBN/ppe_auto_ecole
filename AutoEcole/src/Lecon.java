@@ -23,7 +23,7 @@ public class Lecon
 		
 		try
 		{
-			BDD uneBDD = new BDD("localhost","root","","autoecole");
+			BDD uneBDD = new BDD();
 			uneBDD.seConnecter();
 			Statement unStat = uneBDD.getMaConnexion().createStatement();
 			ResultSet unRes = unStat.executeQuery(requete);
@@ -52,7 +52,7 @@ public class Lecon
 			
 			try
 			{
-				BDD uneBDD = new BDD("localhost","root","","autoecole");
+				BDD uneBDD = new BDD();
 				uneBDD.seConnecter();
 				Statement unStat = uneBDD.getMaConnexion().createStatement();
 				ResultSet unRes = unStat.executeQuery(requete);
@@ -75,6 +75,23 @@ public class Lecon
 			}
 			return null;
 		}
+	public static void supprimer (int code)
+	{
+		String requete ="";
+			try
+			{
+				BDD uneBDD = new BDD ();
+				uneBDD.seConnecter();
+				Statement unStat = uneBDD.getMaConnexion().createStatement();
+				unStat.execute(requete);
+				unStat.close();
+				uneBDD.seConnecter();
+			}
+			catch(SQLException exp)
+			{
+				System.out.println("Erreur d'execution de la requete:" + requete);
+			}
+	}
 
 		public void insererMoniteur(Moniteur unMon)
 		{
@@ -82,7 +99,7 @@ public class Lecon
 			requete += unMon.getNomm()+"', '"+unMon.getPrenomm()+"');";
 				try
 				{
-					BDD uneBDD = new BDD ("localhost", "root","","autoecole");
+					BDD uneBDD = new BDD ();
 					uneBDD.seConnecter();
 					Statement unStat = uneBDD.getMaConnexion().createStatement();
 					unStat.execute(requete);
