@@ -8,12 +8,12 @@ public class BDD {
 	private String serveur, user, mdp, bdd;
 	private Connection maConnexion;
 	
-	public BDD(String serveur, String user, String mdp, String bdd)
+	public BDD()
 	{
-		this.serveur = serveur;
-		this.user = user;
-		this.mdp = mdp;
-		this.bdd = bdd;
+		this.serveur = Configuration.getServeur();
+		this.user = Configuration.getUser();
+		this.mdp =Configuration.getMdp();
+		this.bdd = Configuration.getBdd();
 		
 	}
 	
