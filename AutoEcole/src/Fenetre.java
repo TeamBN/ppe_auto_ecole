@@ -37,17 +37,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/* Sous menu Client */
 	private JMenuItem MlisteClient = new JMenuItem("Liste");
 	private JMenuItem MajouterClient = new JMenuItem("Ajouter");
-	private JMenuItem MsuppressionClient = new JMenuItem("Suppression");
 	
 	/* Sous menu Moniteur */
 	private JMenuItem MlisteMoniteur = new JMenuItem("Liste");
 	private JMenuItem MajouterMoniteur = new JMenuItem("Ajouter");
-	private JMenuItem MsuppressionMoniteur = new JMenuItem("Suppression");
 	
 	/* Sous menu Voiture */
 	private JMenuItem MlisteVoiture = new JMenuItem("Liste");
 	private JMenuItem MajouterVoiture = new JMenuItem("Ajouter");
-	private JMenuItem MsuppressionVoiture = new JMenuItem("Suppression");
 	
 	/* Sous menu Programme */
 	private JMenuItem Mquitter = new JMenuItem ("Quitter");
@@ -61,8 +58,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	private JLabel LtitrepnlLSTM = new JLabel ("Liste Moniteur");
     private String titreTableM[] = new String  [3];
     private JTable uneTable;
-    private Vector selectedCells = new Vector<int[]>();//int[]because every entry will store {cellX,cellY}
-	
+    
 	/* Panel d'ajout de Moniteur = AM*/
     private JPanel PAjoutm = new JPanel();
     private JLabel LtitrepnlAM = new JLabel("Moniteur");
@@ -188,17 +184,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	     // Item du menu Client
 	     this.MenuClient.add(MlisteClient);
 	     this.MenuClient.add(MajouterClient);
-	     this.MenuClient.add(MsuppressionClient);
 	     
 	     // Item du menu Moniteur
 	     this.MenuMoniteur.add(MlisteMoniteur);
 	     this.MenuMoniteur.add(MajouterMoniteur);
-	     this.MenuMoniteur.add(MsuppressionMoniteur);
 	     
 	     // Item du Menu Voiture
 	     this.MenuVoiture.add(MlisteVoiture);
 	     this.MenuVoiture.add(MajouterVoiture);
-	     this.MenuVoiture.add(MsuppressionVoiture);
 	     
 	     // Item du Menu Programme
 	     this.MenuProgramme.add(Mquitter);
@@ -287,11 +280,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PAjoutm.setVisible(false);
 			
 
-		}
-		else if (ae == MsuppressionMoniteur)
-		{
-			PListem.setVisible(false);
-			PAjoutm.setVisible(false);
 		}
 		else if (ae == BannulerAM)
 		{
