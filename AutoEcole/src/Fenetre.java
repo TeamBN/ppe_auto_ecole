@@ -10,7 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Vector;
 
+import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.swing.*;
 
 public class Fenetre extends JFrame implements ActionListener, ItemListener
@@ -35,7 +37,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/* Sous menu Client */
 	private JMenuItem MlisteClient = new JMenuItem("Liste");
 	private JMenuItem MajouterClient = new JMenuItem("Ajouter");
-	private JMenuItem MmodifierClient = new JMenuItem("Modifier");
 	private JMenuItem MsuppressionClient = new JMenuItem("Suppression");
 	
 	/* Sous menu Moniteur */
@@ -46,7 +47,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/* Sous menu Voiture */
 	private JMenuItem MlisteVoiture = new JMenuItem("Liste");
 	private JMenuItem MajouterVoiture = new JMenuItem("Ajouter");
-	private JMenuItem MmodifierVoiture = new JMenuItem("Modifier");
 	private JMenuItem MsuppressionVoiture = new JMenuItem("Suppression");
 	
 	/* Sous menu Programme */
@@ -59,8 +59,9 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/* Panel liste de Moniteur =LSTM */
 	private JPanel PListem = new JPanel();
 	private JLabel LtitrepnlLSTM = new JLabel ("Liste Moniteur");
-    private String titreTable[] = new String  [3];
+    private String titreTableM[] = new String  [3];
     private JTable uneTable;
+    private Vector selectedCells = new Vector<int[]>();//int[]because every entry will store {cellX,cellY}
 	
 	/* Panel d'ajout de Moniteur = AM*/
     private JPanel PAjoutm = new JPanel();
@@ -69,23 +70,25 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JLabel LprenomAM = new JLabel("Prenom: ");
     private JTextField TnomAM = new JTextField();
     private JTextField TprenomAM = new JTextField();
-    private JButton Bannuler = new JButton("Annuler");
-    private JButton Benregistrer = new JButton("Enregistrer");
+    private JButton BannulerAM = new JButton("Annuler");
+    private JButton BenregistrerAM = new JButton("Enregistrer");
 
     
     /* Panel modification Moniteur = MM */
     private JPanel Pmodifm = new JPanel();
     private JLabel LtitrepnlModifm = new JLabel ("Modification Moniteur");
-    private JLabel TnomMM = new JLabel();
-    private JLabel TprenomMM = new JLabel();
-    private JTextField LnomMM = new JTextField();
-    private JTextField LprenomMM = new JTextField();
+    private JLabel LnomMM = new JLabel("Nom :");
+    private JLabel LprenomMM = new JLabel("Prenom :");
+    private JTextField TnomMM = new JTextField();
+    private JTextField TprenomMM = new JTextField();
+    private JButton BannulerMM = new JButton("Annuler");
+    private JButton BModifierMM = new JButton("Modifier");
     
 	public Fenetre()
 	{
-		titreTable[0]="Idm";
-    	titreTable[1]="Nomm";
-    	titreTable[2]="Prenomm";
+		titreTableM[0]="ID";
+    	titreTableM[1]="Nom";
+    	titreTableM[2]="Prenom";
     	
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
@@ -101,41 +104,57 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/* Panel Liste Moniteur */
-		PListem.setBounds(20, 30, 300, 300);
+		PListem.setBounds(20, 30, 400, 400);
 		PListem.setLayout(null);
 		PListem.setVisible(false);
-		LtitrepnlLSTM.setBounds(140, 0, 100, 30 );
+		LtitrepnlLSTM.setBounds(115, 0, 100, 30 );
 		PListem.add(LtitrepnlLSTM);
 		
 		
 		/* Panel Ajout Moniteur */
-		  PAjoutm.setBounds(110, 50, 300, 300);
+		  PAjoutm.setBounds(50, 0, 300, 300);
 	      PAjoutm.setLayout(null);
 	      PAjoutm.setVisible(false);
-	      LtitrepnlAM.setBounds(140, 10, 200, 20);
+	      LtitrepnlAM.setBounds(120, 20, 200, 20);
 	      PAjoutm.add(LtitrepnlAM);
-	      
-	      LnomAM.setBounds(10, 40, 100, 20);
+
+	      LnomAM.setBounds(20, 70, 100, 20);
 	      PAjoutm.add(LnomAM);
-	      TnomAM.setBounds(120, 40, 100, 20);
+	      TnomAM.setBounds(120, 70, 100, 20);
 	      PAjoutm.add(TnomAM);
-	        
-	      LprenomAM.setBounds(10, 70, 100, 20);
+
+	      LprenomAM.setBounds(20, 100, 100, 20);
 	      PAjoutm.add(LprenomAM);
-	      TprenomAM.setBounds(120, 70, 100, 20);
+	      TprenomAM.setBounds(120, 100, 100, 20);
 	      PAjoutm.add(TprenomAM);
-	        
-	      Bannuler.setBounds(50, 180, 100, 20);
-	      PAjoutm.add(Bannuler);
-	      Benregistrer.setBounds(160, 180, 100, 20);
-	      PAjoutm.add(Benregistrer);
+
+	      BannulerAM.setBounds(20, 180, 100, 20);
+	      PAjoutm.add(BannulerAM);
+	      BenregistrerAM.setBounds(160, 180, 100, 20);
+	      PAjoutm.add(BenregistrerAM);
 	      
-	      /* Panel Modifier Moniteur */
-	      Pmodifm.setBounds(110, 50, 300, 300);
-	      Pmodifm.setLayout(null);
-	      Pmodifm.setVisible(false);
-	      LtitrepnlModifm.setBounds(140, 10, 200, 20);
+	      /* Panel Modification Moniteur */
+		  Pmodifm.setBounds(50, 0, 300, 300);
+		  Pmodifm.setLayout(null);
+		  Pmodifm.setVisible(false);
+	      LtitrepnlModifm.setBounds(100, 20, 200, 20);
 	      Pmodifm.add(LtitrepnlModifm);
+
+	      LnomMM.setBounds(20, 70, 100, 20);
+	      Pmodifm.add(LnomMM);
+	      TnomMM.setBounds(120, 70, 100, 20);
+	      Pmodifm.add(TnomMM);
+
+	      LprenomMM.setBounds(20, 100, 100, 20);
+	      Pmodifm.add(LprenomMM);
+	      TprenomMM.setBounds(120, 100, 100, 20);
+	      Pmodifm.add(TprenomMM);
+
+	      BannulerMM.setBounds(20, 180, 100, 20);
+	      Pmodifm.add(BannulerMM);
+	      BModifierMM.setBounds(160, 180, 100, 20);
+	      Pmodifm.add(BModifierMM);
+	      
 	      
 	      /* Ajout des panel sur le GetContent */
 	      getContentPane().add(PAjoutm);
@@ -143,11 +162,19 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      getContentPane().add(Pmodifm);
 	      
 	     // Rendre les boutons cliquables
-	     Bannuler.addActionListener(this);
-	     Benregistrer.addActionListener(this);
-	     MajouterMoniteur.addActionListener(this);
-	     Mquitter.addActionListener(this);
-	     MlisteMoniteur.addActionListener(this);
+	      
+	      /* Bouton Barre de Menu */
+	      MajouterMoniteur.addActionListener(this);
+	      MlisteMoniteur.addActionListener(this);
+		  Mquitter.addActionListener(this);
+	     
+	      /* Bouton Panel Ajout Moniteur */
+	      BenregistrerAM.addActionListener(this);
+	      BannulerAM.addActionListener(this);
+	     
+	      /* Bouton Panel Modification Moniteur*/
+	      BModifierMM.addActionListener(this);
+	      BannulerMM.addActionListener(this);
 	      
 	     /********** Barre de Menu ***************/
 	     /* Ajout des différents menus dans la barre de menu */
@@ -161,7 +188,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	     // Item du menu Client
 	     this.MenuClient.add(MlisteClient);
 	     this.MenuClient.add(MajouterClient);
-	     this.MenuClient.add(MmodifierClient);
 	     this.MenuClient.add(MsuppressionClient);
 	     
 	     // Item du menu Moniteur
@@ -172,7 +198,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	     // Item du Menu Voiture
 	     this.MenuVoiture.add(MlisteVoiture);
 	     this.MenuVoiture.add(MajouterVoiture);
-	     this.MenuVoiture.add(MmodifierVoiture);
 	     this.MenuVoiture.add(MsuppressionVoiture);
 	     
 	     // Item du Menu Programme
@@ -196,58 +221,85 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		}
 		else if (ae == MajouterMoniteur)
 		{
-			PListem.setVisible(false);
 			PAjoutm.setVisible(true);
+			PListem.setVisible(false);
+			Pmodifm.setVisible(false);
 			
 		}
 		else if (ae == MlisteMoniteur)
 		{
+			
 			PListem.setVisible(true);
 			PAjoutm.setVisible(false);
+			Pmodifm.setVisible(false);
 			uneLecon.chargerMoniteurs();
 			
-			Object [][] donnees= this.listeMoniteurs();
-			uneTable = new JTable(donnees, titreTable);
+			final Object [][] donnees= this.listeMoniteurs();
+			uneTable = new JTable(donnees, titreTableM);
 			JScrollPane uneScroll = new JScrollPane(uneTable);
 			 
 			uneScroll.setBounds(10, 25, 280, 250);
             PListem.validate();
             PListem.add(uneScroll);
+            
              
-           /*//action sur la liste des moniteurs
+            //action sur la liste des moniteurs
              uneTable.addMouseListener(new MouseAdapter() {
    	    	 public void mouseClicked(MouseEvent e)
    	    	 {
+   	            
    	    	   if (e.getClickCount() == 1) 
    	    	   { // check if a double click
-   	    	       JOptionPane.showMessageDialog (getParent(), "test", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
+   	    	
+   	    		
+      	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Moniteur", JOptionPane.INFORMATION_MESSAGE);
+      	    		
+   	    	    	
+      	    	 	Pmodifm.setVisible(true);
+      	    	 	PListem.setVisible(false);
+      	    	 	PAjoutm.setVisible(false);
+      	    	
+      	    	 	//on declare un entier "ligne" qui retourne la ligne selectionné dans la table
+      	    	 	int ligne=0;
+      	    	 	ligne = uneTable.getSelectedRow();
    	    	       
-   	    	       PListem.setVisible(false);
-   	    	       Pmodifm.setVisible(true);
    	    	   }
    	    	   else 
    	    	    {
-   	    	    	 JOptionPane.showMessageDialog (getParent(), "else", "essai"+uneTable.getSelectedColumn(), JOptionPane.INFORMATION_MESSAGE);
-   	    	     
+   	    	    	 
+   	    	    	 	
    	    	    }
    	    	   }
-   	    	});*/
+   	    	});
    	    
 		}
-		else if (ae == Benregistrer)
+		else if (ae == BenregistrerAM)
 		{
 			this.insererMoniteur();
 			this.TnomAM.setText("");
 			this.TprenomAM.setText("");
+		}
+		else if(ae == BModifierMM)
+		{
+			this.modifierMoniteur();
+			PListem.setVisible(true);
+			Pmodifm.setVisible(false);
+			PAjoutm.setVisible(false);
+			
+
 		}
 		else if (ae == MsuppressionMoniteur)
 		{
 			PListem.setVisible(false);
 			PAjoutm.setVisible(false);
 		}
-		else if (ae == Bannuler)
+		else if (ae == BannulerAM)
 		{
-			this.annulerMoniteur();
+			this.annuler();
+		}
+		else if (ae == BannulerMM)
+		{
+			this.annuler();
 		}
 	}
 	
@@ -278,10 +330,28 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	       }
 	    }
 	
-	 public void annulerMoniteur ()
+	public void modifierMoniteur ()
+    {
+		int ligne = uneTable.getSelectedRow()+1;
+        try{
+        	int idmm = ligne;
+            String nomm = TnomMM.getText();
+            String prenomm = TprenomMM.getText();
+            Moniteur unMoniteur = new Moniteur(idmm, nomm, prenomm);
+            uneLecon.modifierMoniteur(unMoniteur);
+            JOptionPane.showMessageDialog(this, "Modification Effectué", "Insertion", JOptionPane.INFORMATION_MESSAGE);
+        }
+       catch (NumberFormatException exp){
+           JOptionPane.showMessageDialog(this, "Modification échouée", "Erreur", JOptionPane.ERROR_MESSAGE);
+       }
+    }
+	
+	 public void annuler ()
 	 {
-	        this.TnomAM.setText("");
-	        this.TprenomAM.setText("");
+
+		 PListem.setVisible(true);
+		 PAjoutm.setVisible(false);
+	     Pmodifm.setVisible(false);
 	 }
 	 
 	public void itemStateChanged(ItemEvent arg0) 
