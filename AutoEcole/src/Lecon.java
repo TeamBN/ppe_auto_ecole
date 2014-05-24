@@ -112,6 +112,27 @@ public class Lecon
 				}
 		}
 		
+		
+		
+		public void modifierMoniteur(Moniteur unMon)
+		{
+			String requete ="Update moniteur set nomm='"+unMon.getNomm()+"', prenomm='"+unMon.getPrenomm()+"'WHERE idm="+unMon.getIdm()+";";
+				try
+				{
+					BDD uneBDD = new BDD ();
+					uneBDD.seConnecter();
+					Statement unStat = uneBDD.getMaConnexion().createStatement();
+					unStat.execute(requete);
+					unStat.close();
+					uneBDD.seConnecter();
+				}
+				catch(SQLException exp)
+				{
+					System.out.println("Erreur d'execution de la requete:" + requete);
+				}
+		}
+		
+		
 		public void afficherLesMoniteurs ()
 		{
 			for (int i = 0; i<this.LesMoniteurs.size(); i++)
