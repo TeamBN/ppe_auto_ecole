@@ -33,6 +33,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	private JMenu MenuVoiture = new JMenu("Voiture");
 	private JMenu MenuPlanning = new JMenu("Planning");
 	private JMenu MenuProgramme = new JMenu ("Programme");
+	private JMenu MenuProgrammee = new JMenu ("Programme");
 	
 	/* Sous menu Client */
 	private JMenuItem MlisteClient = new JMenuItem("Liste");
@@ -199,8 +200,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	    
 	     /* Ajout de la barre de menu sur la fenêtre */
 	     this.setJMenuBar(BarreMenu);
-	     
-	     
+	          
 	} 
 	
 	// Lier les boutons à une action bien définie
@@ -221,7 +221,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		}
 		else if (ae == MlisteMoniteur)
 		{
-			
 			PListem.setVisible(true);
 			PAjoutm.setVisible(false);
 			Pmodifm.setVisible(false);
