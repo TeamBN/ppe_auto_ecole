@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Vector;
-
 import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.swing.*;
 
@@ -24,7 +22,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/**********************************************************/
 	private Lecon uneLecon = new Lecon();
 	
-	/**********************************************************/
 	
 	/***************** Barre de Menu **************************/
 	private JMenuBar BarreMenu = new JMenuBar();
@@ -54,7 +51,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	
 	/****************************** Panel **********************************/
 
-	/* Panel liste de Moniteur =LSTM */
+	/* Panel liste de Moniteur = LSTM */
 	private JPanel PListem = new JPanel();
 	private JLabel LtitrepnlLSTM = new JLabel ("Liste Moniteur");
     private String titreTableM[] = new String  [3];
@@ -83,6 +80,9 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     
 	public Fenetre()
 	{
+		/* Definition des colonnes des Tableaux des listes clients, moniteurs et voitures */
+		
+		// Tableau Moniteur
 		titreTableM[0]="ID";
     	titreTableM[1]="Nom";
     	titreTableM[2]="Prenom";
@@ -130,7 +130,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      BenregistrerAM.setBounds(160, 180, 100, 20);
 	      PAjoutm.add(BenregistrerAM);
 	      
-	      /* Panel Modification Moniteur */
+	    /* Panel Modification Moniteur */
 		  Pmodifm.setBounds(50, 0, 300, 300);
 		  Pmodifm.setLayout(null);
 		  Pmodifm.setVisible(false);
@@ -153,12 +153,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      Pmodifm.add(BModifierMM);
 	      
 	      
-	      /* Ajout des panel sur le GetContent */
+	    /* Ajout des panel sur le GetContent */
 	      getContentPane().add(PAjoutm);
 	      getContentPane().add(PListem);
 	      getContentPane().add(Pmodifm);
 	      
-	     // Rendre les boutons cliquables
+	     /********* Rendre les boutons cliquables ****************************/
 	      
 	      /* Bouton Barre de Menu */
 	      MajouterMoniteur.addActionListener(this);
@@ -241,17 +241,15 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
    	    	 {
    	            
    	    	   if (e.getClickCount() == 1) 
-   	    	   { // check if a double click
-   	    	
+   	    	   { 
    	    		
       	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Moniteur", JOptionPane.INFORMATION_MESSAGE);
-      	    		
-   	    	    	
+      	    	
       	    	 	Pmodifm.setVisible(true);
       	    	 	PListem.setVisible(false);
       	    	 	PAjoutm.setVisible(false);
       	    	
-      	    	 	//on declare un entier "ligne" qui retourne la ligne selectionné dans la table
+      	    	 	// On declare un entier "ligne" qui retourne la ligne selectionné dans la table
       	    	 	int ligne=0;
       	    	 	ligne = uneTable.getSelectedRow();
    	    	       
@@ -342,7 +340,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	 }
 	 
 	public void itemStateChanged(ItemEvent arg0) 
-	{
+	{ //TODO
 		
 	}
 
