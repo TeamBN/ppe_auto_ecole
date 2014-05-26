@@ -244,10 +244,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
    	    	   { 
    	    		
       	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Moniteur", JOptionPane.INFORMATION_MESSAGE);
+      	    		
+      	    		
       	    	
       	    	 	Pmodifm.setVisible(true);
       	    	 	PListem.setVisible(false);
       	    	 	PAjoutm.setVisible(false);
+      	    	 	
       	    	
       	    	 	// On declare un entier "ligne" qui retourne la ligne selectionné dans la table
       	    	 	int ligne=0;
@@ -272,19 +275,26 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		else if(ae == BModifierMM)
 		{
 			this.modifierMoniteur();
+			
 			PListem.setVisible(true);
 			Pmodifm.setVisible(false);
 			PAjoutm.setVisible(false);
+			
+			this.TnomMM.setText("");
+			this.TprenomMM.setText("");
 			
 
 		}
 		else if (ae == BannulerAM)
 		{
-			this.annuler();
+			this.annulerMoniteur();
 		}
 		else if (ae == BannulerMM)
 		{
-			this.annuler();
+			this.annulerMoniteur();
+			
+			this.TnomMM.setText("");
+			this.TprenomMM.setText("");
 		}
 	}
 	
@@ -331,7 +341,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
        }
     }
 	
-	 public void annuler ()
+	 public void annulerMoniteur ()
 	 {
 
 		 PListem.setVisible(true);
