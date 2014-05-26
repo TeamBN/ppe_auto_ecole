@@ -16,6 +16,7 @@ public class Lecon
 		this.LesMoniteurs = new LinkedList<Moniteur>();
 	}
 	
+	/* Definition des méthodes pour le moniteur */
 	public void chargerMoniteurs()
 	{
 		String requete = "Select * from moniteur;";
@@ -75,7 +76,7 @@ public class Lecon
 			}
 			return null;
 		}
-	public static void supprimer (int code)
+	public static void supprimerMoniteur (int code)
 	{
 		String requete ="";
 			try
