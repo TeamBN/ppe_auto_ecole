@@ -41,6 +41,54 @@ public class Voiture {
 		System.out.println("La consommation :" +this.conso);
 	}
 	
+	public String getImmatriculation() {
+		return immatriculation;
+	}
+
+	public void setImmatriculation(String immatriculation) {
+		this.immatriculation = immatriculation;
+	}
+
+	public String getModele() {
+		return modele;
+	}
+
+	public void setModele(String modele) {
+		this.modele = modele;
+	}
+
+	public String getDateachat() {
+		return dateachat;
+	}
+
+	public void setDateachat(String dateachat) {
+		this.dateachat = dateachat;
+	}
+
+	public int getIdv() {
+		return idv;
+	}
+
+	public void setIdv(int idv) {
+		this.idv = idv;
+	}
+
+	public int getNbrkm() {
+		return nbrkm;
+	}
+
+	public void setNbrkm(int nbrkm) {
+		this.nbrkm = nbrkm;
+	}
+
+	public float getConso() {
+		return conso;
+	}
+
+	public void setConso(float conso) {
+		this.conso = conso;
+	}
+
 	public String toString(){
 		//retourne les attibuts sous forme d'une chaine
 		
