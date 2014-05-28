@@ -51,11 +51,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	
 	/****************************** Panel **********************************/
 
+	/************************ Les Panels Moniteur ************************/
 	/* Panel liste de Moniteur = LSTM */
 	private JPanel PListem = new JPanel();
 	private JLabel LtitrepnlLSTM = new JLabel ("Liste Moniteur");
     private String titreTableM[] = new String  [3];
-    private JTable uneTable;
+    private JTable uneTableMon;
     
 	/* Panel d'ajout de Moniteur = AM*/
     private JPanel PAjoutm = new JPanel();
@@ -77,6 +78,46 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JTextField TprenomMM = new JTextField();
     private JButton BannulerMM = new JButton("Annuler");
     private JButton BModifierMM = new JButton("Modifier");
+    
+    /************************ Les Panels Voiture  ************************/
+    
+    /* Panel liste de Voiture = LSTV */
+	private JPanel PListev = new JPanel();
+	private JLabel LtitrepnlLSTV = new JLabel ("Liste Moniteur");
+    private String titreTableV[] = new String  [5];
+    private JTable uneTableVoit;
+    
+	/* Panel d'ajout de Voiture = AV*/
+    private JPanel PAjoutv = new JPanel();
+    private JLabel LtitrepnlAV = new JLabel("Voiture");
+    private JLabel LimmatriculationAV = new JLabel("Immatriculation : ");
+    private JLabel LmodeleAV = new JLabel("Modele : ");
+    private JLabel LdateachatAV = new JLabel("Date Achat : ");
+    private JLabel LnbrkmAV = new JLabel("Kilometrage : ");
+    private JLabel LconsoAV = new JLabel("Consommation L/100 : ");
+    private JTextField TimmatriculationAV = new JTextField();
+    private JTextField TmodeleAV = new JTextField();
+    private JTextField TdateachatAV = new JTextField();
+    private JTextField TnbrkmAV = new JTextField();
+    private JTextField TconsoAV = new JTextField();
+    private JButton BannulerAV = new JButton("Annuler");
+    private JButton BenregistrerAV = new JButton("Enregistrer");
+
+    
+    /* Panel modification Voiture = MV */
+    private JPanel Pmodifv = new JPanel();
+    private JLabel LtitrepnlModifv = new JLabel ("Modification Voiture");
+    private JLabel LmodeleMV = new JLabel("Modele : ");
+    private JLabel LdateachatMV = new JLabel("Date Achat : ");
+    private JLabel LnbrkmMV = new JLabel("Kilometrage : ");
+    private JLabel LconsoMV = new JLabel("Consommation L/100 : ");
+    private JTextField TimmatriculationMV = new JTextField();
+    private JTextField TmodeleMV = new JTextField();
+    private JTextField TdateachatMV = new JTextField();
+    private JTextField TnbrkmMV = new JTextField();
+    private JTextField TconsoMV = new JTextField();
+    private JButton BannulerMV = new JButton("Annuler");
+    private JButton BenregistrerMV = new JButton("Enregistrer");
     
 	public Fenetre()
 	{
@@ -100,6 +141,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		// Termine bien le processus lorsqu'on clique sur la croix rouge
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		/************************ Les Panels Moniteur ************************/
 		/* Panel Liste Moniteur */
 		PListem.setBounds(20, 30, 400, 400);
 		PListem.setLayout(null);
@@ -152,8 +194,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      BModifierMM.setBounds(160, 180, 100, 20);
 	      Pmodifm.add(BModifierMM);
 	      
+	      /************************ Les Panels Voiture ************************/
+	      
 	      
 	    /* Ajout des panel sur le GetContent */
+	      /************************ Les Panels Moniteur ************************/
 	      getContentPane().add(PAjoutm);
 	      getContentPane().add(PListem);
 	      getContentPane().add(Pmodifm);
@@ -203,7 +248,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	          
 	} 
 	
-	// Lier les boutons à une action bien définie
+	/********** Lier les boutons à une action bien définie ************/
 	public void actionPerformed (ActionEvent ev)
 	{
 		Object ae = ev.getSource();
@@ -211,7 +256,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		{
 			System.out.println("Fin du programme");
 			System.exit(0);
-		}
+		} 
 		else if (ae == MajouterMoniteur)
 		{
 			PAjoutm.setVisible(true);
@@ -227,8 +272,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			uneLecon.chargerMoniteurs();
 			
 			final Object [][] donnees= this.listeMoniteurs();
-			uneTable = new JTable(donnees, titreTableM);
-			JScrollPane uneScroll = new JScrollPane(uneTable);
+			uneTableMon = new JTable(donnees, titreTableM);
+			JScrollPane uneScroll = new JScrollPane(uneTableMon);
 			 
 			uneScroll.setBounds(10, 25, 280, 250);
             PListem.validate();
@@ -236,7 +281,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
             
              
             //action sur la liste des moniteurs
-             uneTable.addMouseListener(new MouseAdapter() {
+             uneTableMon.addMouseListener(new MouseAdapter() {
    	    	 public void mouseClicked(MouseEvent e)
    	    	 {
    	            
@@ -254,7 +299,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
       	    	
       	    	 	// On declare un entier "ligne" qui retourne la ligne selectionné dans la table
       	    	 	int ligne=0;
-      	    	 	ligne = uneTable.getSelectedRow();
+      	    	 	ligne = uneTableMon.getSelectedRow();
    	    	       
    	    	   }
    	    	   else 
@@ -327,7 +372,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	
 	public void modifierMoniteur ()
     {
-		int ligne = uneTable.getSelectedRow()+1;
+		int ligne = uneTableMon.getSelectedRow()+1;
         try{
         	int idmm = ligne;
             String nomm = TnomMM.getText();
