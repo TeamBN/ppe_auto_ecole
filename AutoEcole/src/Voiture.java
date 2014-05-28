@@ -7,7 +7,7 @@ public class Voiture {
 	public Voiture ()
 	{
 		//initialise les attibuts de la classe aux valeurs par défaut
-		this.idv=0;
+		this.idv = 0;
 		this.immatriculation="";
 		this.modele="";
 		this.dateachat="";
@@ -15,7 +15,7 @@ public class Voiture {
 		this.conso = 0;
 	}
 
-	public Voiture (String immatriculation, String modele, String dateachat, int nbrkm, float conso){
+	public Voiture (int idv, String immatriculation, String modele, String dateachat, int nbrkm, float conso){
 		//initialise les attributs de la classe avec les valeurs en arguments
 		this.idv = idv;
 		this.immatriculation = immatriculation;
