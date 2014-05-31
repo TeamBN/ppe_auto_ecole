@@ -136,16 +136,6 @@ public class Lecon
 				}
 		}
 		
-		
-		public void afficherLesMoniteurs ()
-		{
-			for (int i = 0; i<this.LesMoniteurs.size(); i++)
-			{
-				System.out.println("-----------------------");
-			this.LesMoniteurs.get(i).afficher();
-			}
-		}
-		
 		public LinkedList<Moniteur> getLesMoniteurs(){
 	        return this.LesMoniteurs;
 		}
