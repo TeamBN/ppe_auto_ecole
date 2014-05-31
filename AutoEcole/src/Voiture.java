@@ -25,24 +25,6 @@ public class Voiture {
 		this.conso = conso;
 	}
 	
-	public void saisir(){
-		//saisie au clavier de l'ensemble des attibuts
-		this.modele = Console.saisirChaine("Saisir le modele");
-		this.immatriculation = Console.saisirChaine("Saisir l'immatriculation");
-		this.dateachat = Console.saisirChaine("Saisir la date d'achat");
-		this.nbrkm = Console.saisirReel("Saisir le nombre de km");
-		this.conso = Console.saisirReel("Saisir la consommation");
-	}
-	
-	public void afficher(){
-		//affiche l'ensemble des attibuts
-		System.out.println("le modèle :" +this.modele);
-		System.out.println("l'immatriculation :" +this.immatriculation);
-		System.out.println("La date d'achat :" +this.dateachat);
-		System.out.println("le nombre de km :" +this.nbrkm);
-		System.out.println("La consommation :" +this.conso);
-	}
-	
 	public String getImmatriculation() {
 		return immatriculation;
 	}
