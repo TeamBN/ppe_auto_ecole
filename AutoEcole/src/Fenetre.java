@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.LinkedList;
+
 import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.swing.*;
 
@@ -83,8 +84,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     
     /* Panel liste de Voiture = LSTV */
 	private JPanel PListev = new JPanel();
-	private JLabel LtitrepnlLSTV = new JLabel ("Liste Moniteur");
-    private String titreTableV[] = new String  [5];
+	private JLabel LtitrepnlLSTV = new JLabel ("Liste Voiture");
+    private String titreTableV[] = new String  [6];
     private JTable uneTableVoit;
     
 	/* Panel d'ajout de Voiture = AV*/
@@ -135,8 +136,9 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     	titreTableV[0]="ID";
     	titreTableV[1]="Immatriculation";
     	titreTableV[2]="Modele";
-    	titreTableV[3]="Kilometrage";
-    	titreTableV[4]="Consommation";
+    	titreTableV[3]="Achat";
+    	titreTableV[4]="Kilometrage";
+    	titreTableV[5]="Consommation";
     	
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
@@ -207,7 +209,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      /************************ Les Panels Voiture ************************/
 	      
 	      /* Panel Liste Voiture */
-			PListev.setBounds(20, 30, 400, 400);
+			PListev.setBounds(20, 30, 500, 500);
 			PListev.setLayout(null);
 			PListev.setVisible(false);
 			LtitrepnlLSTV.setBounds(115, 0, 100, 30 );
@@ -229,7 +231,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		    LmodeleAV.setBounds(20, 100, 100, 20);
 		    PAjoutv.add(LmodeleAV);
 		    TmodeleAV.setBounds(120, 100, 100, 20);
-		    PAjoutv.add(TprenomMM);
+		    PAjoutv.add(TmodeleAV);
 		    
 		    LdateachatAV.setBounds(20, 130, 100, 20);
 		    PAjoutv.add(LdateachatAV);
@@ -264,17 +266,23 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		  getContentPane().add(PModifm);
 	      
 	    /************************ Les Panels Voitures ************************/
-	      getContentPane().add(PAjoutv);
+	      getContentPane().add(PListev);
+		  getContentPane().add(PAjoutv);
 	      
 	     /********* Rendre les boutons cliquables ****************************/
 	      
-	      /* Bouton Barre de Menu */
+	      /* Bouton Barre de sous Menu Moniteur */
+		  MlisteMoniteur.addActionListener(this);
 	      MajouterMoniteur.addActionListener(this);
-	      MlisteMoniteur.addActionListener(this);
 	      
+	      /* Bouton Barre de sous Menu Voiture */
+	      MlisteVoiture.addActionListener(this);
 	      MajouterVoiture.addActionListener(this);
-		  
+	      
+	      /* Bouton Barre de sous Menu Programme */
 	      Mquitter.addActionListener(this);
+	      
+	      /***************** Bouton Panel Moniteur ******************************/
 	     
 	      /* Bouton Panel Ajout Moniteur */
 	      BenregistrerAM.addActionListener(this);
@@ -283,6 +291,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      /* Bouton Panel Modification Moniteur*/
 	      BModifierMM.addActionListener(this);
 	      BannulerMM.addActionListener(this);
+	      
+	      /***************** Bouton Panel Voiture ******************************/
+	      
+	      /* Bouton Panel Ajout Voiture */
+	      BenregistrerAV.addActionListener(this);
+	      BannulerAV.addActionListener(this);
 	      
 	     /********** Barre de Menu ***************/
 	     /* Ajout des différents menus dans la barre de menu */
@@ -325,25 +339,34 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		} 
 		else if (ae == MajouterMoniteur)
 		{
-			PAjoutm.setVisible(true);
+			/* Panel Moniteur */
 			PListem.setVisible(false);
+			PAjoutm.setVisible(true);
 			PModifm.setVisible(false);
+			
+			/* Panel Voiture */
+			PAjoutv.setVisible(false);
 			
 		}
 		else if (ae == MlisteMoniteur)
 		{
+			/* Panel Moniteur */
 			PListem.setVisible(true);
 			PAjoutm.setVisible(false);
 			PModifm.setVisible(false);
+			
+			/* Panel Voiture */
+			PAjoutv.setVisible(false);
+			
 			uneLecon.chargerMoniteurs();
 			
 			final Object [][] donnees= this.listeMoniteurs();
 			uneTableMon = new JTable(donnees, titreTableM);
-			JScrollPane uneScroll = new JScrollPane(uneTableMon);
+			JScrollPane uneScrollm = new JScrollPane(uneTableMon);
 			 
-			uneScroll.setBounds(10, 25, 280, 250);
+			uneScrollm.setBounds(10, 25, 280, 250);
             PListem.validate();
-            PListem.add(uneScroll);
+            PListem.add(uneScrollm);
             
              
             //action sur la liste des moniteurs
@@ -358,9 +381,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
       	    		
       	    		
       	    	
-      	    	 	PModifm.setVisible(true);
-      	    	 	PListem.setVisible(false);
-      	    	 	PAjoutm.setVisible(false);
+      	    		/* Panel Moniteur */
+      				PListem.setVisible(false);
+      				PAjoutm.setVisible(false);
+      				PModifm.setVisible(true);
+      				
+      				/* Panel Voiture */
+      				PAjoutv.setVisible(false);
       	    	 	
       	    	
       	    	 	// On declare un entier "ligne" qui retourne la ligne selectionné dans la table
@@ -387,9 +414,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		{
 			this.modifierMoniteur();
 			
+			/* Panel Moniteur */
 			PListem.setVisible(true);
-			PModifm.setVisible(false);
 			PAjoutm.setVisible(false);
+			PModifm.setVisible(false);
+			
+			/* Panel Voiture */
+			PAjoutv.setVisible(false);
 			
 			this.TnomMM.setText("");
 			this.TprenomMM.setText("");
@@ -399,6 +430,9 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		else if (ae == BannulerAM)
 		{
 			this.annulerMoniteur();
+			
+			this.TnomAM.setText("");
+			this.TprenomAM.setText("");
 		}
 		else if (ae == BannulerMM)
 		{
@@ -408,14 +442,84 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.TprenomMM.setText("");
 		}
 		else if (ae == MajouterVoiture)
-		{
-			PAjoutv.setVisible(true);
+		{	
+			/* Panel Moniteur */
 			PListem.setVisible(false);
 			PModifm.setVisible(false);
 			PAjoutm.setVisible(false);
+			
+			/* Panel Voiture */
+			PAjoutv.setVisible(true);
 		}
+		else if (ae == MlisteVoiture)
+		{
+			/* Panel Moniteur */
+			PListem.setVisible(false);
+			PAjoutm.setVisible(false);
+			PModifm.setVisible(false);
+			
+			/* Panel Voiture */
+			PListev.setVisible(true);
+			PAjoutv.setVisible(false);
+			
+			uneLecon.chargerVoitures();
+			
+			final Object [][] donnees= this.listeVoitures();
+			uneTableVoit = new JTable(donnees, titreTableV);
+			JScrollPane uneScrollv = new JScrollPane(uneTableVoit);
+			 
+			uneScrollv.setBounds(10, 25, 280, 250);
+            PListev.validate();
+            PListev.add(uneScrollv);
+            
+             
+            //action sur la liste des moniteurs
+             uneTableVoit.addMouseListener(new MouseAdapter() {
+   	    	 public void mouseClicked(MouseEvent e)
+   	    	 {
+   	            
+   	    	   if (e.getClickCount() == 1) 
+   	    	   { 
+   	    		
+      	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Voiture", JOptionPane.INFORMATION_MESSAGE);
+      	    		
+      	    		
+      	    	
+      	    		/* Panel Moniteur */
+      				PListem.setVisible(false);
+      				PAjoutm.setVisible(false);
+      				PModifm.setVisible(false);
+      				
+      				/* Panel Voiture */
+      				PListev.setVisible(false);
+      				PAjoutv.setVisible(false);
+      	    	 	
+      	    	
+      	    	 	// On declare un entier "ligne" qui retourne la ligne selectionné dans la table
+      	    	 	int ligne=0;
+      	    	 	ligne = uneTableVoit.getSelectedRow();
+   	    	       
+   	    	   }
+   	    	   else 
+   	    	    {
+   	    	    	 
+   	    	    	 	
+   	    	    }
+   	    	   }
+   	    	});
+		}
+		else if (ae == BenregistrerAV)
+		{
+			this.insererVoiture();
+			this.TimmatriculationAV.setText("");
+			this.TmodeleAV.setText("");
+			this.TdateachatAV.setText("");
+			this.TnbrkmAV.setText("");
+			this.TconsoAV.setText("");
+		}	
 	}
 	
+	/********** Methodes Moniteur ********************/
 	public Object [][] listeMoniteurs()
 	{
     	Object [] [] tab = new Object [this.uneLecon.getLesMoniteurs().size()] [3];
@@ -466,6 +570,41 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		 PAjoutm.setVisible(false);
 	     PModifm.setVisible(false);
 	 }
+	 
+	 /********** Methodes Voiture ********************/
+		public Object [][] listeVoitures()
+		{
+	    	Object [] [] tab = new Object [this.uneLecon.getLesVoitures().size()] [6];
+	    	for (int i=0; i<this.uneLecon.getLesVoitures().size(); i++)
+	    	{
+	    		tab[i] [0] = ""+ this.uneLecon.getLesVoitures().get(i).getIdv();
+	    		tab[i] [1] = ""+ this.uneLecon.getLesVoitures().get(i).getImmatriculation();
+	    		tab[i] [2] = ""+ this.uneLecon.getLesVoitures().get(i).getModele();
+	    		tab[i] [3] = ""+ this.uneLecon.getLesVoitures().get(i).getDateachat();
+	    		tab[i] [4] = ""+ this.uneLecon.getLesVoitures().get(i).getNbrkm();
+	    		tab[i] [5] = ""+ this.uneLecon.getLesVoitures().get(i).getConso();
+	   
+	    	}
+	    	return tab;
+	    }
+		public void insererVoiture ()
+	    {
+	        try{
+	            String immatriculation = TimmatriculationAV.getText();
+	            String modele = TmodeleAV.getText();
+	            String dateachat = TdateachatAV.getText();
+	            float nbrkm = Float.parseFloat(TnbrkmAV.getText());
+	            float conso = Float.parseFloat(TconsoAV.getText());
+	            
+	            
+	            Voiture uneVoiture = new Voiture(0, immatriculation, modele, dateachat, nbrkm, conso);
+	            uneLecon.insererVoiture(uneVoiture);
+	            JOptionPane.showMessageDialog(this, "Insertion Effectuée", "Insertion", JOptionPane.INFORMATION_MESSAGE);
+	        }
+	       catch (NumberFormatException exp){
+	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.ERROR_MESSAGE);
+	       }
+	    }
 	 
 	public void itemStateChanged(ItemEvent arg0) 
 	{ //TODO
