@@ -93,8 +93,10 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JLabel LimmatriculationAV = new JLabel("Immatriculation : ");
     private JLabel LmodeleAV = new JLabel("Modele : ");
     private JLabel LdateachatAV = new JLabel("Date Achat : ");
+    private JLabel LformatdateAV = new JLabel("AAAA-MM-JJ");
     private JLabel LnbrkmAV = new JLabel("Kilometrage : ");
-    private JLabel LconsoAV = new JLabel("Consommation L/100 : ");
+    private JLabel LconsoAV = new JLabel("Consommation : ");
+    private JLabel LconsoAV100 = new JLabel("L/100");
     private JTextField TimmatriculationAV = new JTextField();
     private JTextField TmodeleAV = new JTextField();
     private JTextField TdateachatAV = new JTextField();
@@ -110,7 +112,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JLabel LmodeleMV = new JLabel("Modele : ");
     private JLabel LdateachatMV = new JLabel("Date Achat : ");
     private JLabel LnbrkmMV = new JLabel("Kilometrage : ");
-    private JLabel LconsoMV = new JLabel("Consommation L/100 : ");
+    private JLabel LconsoMV = new JLabel("Consommation : ");
+    private JLabel LconsoMV100 = new JLabel("L/100");
     private JTextField TimmatriculationMV = new JTextField();
     private JTextField TmodeleMV = new JTextField();
     private JTextField TdateachatMV = new JTextField();
@@ -212,6 +215,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			
 		/* Panel Ajout Voiture */
 			
+			PAjoutv.setBounds(20, 0, 400, 400);
+			PAjoutv.setLayout(null);
+			PAjoutv.setVisible(false);
+			LtitrepnlAV.setBounds(145, 10, 100, 30 );
+			PAjoutv.add(LtitrepnlAV);
+			
 			LimmatriculationAV.setBounds(20, 70, 100, 20);
 		    PAjoutv.add(LimmatriculationAV);
 		    TimmatriculationAV.setBounds(120, 70, 100, 20);
@@ -226,6 +235,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		    PAjoutv.add(LdateachatAV);
 		    TdateachatAV.setBounds(120, 130, 100, 20);
 		    PAjoutv.add(TdateachatAV);
+		    LformatdateAV.setBounds(230, 130, 100, 20);
+		    PAjoutv.add(LformatdateAV);
 		    
 		    LnbrkmAV.setBounds(20, 160, 100, 20);
 		    PAjoutv.add(LnbrkmAV);
@@ -236,9 +247,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		    PAjoutv.add(LconsoAV);
 		    TconsoAV.setBounds(120, 190, 100, 20);
 		    PAjoutv.add(TconsoAV);
-
-		    BannulerAV.setBounds(20, 180, 100, 20);
-		    PAjoutv.add(BannulerMM);
+		    LconsoAV100.setBounds(230, 190, 100, 20);
+		    PAjoutv.add(LconsoAV100);
+		    
+		    BannulerAV.setBounds(40 ,250, 100, 20);
+		    PAjoutv.add(BannulerAV);
+		    BenregistrerAV.setBounds(190, 250, 100, 20);
+		    PAjoutv.add(BenregistrerAV);
 	      
 	      
 	    /* Ajout des panel sur le GetContent */
