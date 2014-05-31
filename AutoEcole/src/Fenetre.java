@@ -11,8 +11,10 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import javax.imageio.plugins.bmp.BMPImageWriteParam;
+
+
 import javax.swing.*;
+import java.awt.Toolkit;
 
 public class Fenetre extends JFrame implements ActionListener, ItemListener
 {	
@@ -122,17 +124,19 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JTextField TconsoMV = new JTextField();
     private JButton BannulerMV = new JButton("Annuler");
     private JButton BenregistrerMV = new JButton("Enregistrer");
+ 
     
 	public Fenetre()
 	{
-		/* Definition des colonnes des Tableaux des listes clients, moniteurs et voitures */
 		
-		// Tableau Moniteur
+		/** Definition des colonnes des Tableaux des listes clients, moniteurs et voitures **/
+		
+		// Tableau Moniteurs
 		titreTableM[0]="ID";
     	titreTableM[1]="Nom";
     	titreTableM[2]="Prenom";
     	
-    	// Tableau Voiture
+    	// Tableau Voitures
     	titreTableV[0]="ID";
     	titreTableV[1]="Immatriculation";
     	titreTableV[2]="Modele";
@@ -146,6 +150,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		this.getContentPane().setLayout(null);
 		// Rendre la fenêtre visible
 		this.setVisible(true);
+		// Fenêtre non redimensionnable
+		this.setResizable(false);
 		// Definition de la taille de la fenêtre
 		this.setBounds(0, 0, 550, 400);
 		// Demande de positionnement de notre objet au centre
@@ -163,47 +169,47 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		
 		
 		/* Panel Ajout Moniteur */
-		  PAjoutm.setBounds(50, 0, 300, 300);
+		  PAjoutm.setBounds(0, 0, 550, 400);
 	      PAjoutm.setLayout(null);
 	      PAjoutm.setVisible(false);
-	      LtitrepnlAM.setBounds(120, 20, 200, 20);
+	      LtitrepnlAM.setBounds(230, 5, 100, 30);
 	      PAjoutm.add(LtitrepnlAM);
 
-	      LnomAM.setBounds(20, 70, 100, 20);
+	      LnomAM.setBounds(150, 70, 100, 20);
 	      PAjoutm.add(LnomAM);
-	      TnomAM.setBounds(120, 70, 100, 20);
+	      TnomAM.setBounds(250, 70, 100, 20);
 	      PAjoutm.add(TnomAM);
 
-	      LprenomAM.setBounds(20, 100, 100, 20);
+	      LprenomAM.setBounds(150, 100, 100, 20);
 	      PAjoutm.add(LprenomAM);
-	      TprenomAM.setBounds(120, 100, 100, 20);
+	      TprenomAM.setBounds(250, 100, 100, 20);
 	      PAjoutm.add(TprenomAM);
 
-	      BannulerAM.setBounds(20, 180, 100, 20);
+	      BannulerAM.setBounds(140, 180, 100, 20);
 	      PAjoutm.add(BannulerAM);
-	      BenregistrerAM.setBounds(160, 180, 100, 20);
+	      BenregistrerAM.setBounds(300, 180, 100, 20);
 	      PAjoutm.add(BenregistrerAM);
 	      
 	    /* Panel Modification Moniteur */
-		  PModifm.setBounds(50, 0, 300, 300);
+		  PModifm.setBounds(0, 0, 550, 400);
 		  PModifm.setLayout(null);
 		  PModifm.setVisible(false);
-	      LtitrepnlModifm.setBounds(100, 20, 200, 20);
+	      LtitrepnlModifm.setBounds(230, 10, 150, 30);
 	      PModifm.add(LtitrepnlModifm);
 
-	      LnomMM.setBounds(20, 70, 100, 20);
+	      LnomMM.setBounds(150, 70, 100, 20);
 	      PModifm.add(LnomMM);
-	      TnomMM.setBounds(120, 70, 100, 20);
+	      TnomMM.setBounds(250, 70, 100, 20);
 	      PModifm.add(TnomMM);
 
-	      LprenomMM.setBounds(20, 100, 100, 20);
+	      LprenomMM.setBounds(150, 100, 100, 20);
 	      PModifm.add(LprenomMM);
-	      TprenomMM.setBounds(120, 100, 100, 20);
+	      TprenomMM.setBounds(250, 100, 100, 20);
 	      PModifm.add(TprenomMM);
 
-	      BannulerMM.setBounds(20, 180, 100, 20);
+	      BannulerMM.setBounds(140, 180, 100, 20);
 	      PModifm.add(BannulerMM);
-	      BModifierMM.setBounds(160, 180, 100, 20);
+	      BModifierMM.setBounds(300, 180, 100, 20);
 	      PModifm.add(BModifierMM);
 	      
 	      /************************ Les Panels Voiture ************************/
@@ -268,22 +274,19 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	    /************************ Les Panels Voitures ************************/
 	      getContentPane().add(PListev);
 		  getContentPane().add(PAjoutv);
-	      
-	     /********* Rendre les boutons cliquables ****************************/
-	      
-	      /* Bouton Barre de sous Menu Moniteur */
-		  MlisteMoniteur.addActionListener(this);
+		  
 	      MajouterMoniteur.addActionListener(this);
 	      
 	      /* Bouton Barre de sous Menu Voiture */
+
 	      MlisteVoiture.addActionListener(this);
 	      MajouterVoiture.addActionListener(this);
-	      
-	      /* Bouton Barre de sous Menu Programme */
 	      Mquitter.addActionListener(this);
 	      
 	      /***************** Bouton Panel Moniteur ******************************/
 	     
+	      MlisteMoniteur.addActionListener(this);
+	      
 	      /* Bouton Panel Ajout Moniteur */
 	      BenregistrerAM.addActionListener(this);
 	      BannulerAM.addActionListener(this);
@@ -307,6 +310,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      BarreMenu.add(MenuProgramme);
 	     
 	     /************ Ajout des sous-menus des menus *******************/
+	
 	     // Item du menu Client
 	     this.MenuClient.add(MlisteClient);
 	     this.MenuClient.add(MajouterClient);
@@ -318,6 +322,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	     // Item du Menu Voiture
 	     this.MenuVoiture.add(MlisteVoiture);
 	     this.MenuVoiture.add(MajouterVoiture);
+	     
 	     
 	     // Item du Menu Programme
 	     this.MenuProgramme.add(Mquitter);
@@ -471,9 +476,45 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			uneTableVoit = new JTable(donnees, titreTableV);
 			JScrollPane uneScrollv = new JScrollPane(uneTableVoit);
 			 
-			uneScrollv.setBounds(20, 50, 500, 250);
+			uneScrollv.setBounds(10, 50, 520, 250);
             PListev.validate();
             PListev.add(uneScrollv);
+            
+          //action sur la liste des moniteurs
+            uneTableVoit.addMouseListener(new MouseAdapter() {
+  	    	 public void mouseClicked(MouseEvent e)
+  	    	 {
+  	            
+  	    	   if (e.getClickCount() == 1) 
+  	    	   { 
+  	    		
+     	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Voiture", JOptionPane.INFORMATION_MESSAGE);
+     	    		
+     	    		
+     	    	
+     	    		/* Panel Moniteur */
+     				PListem.setVisible(false);
+     				PAjoutm.setVisible(false);
+     				PModifm.setVisible(true);
+     				
+     				/* Panel Voiture */
+     				PListev.setVisible(false);
+     				PAjoutv.setVisible(false);
+     				
+     	    	 	
+     	    	
+     	    	 	// On declare un entier "ligne" qui retourne la ligne selectionné dans la table
+     	    	 	int ligne=0;
+     	    	 	ligne = uneTableVoit.getSelectedRow();
+  	    	       
+  	    	   }
+  	    	   else 
+  	    	    {
+  	    	    	 
+  	    	    	 	
+  	    	    }
+  	    	   }
+  	    	});
    	 
 		}
 		else if (ae == BenregistrerAV)
