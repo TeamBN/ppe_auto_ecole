@@ -150,7 +150,7 @@ public class Lecon
 	        return this.LesMoniteurs;
 		}
 		
-		/********* Definition des méthodes pour le moniteur ***********/
+		/********* Definition des méthodes pour la Voiture ***********/
 		public void chargerVoitures()
 		{
 			String requete = "Select * from voiture;";
@@ -169,7 +169,7 @@ public class Lecon
 					String immatriculation = unRes.getString("immatriculation");
 					String modele = unRes.getString("modele");
 					String dateachat = unRes.getString("date achat");
-					int nbrkm = unRes.getInt("nbrkm");
+					float nbrkm = unRes.getInt("nbrkm");
 					float conso = unRes.getFloat("conso");
 					
 					Voiture uneVoiture = new Voiture(idv, immatriculation, modele, dateachat, nbrkm, conso);
@@ -188,7 +188,7 @@ public class Lecon
 		public void insererVoiture(Voiture uneVoit)
 		{
 			String requete ="insert into voiture (immatriculation, modele, dateachat, nbrkm, conso) values ('";
-			requete += uneVoit.getImmatriculation()+"', '"+uneVoit.getModele()+"', '"+uneVoit.getDateachat()+"', '"+uneVoit.getNbrkm()+"', '"+uneVoit.getConso()+"');";
+			requete += uneVoit.getImmatriculation()+"', '"+uneVoit.getModele()+"', '"+uneVoit.getDateachat()+"', "+uneVoit.getNbrkm()+", "+uneVoit.getConso()+");";
 				try
 				{
 					BDD uneBDD = new BDD ();
