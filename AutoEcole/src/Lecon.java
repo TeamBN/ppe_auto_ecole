@@ -153,7 +153,7 @@ public class Lecon
 		/********* Definition des méthodes pour la Voiture ***********/
 		public void chargerVoitures()
 		{
-			String requete = "Select * from voiture;";
+			String requete ="Select * from voiture;";
 			this.LesVoitures.clear();
 			
 			try
@@ -168,13 +168,12 @@ public class Lecon
 					int idv = unRes.getInt("idv");
 					String immatriculation = unRes.getString("immatriculation");
 					String modele = unRes.getString("modele");
-					String dateachat = unRes.getString("date achat");
-					float nbrkm = unRes.getInt("nbrkm");
+					String dateachat = unRes.getString("dateachat");
+					float nbrkm = unRes.getFloat("nbrkm");
 					float conso = unRes.getFloat("conso");
 					
 					Voiture uneVoiture = new Voiture(idv, immatriculation, modele, dateachat, nbrkm, conso);
 					this.LesVoitures.add(uneVoiture);
-					
 				}
 				unRes.close();
 				unStat.close();
@@ -185,6 +184,7 @@ public class Lecon
 				System.out.println("Erreur d'execution de la requête"+requete);
 			}
 		}
+		
 		public void insererVoiture(Voiture uneVoit)
 		{
 			String requete ="insert into voiture (immatriculation, modele, dateachat, nbrkm, conso) values ('";
@@ -241,8 +241,8 @@ public class Lecon
 				}
 		}
 			
-			public LinkedList<Voiture> getLesVoitures(){
-		        return this.LesVoitures;
-			}
+		public LinkedList<Voiture> getLesVoitures(){
+	        return this.LesVoitures;
+		}
 			
 }
