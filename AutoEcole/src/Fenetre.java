@@ -70,7 +70,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 
     
     /* Panel modification Moniteur = MM */
-    private JPanel Pmodifm = new JPanel();
+    private JPanel PModifm = new JPanel();
     private JLabel LtitrepnlModifm = new JLabel ("Modification Moniteur");
     private JLabel LnomMM = new JLabel("Nom :");
     private JLabel LprenomMM = new JLabel("Prenom :");
@@ -128,6 +128,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     	titreTableM[1]="Nom";
     	titreTableM[2]="Prenom";
     	
+    	// Tableau Voiture
+    	titreTableV[0]="ID";
+    	titreTableV[1]="Immatriculation";
+    	titreTableV[2]="Modele";
+    	titreTableV[3]="Kilometrage";
+    	titreTableV[4]="Consommation";
+    	
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
 		// Desactivation du Layout
@@ -173,42 +180,86 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PAjoutm.add(BenregistrerAM);
 	      
 	    /* Panel Modification Moniteur */
-		  Pmodifm.setBounds(50, 0, 300, 300);
-		  Pmodifm.setLayout(null);
-		  Pmodifm.setVisible(false);
+		  PModifm.setBounds(50, 0, 300, 300);
+		  PModifm.setLayout(null);
+		  PModifm.setVisible(false);
 	      LtitrepnlModifm.setBounds(100, 20, 200, 20);
-	      Pmodifm.add(LtitrepnlModifm);
+	      PModifm.add(LtitrepnlModifm);
 
 	      LnomMM.setBounds(20, 70, 100, 20);
-	      Pmodifm.add(LnomMM);
+	      PModifm.add(LnomMM);
 	      TnomMM.setBounds(120, 70, 100, 20);
-	      Pmodifm.add(TnomMM);
+	      PModifm.add(TnomMM);
 
 	      LprenomMM.setBounds(20, 100, 100, 20);
-	      Pmodifm.add(LprenomMM);
+	      PModifm.add(LprenomMM);
 	      TprenomMM.setBounds(120, 100, 100, 20);
-	      Pmodifm.add(TprenomMM);
+	      PModifm.add(TprenomMM);
 
 	      BannulerMM.setBounds(20, 180, 100, 20);
-	      Pmodifm.add(BannulerMM);
+	      PModifm.add(BannulerMM);
 	      BModifierMM.setBounds(160, 180, 100, 20);
-	      Pmodifm.add(BModifierMM);
+	      PModifm.add(BModifierMM);
 	      
 	      /************************ Les Panels Voiture ************************/
 	      
+	      /* Panel Liste Voiture */
+			PListev.setBounds(20, 30, 400, 400);
+			PListev.setLayout(null);
+			PListev.setVisible(false);
+			LtitrepnlLSTV.setBounds(115, 0, 100, 30 );
+			PListem.add(LtitrepnlLSTV);
+			
+		/* Panel Ajout Voiture */
+			
+			LimmatriculationAV.setBounds(20, 70, 100, 20);
+		    PAjoutv.add(LimmatriculationAV);
+		    TimmatriculationAV.setBounds(120, 70, 100, 20);
+		    PAjoutv.add(TimmatriculationAV);
+
+		    LmodeleAV.setBounds(20, 100, 100, 20);
+		    PAjoutv.add(LmodeleAV);
+		    TmodeleAV.setBounds(120, 100, 100, 20);
+		    PAjoutv.add(TprenomMM);
+		    
+		    LdateachatAV.setBounds(20, 130, 100, 20);
+		    PAjoutv.add(LdateachatAV);
+		    TdateachatAV.setBounds(120, 130, 100, 20);
+		    PAjoutv.add(TdateachatAV);
+		    
+		    LnbrkmAV.setBounds(20, 160, 100, 20);
+		    PAjoutv.add(LnbrkmAV);
+		    TnbrkmAV.setBounds(120, 160, 100, 20);
+		    PAjoutv.add(TnbrkmAV);
+		    
+		    LconsoAV.setBounds(20, 190, 100, 20);
+		    PAjoutv.add(LconsoAV);
+		    TconsoAV.setBounds(120, 190, 100, 20);
+		    PAjoutv.add(TconsoAV);
+
+		    BannulerAV.setBounds(20, 180, 100, 20);
+		    PAjoutv.add(BannulerMM);
+	      
 	      
 	    /* Ajout des panel sur le GetContent */
-	      /************************ Les Panels Moniteur ************************/
-	      getContentPane().add(PAjoutm);
-	      getContentPane().add(PListem);
-	      getContentPane().add(Pmodifm);
+	      
+		/************************ Les Panels Moniteur ************************/
+		  getContentPane().add(PListem);
+		  getContentPane().add(PAjoutm);
+		  getContentPane().add(PModifm);
+	      
+	    /************************ Les Panels Voitures ************************/
+	      getContentPane().add(PAjoutv);
 	      
 	     /********* Rendre les boutons cliquables ****************************/
 	      
 	      /* Bouton Barre de Menu */
 	      MajouterMoniteur.addActionListener(this);
 	      MlisteMoniteur.addActionListener(this);
-		  Mquitter.addActionListener(this);
+	      
+	      MajouterVoiture.addActionListener(this);
+		  
+	      Mquitter.addActionListener(this);
 	     
 	      /* Bouton Panel Ajout Moniteur */
 	      BenregistrerAM.addActionListener(this);
@@ -261,14 +312,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		{
 			PAjoutm.setVisible(true);
 			PListem.setVisible(false);
-			Pmodifm.setVisible(false);
+			PModifm.setVisible(false);
 			
 		}
 		else if (ae == MlisteMoniteur)
 		{
 			PListem.setVisible(true);
 			PAjoutm.setVisible(false);
-			Pmodifm.setVisible(false);
+			PModifm.setVisible(false);
 			uneLecon.chargerMoniteurs();
 			
 			final Object [][] donnees= this.listeMoniteurs();
@@ -292,7 +343,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
       	    		
       	    		
       	    	
-      	    	 	Pmodifm.setVisible(true);
+      	    	 	PModifm.setVisible(true);
       	    	 	PListem.setVisible(false);
       	    	 	PAjoutm.setVisible(false);
       	    	 	
@@ -322,7 +373,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.modifierMoniteur();
 			
 			PListem.setVisible(true);
-			Pmodifm.setVisible(false);
+			PModifm.setVisible(false);
 			PAjoutm.setVisible(false);
 			
 			this.TnomMM.setText("");
@@ -340,6 +391,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			
 			this.TnomMM.setText("");
 			this.TprenomMM.setText("");
+		}
+		else if (ae == MajouterVoiture)
+		{
+			PAjoutv.setVisible(true);
+			PListem.setVisible(false);
+			PModifm.setVisible(false);
+			PAjoutm.setVisible(false);
 		}
 	}
 	
@@ -391,7 +449,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 
 		 PListem.setVisible(true);
 		 PAjoutm.setVisible(false);
-	     Pmodifm.setVisible(false);
+	     PModifm.setVisible(false);
 	 }
 	 
 	public void itemStateChanged(ItemEvent arg0) 
