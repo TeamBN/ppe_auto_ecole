@@ -360,7 +360,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			
 			uneLecon.chargerMoniteurs();
 			
-			final Object [][] donnees= this.listeMoniteurs();
+			Object [][] donnees= this.listeMoniteurs();
 			uneTableMon = new JTable(donnees, titreTableM);
 			JScrollPane uneScrollm = new JScrollPane(uneTableMon);
 			 
@@ -464,49 +464,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			
 			uneLecon.chargerVoitures();
 			
-			final Object [][] donnees= this.listeVoitures();
+			Object [][] donnees= this.listeVoitures();
 			uneTableVoit = new JTable(donnees, titreTableV);
 			JScrollPane uneScrollv = new JScrollPane(uneTableVoit);
 			 
 			uneScrollv.setBounds(10, 25, 280, 250);
             PListev.validate();
             PListev.add(uneScrollv);
-            
-             
-            //action sur la liste des moniteurs
-             uneTableVoit.addMouseListener(new MouseAdapter() {
-   	    	 public void mouseClicked(MouseEvent e)
-   	    	 {
-   	            
-   	    	   if (e.getClickCount() == 1) 
-   	    	   { 
-   	    		
-      	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Voiture", JOptionPane.INFORMATION_MESSAGE);
-      	    		
-      	    		
-      	    	
-      	    		/* Panel Moniteur */
-      				PListem.setVisible(false);
-      				PAjoutm.setVisible(false);
-      				PModifm.setVisible(false);
-      				
-      				/* Panel Voiture */
-      				PListev.setVisible(false);
-      				PAjoutv.setVisible(false);
-      	    	 	
-      	    	
-      	    	 	// On declare un entier "ligne" qui retourne la ligne selectionné dans la table
-      	    	 	int ligne=0;
-      	    	 	ligne = uneTableVoit.getSelectedRow();
-   	    	       
-   	    	   }
-   	    	   else 
-   	    	    {
-   	    	    	 
-   	    	    	 	
-   	    	    }
-   	    	   }
-   	    	});
+   	 
 		}
 		else if (ae == BenregistrerAV)
 		{
