@@ -138,7 +138,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     	titreTableV[2]="Modele";
     	titreTableV[3]="Achat";
     	titreTableV[4]="Kilometrage";
-    	titreTableV[5]="Consommation";
+    	titreTableV[5]="Conso L/100";
     	
 		// Definition du titre pour la fenêtre
 		this.setTitle("Auto-Ecole Castellane");
@@ -147,7 +147,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		// Rendre la fenêtre visible
 		this.setVisible(true);
 		// Definition de la taille de la fenêtre
-		this.setBounds(100, 100, 400, 400);
+		this.setBounds(0, 0, 550, 400);
 		// Demande de positionnement de notre objet au centre
 		this.setLocationRelativeTo(null);
 		// Termine bien le processus lorsqu'on clique sur la croix rouge
@@ -155,10 +155,10 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		
 		/************************ Les Panels Moniteur ************************/
 		/* Panel Liste Moniteur */
-		PListem.setBounds(20, 30, 400, 400);
+		PListem.setBounds(0, 0, 550, 400);
 		PListem.setLayout(null);
 		PListem.setVisible(false);
-		LtitrepnlLSTM.setBounds(115, 0, 100, 30 );
+		LtitrepnlLSTM.setBounds(230, 5, 100, 30 );
 		PListem.add(LtitrepnlLSTM);
 		
 		
@@ -209,11 +209,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      /************************ Les Panels Voiture ************************/
 	      
 	      /* Panel Liste Voiture */
-			PListev.setBounds(20, 30, 500, 500);
+			PListev.setBounds(0, 0, 550, 400);
 			PListev.setLayout(null);
 			PListev.setVisible(false);
-			LtitrepnlLSTV.setBounds(115, 0, 100, 30 );
-			PListem.add(LtitrepnlLSTV);
+			LtitrepnlLSTV.setBounds(230, 5, 100, 30 );
+			PListev.add(LtitrepnlLSTV);
 			
 		/* Panel Ajout Voiture */
 			
@@ -345,6 +345,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PModifm.setVisible(false);
 			
 			/* Panel Voiture */
+			PListev.setVisible(false);
 			PAjoutv.setVisible(false);
 			
 		}
@@ -356,6 +357,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PModifm.setVisible(false);
 			
 			/* Panel Voiture */
+			PListev.setVisible(false);
 			PAjoutv.setVisible(false);
 			
 			uneLecon.chargerMoniteurs();
@@ -364,7 +366,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			uneTableMon = new JTable(donnees, titreTableM);
 			JScrollPane uneScrollm = new JScrollPane(uneTableMon);
 			 
-			uneScrollm.setBounds(10, 25, 280, 250);
+			uneScrollm.setBounds(20, 50, 500, 250);
             PListem.validate();
             PListem.add(uneScrollm);
             
@@ -449,6 +451,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PAjoutm.setVisible(false);
 			
 			/* Panel Voiture */
+			PListev.setVisible(false);
 			PAjoutv.setVisible(true);
 		}
 		else if (ae == MlisteVoiture)
@@ -468,7 +471,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			uneTableVoit = new JTable(donnees, titreTableV);
 			JScrollPane uneScrollv = new JScrollPane(uneTableVoit);
 			 
-			uneScrollv.setBounds(10, 25, 280, 250);
+			uneScrollv.setBounds(20, 50, 500, 250);
             PListev.validate();
             PListev.add(uneScrollv);
    	 
