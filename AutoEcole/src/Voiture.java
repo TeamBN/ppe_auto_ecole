@@ -1,8 +1,8 @@
 public class Voiture {
 	
 	protected String immatriculation, modele, dateachat;
-	protected int idv, nbrkm;
-	protected float conso;
+	protected int idv;
+	protected float conso, nbrkm;
 	
 	public Voiture ()
 	{
@@ -15,7 +15,7 @@ public class Voiture {
 		this.conso = 0;
 	}
 
-	public Voiture (int idv, String immatriculation, String modele, String dateachat, int nbrkm, float conso){
+	public Voiture (int idv, String immatriculation, String modele, String dateachat, float nbrkm, float conso){
 		//initialise les attributs de la classe avec les valeurs en arguments
 		this.idv = idv;
 		this.immatriculation = immatriculation;
@@ -30,7 +30,7 @@ public class Voiture {
 		this.modele = Console.saisirChaine("Saisir le modele");
 		this.immatriculation = Console.saisirChaine("Saisir l'immatriculation");
 		this.dateachat = Console.saisirChaine("Saisir la date d'achat");
-		this.nbrkm = Console.saisirEntier("Saisir le nombre de km");
+		this.nbrkm = Console.saisirReel("Saisir le nombre de km");
 		this.conso = Console.saisirReel("Saisir la consommation");
 	}
 	
@@ -61,7 +61,7 @@ public class Voiture {
 
 	public String getDateachat() {
 		return dateachat;
-	}
+	} 
 
 	public void setDateachat(String dateachat) {
 		this.dateachat = dateachat;
@@ -75,11 +75,11 @@ public class Voiture {
 		this.idv = idv;
 	}
 
-	public int getNbrkm() {
+	public float getNbrkm() {
 		return nbrkm;
 	}
 
-	public void setNbrkm(int nbrkm) {
+	public void setNbrkm(float nbrkm) {
 		this.nbrkm = nbrkm;
 	}
 
