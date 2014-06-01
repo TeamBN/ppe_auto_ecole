@@ -1,4 +1,4 @@
-﻿/*------------------------------------------Table ExamenP---------------------------------------------
+﻿TEST/*------------------------------------------Table ExamenP---------------------------------------------
 
 -- Vérifier l'obtention du code dans les 24 dernier mois avant le passage du permis, et la majorité du client.
 --Rajouter +1 au nombre de passage de permis si un client est déjà sur la table, sinon 1.
