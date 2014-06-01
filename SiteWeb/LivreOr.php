@@ -10,7 +10,7 @@ session_destroy();
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 	<link rel="stylesheet" href="styleinscription.css" />
 	<link rel="shortcut icon" href="images/favicon.png" >
-	<title>CastellaneAuto - Inscription</title>
+	<title>CastellaneAuto - Livre d'Or</title>
 </head>
 
 <body>
@@ -37,15 +37,15 @@ session_destroy();
 			<div id="bloc_noir">			
 				<div class="bloc-title">
 					<div class="titreBorderG"></div>
-					<h3>Les photocopies obligatoires</h3>
+					<h3>Messages</h3>
 					<div class="titreBorderD"></div>
 				</div>
 				<div class="bloc-content">
 					<div class="bloc-content-4col">
-						<h2># Pièce d'identité (recto-verso) en cours de validité. <br />
-						<br /># Certificat de participation à la JAPD si vous avez entre 18 et 25 ans.<br />
-						<br /># ASSR2 ou ASR (né(e) après le 01/01/1988). <br />
-						</h2>
+						<h2>-Aucun pour le Moment- <br /> Soyez le premier!<?php
+								
+						
+							?></h2>
 					</div>
 					
 				</div>
@@ -55,17 +55,51 @@ session_destroy();
 			<div id="bloc_noir">			
 				<div class="bloc-title">
 					<div class="titreBorderG"></div>
-					<h3>Les autres documents à fournir</h3>
+					<h3>Postez le votre !</h3>
 					<div class="titreBorderD"></div>
 				</div>
 				<div class="bloc-content">
-					<div class="bloc-content-4col">
+					<div class="bloc-content-1col">
 						<h2>
-						# 2 à 5 photographies d'identité récentes sur fond blanc, de face, tête nue format 3.5 x 4.5 (non scannées, non découpées)<br />
-						<br /># Des enveloppes A4 ou A5 vierges sans adresse <br />
-						<br /># Des timbres (tarif en vigueur)<br />
-						<br /># Des enveloppes lettre MAX PRIORITAIRE 50 g (courrier suivi)<br />
+							<?php
+							try
+							{
+								$bdd=new PDO('mysql:host=localhost;dbname=test', 'root', '');
+							}
+							catch (Exception $e)
+							{
+								die('Erreur : ' . $e->getMessage());
+							}
+								
+								
+							?>
 						</h2>
+						<div class="avis">
+						<form action="LivreOr_post.php" method="post">
+						
+							<tr>
+								<td>
+									<label for="pseudo">Pseudo</label>
+									<br />
+								
+									<input type="varchar" name="pseudo" id="pseudo"/>
+								</td>
+								<br />
+							</tr>
+							<tr>
+								<td>
+									<label for="message">Message</label> 
+								
+									<textarea id="message" name="message" rows="2" cols="30">Votre avis sur nous ?</textarea>
+								</td>
+							</tr>
+							
+							<tr>
+								<input type="submit" value="Envoyer"/>
+							</tr>
+						
+						</form>
+						</div>
 					</div>
 					
 				</div>

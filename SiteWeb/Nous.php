@@ -8,9 +8,9 @@ session_destroy();
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-	<link rel="stylesheet" href="styleinscription.css" />
+	<link rel="stylesheet" href="style.css" />
 	<link rel="shortcut icon" href="images/favicon.png" >
-	<title>CastellaneAuto - Inscription</title>
+	<title>CastellaneAuto - Nous</title>
 </head>
 
 <body>
@@ -20,31 +20,28 @@ session_destroy();
 				<img src="images/logo.png" alt="Logo CastellaneAuto" id="logo" border="0"/>
 			</a>
 			<?php 
-				
-					require("includes/noob.php");
-				
-				
+			require("includes/noob.php");
+
 			?> 
 		</div>
 	</header>
 	<div id="contenu_body" class="reprezent">
-		<?php			
-					require("includes/Navquidam.php");
-		
-		?>
-		
+		<?php 			
+					require("includes/Navquidam.php");				
+				?>
 		<section id="menu_droite">
 			<div id="bloc_noir">			
 				<div class="bloc-title">
 					<div class="titreBorderG"></div>
-					<h3>Les photocopies obligatoires</h3>
+					<h3>Horaires</h3>
 					<div class="titreBorderD"></div>
 				</div>
 				<div class="bloc-content">
 					<div class="bloc-content-4col">
-						<h2># Pièce d'identité (recto-verso) en cours de validité. <br />
-						<br /># Certificat de participation à la JAPD si vous avez entre 18 et 25 ans.<br />
-						<br /># ASSR2 ou ASR (né(e) après le 01/01/1988). <br />
+						<h2>
+						Lundi - Vendredi : 9h30->20h<br />
+						<br />Samedi - Dimanche : 10h->18h<br />
+						<br />Jours fériés : Ouvert <br />
 						</h2>
 					</div>
 					
@@ -55,16 +52,35 @@ session_destroy();
 			<div id="bloc_noir">			
 				<div class="bloc-title">
 					<div class="titreBorderG"></div>
-					<h3>Les autres documents à fournir</h3>
+					<h3>Nous Contacter</h3>
 					<div class="titreBorderD"></div>
 				</div>
 				<div class="bloc-content">
 					<div class="bloc-content-4col">
 						<h2>
-						# 2 à 5 photographies d'identité récentes sur fond blanc, de face, tête nue format 3.5 x 4.5 (non scannées, non découpées)<br />
-						<br /># Des enveloppes A4 ou A5 vierges sans adresse <br />
-						<br /># Des timbres (tarif en vigueur)<br />
-						<br /># Des enveloppes lettre MAX PRIORITAIRE 50 g (courrier suivi)<br />
+						14 Boulevard Baille - 13006 Marseille<br />
+						<br />CasteAutoInfos@gmail.com<br />
+						<br />04 56 28 41 00<br />												
+						</h2>
+					</div>
+					
+				</div>
+				<div class="clear"></div>			
+			</div>
+			
+			<div id="bloc_noir">			
+				<div class="bloc-title">
+					<div class="titreBorderG"></div>
+					<h3>Mentions Légales</h3>
+					<div class="titreBorderD"></div>
+				</div>
+				<div class="bloc-content">
+					<div class="bloc-content-4col">
+						<h2>
+						Raison sociale : SARL<br />
+						<br />Le siège social : 14 Boulevard Baille - 13006 Marseille<br />
+						<br />04 56 28 41 00<br />
+						<br />Monsieur Jeremy Foster<br />																		
 						</h2>
 					</div>
 					
@@ -73,9 +89,6 @@ session_destroy();
 			</div>
 			
 		</section>
-		
-		
-		
 		<div class="clear"></div>
 	</div>
 	<?php include("includes/footer.php"); ?>

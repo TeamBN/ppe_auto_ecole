@@ -1,4 +1,4 @@
-/************************************* Polices d'Ã©criture  // Reset ********************************************/
+/************************************* Polices d'écriture  // Reset ********************************************/
 @font-face{
     font-family: 'champagne__limousinesregular';
     src: url('fonts/champagne_limousines-webfont.eot');
@@ -26,7 +26,7 @@ mark{
 }
 
 
-/************************************* PropriÃ©tÃ©s du header ********************************************/
+/************************************* Propriétés du header ********************************************/
 
 header{
 	background: url(images/header.png) top;
@@ -99,7 +99,7 @@ input[type=text], input[type=login], input[type=password]{
 		margin-left:0;
 	}
 }
-/************************************* PropriÃ©tÃ©s du content ********************************************/
+/************************************* Propriétés du content ********************************************/
 
 
 #bloc_principal{
@@ -116,7 +116,7 @@ input[type=text], input[type=login], input[type=password]{
 	padding-bottom:20px;
 }
 
-/************************************* PropriÃ©tÃ©s du Menu dÃ©roulant de gauche ********************************************/
+/************************************* Propriétés du Menu déroulant de gauche ********************************************/
 
 #menu_gauche{
 	float: left;
@@ -220,12 +220,15 @@ ul a:active{
 }
 
 
-/************************************* PropriÃ©tÃ©s des blocs centraux ********************************************/
+/************************************* Propriétés des blocs centraux ********************************************/
 
 #bloc_gris1, #bloc_gris2{
 	background-color:#EBEBEB;
 	border-radius:4px;
 	/*border-radius:12px;*/
+}
+.avis{
+	padding-left: 100%;
 }
 
 p{
@@ -400,7 +403,7 @@ h4{
 }
 
 
-/************************************* PropriÃ©tÃ©s du footer ********************************************/
+/************************************* Propriétés du footer ********************************************/
 
 #footer{
 	height: 150px;
