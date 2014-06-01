@@ -196,8 +196,10 @@ public class Lecon
 		
 		public void modifierVoiture(Voiture uneVoit)
 		{
-			String requete ="Update voiture set immatriculation='"+uneVoit.getImmatriculation()+"', modele='"+uneVoit.getModele()+"', ";
-			requete += "dateachat='"+uneVoit.getDateachat()+"', nbrkm='"+uneVoit.getNbrkm()+"', conso='"+uneVoit.getConso()+"'WHERE idv="+uneVoit.getIdv()+";";
+			String requete ="Update voiture set immatriculation='"+uneVoit.getImmatriculation()+"', modele='"+uneVoit.getModele()+"', dateachat='"+uneVoit.getDateachat()+"', nbrkm="+uneVoit.getNbrkm()+", conso="+uneVoit.getConso()+"WHERE idv="+uneVoit.getIdv()+";";
+			
+			
+	
 				try
 				{
 					BDD uneBDD = new BDD ();
