@@ -47,23 +47,22 @@ Conso DECIMAL (3,2)
 Engine = InnoDB;
 
 CREATE TABLE Lecon (
-IdNumLE int(3) not null AUTO_INCREMENT Primary key,
-NomLE varchar(20),
-TypeLE int,
+Id_lecon int(3) not null AUTO_INCREMENT Primary key,
+Titre_lecon varchar(20) not null,
 IdM int(11) not null, Foreign Key (IdM) References Moniteur (IdM),
 IdC int not null, Foreign Key (IdC) References Client (IdC),
-IdV int(3) not null, FOREIGN KEY (IdV) REFERENCES Voiture (IdV)
-)
-ENGINE = InnoDB;
-
-CREATE TABLE Planning (
-IdNumLE int(3), Foreign Key (IdNumLE) References Lecon (IdNumLE),
-IdM int(2), Foreign Key (IdM) References Moniteur (IdM),
-IdC int(3), Foreign Key (IdC) References Client (IdC),
+IdV int(3), FOREIGN KEY (IdV) REFERENCES Voiture (IdV),
 D_Debut DATETIME not null,
 D_Fin DATETIME not null
 )
-Engine = InnoDB;
+ENGINE = InnoDB;
+
+CREATE TABLE IntervalLecon (
+Id_lecon int(3), Foreign Key (Id_lecon) References Lecon (Id_lecon),
+D_Debut DATETIME not null,
+D_Fin DATETIME not null
+)
+Engine = InnoDB; 
 
 CREATE TABLE utiliservoiture (
 IdV int(3) NOT NULL,
