@@ -24,7 +24,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	
 	/**********************************************************/
 	private Lecon uneLecon = new Lecon();
-	
+
 	
 	/***************** Barre de Menu **************************/
 	private JMenuBar BarreMenu = new JMenuBar();
@@ -401,7 +401,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			JScrollPane uneScrollm = new JScrollPane(uneTableMon);
 			 
 			uneScrollm.setBounds(20, 50, 500, 250);
-            PListem.validate();
+			PListem.removeAll();
             PListem.add(uneScrollm);
             
              
@@ -424,6 +424,13 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
       				
       				/* Panel Voiture */
       				PAjoutv.setVisible(false);
+      				
+      				int ligneSelectionne = uneTableMon.getSelectedRow();
+          			//on récupére la valeur de la première colonne de la ligne sélectionné
+          			uneTableMon.getValueAt(ligneSelectionne, 0);
+          				
+          			System.out.println(""+uneTableMon.getValueAt(ligneSelectionne, 0));
+          			
       	    	 	
    	    	   }
    	    	   else 
@@ -452,17 +459,27 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.insererMoniteur();
 			this.TnomAM.setText("");
 			this.TprenomAM.setText("");
+			
+			/* Panel Moniteur */
+			PListem.setVisible(true);
+			PAjoutm.setVisible(false);
+			PModifm.setVisible(false);
+			
+			/* Panel Voiture */
+			PListev.setVisible(false);
+			PAjoutv.setVisible(false);
 		}
 		else if (ae == BannulerAM)
 		{
 			this.annulerMoniteur();
-			
 			this.TnomAM.setText("");
 			this.TprenomAM.setText("");
 		}
 		else if(ae == BModifierMM)
 		{
+			
 			this.modifierMoniteur();
+			
 			
 			/* Panel Moniteur */
 			PListem.setVisible(true);
@@ -479,6 +496,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		else if (ae == BannulerMM)
 		{
 			this.annulerMoniteur();
+			PListem.removeAll();
 			
 			this.TnomMM.setText("");
 			this.TprenomMM.setText("");
@@ -494,6 +512,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PListev.setVisible(true);
 			PAjoutv.setVisible(false);
 			
+			
 			uneLecon.chargerVoitures();
 			
 			Object [][] donnees= this.listeVoitures();
@@ -501,7 +520,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			JScrollPane uneScrollv = new JScrollPane(uneTableVoit);
 			 
 			uneScrollv.setBounds(10, 50, 520, 250);
-            PListev.validate();
             PListev.add(uneScrollv);
             
           //action sur la liste des voitures
@@ -525,6 +543,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
      				PListev.setVisible(false);
      				PAjoutv.setVisible(false);
      				PModifv.setVisible(true);
+     				
+     				
   	    	       
   	    	   }
   	    	   else 
@@ -551,6 +571,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		else if (ae == BenregistrerAV)
 		{
 			this.insererVoiture();
+			PListev.removeAll();
 			
 			/* Panel Moniteur */
 			PListem.setVisible(false);
