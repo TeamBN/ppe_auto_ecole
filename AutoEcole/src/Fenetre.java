@@ -15,6 +15,7 @@ import java.util.LinkedList;
 
 import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.swing.*;
+import java.awt.Toolkit;
 
 public class Fenetre extends JFrame implements ActionListener, ItemListener
 {	
@@ -130,6 +131,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     
 	public Fenetre()
 	{
+		setIconImage(new ImageIcon(this.getClass().getResource("favicon.png")).getImage());
 		
 		/** Definition des colonnes des Tableaux des listes clients, moniteurs et voitures **/
 		
