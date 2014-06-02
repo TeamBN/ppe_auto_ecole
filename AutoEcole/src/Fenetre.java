@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import javax.imageio.plugins.bmp.BMPImageWriteParam;
+import javax.imageio.*;
 import javax.swing.*;
 import java.awt.Toolkit;
 
@@ -51,6 +52,20 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	/* Sous menu Programme */
 	private JMenuItem Mquitter = new JMenuItem ("Quitter");
 	private JMenuItem Mapropos = new JMenuItem ("À propos");
+	
+	/* Image des sous Menus */
+	
+	private Icon ImgMlisteClient = new ImageIcon(this.getClass().getResource("\\images\\icones\\listeclient.png"));
+	private Icon ImgMajouterClient = new ImageIcon(this.getClass().getResource("\\images\\icones\\ajoutclient.png"));
+	
+	private Icon ImgMlisteMoniteur = new ImageIcon(this.getClass().getResource("\\images\\icones\\listemoniteur.png"));
+	private Icon ImgMajouterMoniteur = new ImageIcon(this.getClass().getResource("\\images\\icones\\ajoutmoniteur.png"));
+	
+	private Icon ImgMlisteVoiture = new ImageIcon(this.getClass().getResource("\\images\\icones\\listevoiture.png"));
+	private Icon ImgMajouterVoiture = new ImageIcon(this.getClass().getResource("\\images\\icones\\ajoutvoiture.png"));
+	
+	private Icon ImgMquitter = new ImageIcon(this.getClass().getResource("\\images\\icones\\quitter.png"));
+	private Icon ImgMapropos = new ImageIcon(this.getClass().getResource("\\images\\icones\\information.png"));
 	
 	
 	/****************************** Panel **********************************/
@@ -131,7 +146,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     
 	public Fenetre()
 	{
-		setIconImage(new ImageIcon(this.getClass().getResource("favicon.png")).getImage());
+		setIconImage(new ImageIcon(this.getClass().getResource("images\\favicon.png")).getImage());
 		
 		/** Definition des colonnes des Tableaux des listes clients, moniteurs et voitures **/
 		
@@ -319,17 +334,35 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		  getContentPane().add(PAjoutv);
 		  getContentPane().add(PModifv);
 		  
+		  /* Ajout d'image dans les Menus Items */
+		  MlisteClient.setIcon(ImgMlisteClient);
+		  MajouterClient.setIcon(ImgMajouterClient);
+		  
+		  MlisteMoniteur.setIcon(ImgMlisteMoniteur);
+		  MajouterMoniteur.setIcon(ImgMajouterMoniteur);
+		  
+		  MlisteVoiture.setIcon(ImgMlisteVoiture);
+		  MajouterVoiture.setIcon(ImgMajouterVoiture);
+		  
+		  Mquitter.setIcon(ImgMquitter);
+		  Mapropos.setIcon(ImgMapropos);
+		  
+		  
 		  /* Bouton Barre Menu */
+
 		  MlisteClient.addActionListener(this);
 		  MajouterClient.addActionListener(this);
 		  
+		  
 		  MlisteMoniteur.addActionListener(this);
 		  MajouterMoniteur.addActionListener(this);
-	      
+		  
+		  
 	      MlisteVoiture.addActionListener(this);
 	      MajouterVoiture.addActionListener(this);
 	      
 	      Mquitter.addActionListener(this);
+	      Mapropos.addActionListener(this);
 	      
 	      /* Bouton Panel Ajout Moniteur */
 	      BenregistrerAM.addActionListener(this);
