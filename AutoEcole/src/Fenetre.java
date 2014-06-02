@@ -353,12 +353,10 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		  MlisteClient.addActionListener(this);
 		  MajouterClient.addActionListener(this);
 		  
-		  
 		  MlisteMoniteur.addActionListener(this);
 		  MajouterMoniteur.addActionListener(this);
 		  
-		  
-	      MlisteVoiture.addActionListener(this);
+		  MlisteVoiture.addActionListener(this);
 	      MajouterVoiture.addActionListener(this);
 	      
 	      Mquitter.addActionListener(this);
@@ -428,17 +426,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			/* Panel Voiture */
 			PListev.setVisible(false);
 			PAjoutv.setVisible(false);
-			
-			uneLecon.chargerMoniteurs();
-			
-			Object [][] donnees= this.listeMoniteurs();
-			uneTableMon = new JTable(donnees, titreTableM);
-			JScrollPane uneScrollm = new JScrollPane(uneTableMon);
-			 
-			uneScrollm.setBounds(20, 50, 500, 250);
-			PListem.removeAll();
-            PListem.add(uneScrollm);
             
+			chargerTableauMon();
              
             //action sur la liste des moniteurs
              uneTableMon.addMouseListener(new MouseAdapter() {
@@ -460,11 +449,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
       				/* Panel Voiture */
       				PAjoutv.setVisible(false);
       				
-      				int ligneSelectionne = uneTableMon.getSelectedRow();
+      				int ligneListeMon = uneTableMon.getSelectedRow();
           			//on récupére la valeur de la première colonne de la ligne sélectionné
-          			uneTableMon.getValueAt(ligneSelectionne, 0);
+          			uneTableMon.getValueAt(ligneListeMon, 0);
           				
-          			System.out.println(""+uneTableMon.getValueAt(ligneSelectionne, 0));
+          			System.out.println(""+uneTableMon.getValueAt(ligneListeMon, 0));
           			
       	    	 	
    	    	   }
@@ -491,9 +480,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		}
 		else if (ae == BenregistrerAM)
 		{
-			this.insererMoniteur();
-			this.TnomAM.setText("");
-			this.TprenomAM.setText("");
 			
 			/* Panel Moniteur */
 			PListem.setVisible(true);
@@ -503,6 +489,9 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			/* Panel Voiture */
 			PListev.setVisible(false);
 			PAjoutv.setVisible(false);
+			
+			this.insererMoniteur();
+			
 		}
 		else if (ae == BannulerAM)
 		{
@@ -533,6 +522,15 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.annulerMoniteur();
 			PListem.removeAll();
 			
+			/* Panel Moniteur */
+			PListem.setVisible(true);
+			PAjoutm.setVisible(false);
+			PModifm.setVisible(false);
+			
+			/* Panel Voiture */
+			PListev.setVisible(true);
+			PAjoutv.setVisible(false);
+			
 			this.TnomMM.setText("");
 			this.TprenomMM.setText("");
 		}	
@@ -547,15 +545,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PListev.setVisible(true);
 			PAjoutv.setVisible(false);
 			
-			
-			uneLecon.chargerVoitures();
-			
-			Object [][] donnees= this.listeVoitures();
-			uneTableVoit = new JTable(donnees, titreTableV);
-			JScrollPane uneScrollv = new JScrollPane(uneTableVoit);
-			 
-			uneScrollv.setBounds(10, 50, 520, 250);
-            PListev.add(uneScrollv);
+			chargerTableauVoit();
             
           //action sur la liste des voitures
             uneTableVoit.addMouseListener(new MouseAdapter() {
@@ -579,8 +569,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
      				PAjoutv.setVisible(false);
      				PModifv.setVisible(true);
      				
-     				
-  	    	       
+     				int ligneListeVoit = uneTableVoit.getSelectedRow();
+          			//on récupére la valeur de la première colonne de la ligne sélectionné
+     				uneTableVoit.getValueAt(ligneListeVoit, 0);
+          				
+          			System.out.println(""+uneTableVoit.getValueAt(ligneListeVoit, 0));
+          			
   	    	   }
   	    	   else 
   	    	    {
@@ -701,6 +695,20 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     	return tab;
     }
 	
+	public void chargerTableauMon()
+	{
+		uneLecon.chargerMoniteurs();
+		
+		Object [][] donnees= this.listeMoniteurs();
+		uneTableMon = new JTable(donnees, titreTableM);
+		JScrollPane uneScrollm = new JScrollPane(uneTableMon);
+		 
+		uneScrollm.setBounds(20, 50, 500, 250);
+		PListem.removeAll();
+        PListem.add(uneScrollm);
+		
+	}
+	
 	public void insererMoniteur ()
 	    {
 	        try{
@@ -709,15 +717,21 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	            Moniteur unMoniteur = new Moniteur(0, nomm, prenomm);
 	            uneLecon.insererMoniteur(unMoniteur);
 	            JOptionPane.showMessageDialog(this, "Insertion Effectuée", "Insertion", JOptionPane.INFORMATION_MESSAGE);
+	            
+	            chargerTableauMon();
+	            
 	        }
 	       catch (NumberFormatException exp){
 	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.ERROR_MESSAGE);
 	       }
 	    }
 	
+	
 	public void modifierMoniteur ()
     {
         try{
+        	
+        	
         	int idmm = uneTableMon.getSelectedRow()+1;
             String nomm = TnomMM.getText();
             String prenomm = TprenomMM.getText();
@@ -725,6 +739,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
             uneLecon.modifierMoniteur(unMoniteur);
             JOptionPane.showMessageDialog(this, "Modification Effectué", "Insertion", JOptionPane.INFORMATION_MESSAGE);
             
+            chargerTableauMon();
         }
        catch (NumberFormatException exp){
            JOptionPane.showMessageDialog(this, "Modification échouée", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -735,6 +750,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	
 	 public void annulerMoniteur ()
 	 {
+		 chargerTableauMon();
 
 		 PListem.setVisible(true);
 		 PAjoutm.setVisible(false);
@@ -743,6 +759,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	 
 	 public void annulerVoiture ()
 	 {
+		 chargerTableauVoit();
 
 		 PListev.setVisible(true);
 		 PAjoutv.setVisible(false);
@@ -765,6 +782,20 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	    	}
 	    	return tab;
 	    }
+		
+		public void chargerTableauVoit()
+		{
+			uneLecon.chargerVoitures();
+			
+			Object [][] donnees= this.listeVoitures();
+			uneTableVoit = new JTable(donnees, titreTableV);
+			JScrollPane uneScrollv = new JScrollPane(uneTableVoit);
+			 
+			uneScrollv.setBounds(20, 50, 500, 250);
+			PListev.removeAll();
+	        PListev.add(uneScrollv);
+			
+		}
 		public void insererVoiture ()
 	    {
 	        try{
@@ -778,6 +809,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	            Voiture uneVoiture = new Voiture(0, immatriculation, modele, dateachat, nbrkm, conso);
 	            uneLecon.insererVoiture(uneVoiture);
 	            JOptionPane.showMessageDialog(this, "Insertion Effectuée", "Insertion", JOptionPane.INFORMATION_MESSAGE);
+	            
+	            chargerTableauVoit();
 	        }
 	       catch (NumberFormatException exp){
 	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -787,7 +820,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		public void modifierVoiture ()
 	    {
 	        try{
-	        	 int idv = uneTableVoit.getSelectedRow()+1;
+	        	 int idv = uneTableVoit.getSelectedRow()+1; 
 	        	 String immatriculation = TimmatriculationMV.getText();
 		         String modele = TmodeleMV.getText();
 		         String dateachat = TdateachatMV.getText();
@@ -796,7 +829,9 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		         
 		         Voiture uneVoiture = new Voiture(idv, immatriculation, modele, dateachat, nbrkm, conso);
 		         uneLecon.modifierVoiture(uneVoiture);
-	            JOptionPane.showMessageDialog(this, "Modification Effectué", "Insertion", JOptionPane.INFORMATION_MESSAGE);
+		         JOptionPane.showMessageDialog(this, "Modification Effectué", "Insertion", JOptionPane.INFORMATION_MESSAGE);
+		         
+		         chargerTableauVoit();
 	            
 	        }
 	       catch (NumberFormatException exp){
