@@ -68,6 +68,24 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	private Icon ImgMquitter = new ImageIcon(this.getClass().getResource("\\images\\icones\\quitter.png"));
 	private Icon ImgMapropos = new ImageIcon(this.getClass().getResource("\\images\\icones\\information.png"));
 	
+	/* Image des Boutons */
+	
+	private Icon imgBannulerAM = new ImageIcon(this.getClass().getResource("\\images\\icones\\annuler.png"));
+	private Icon imgBenregistrerAM = new ImageIcon(this.getClass().getResource("\\images\\icones\\valider.png"));
+	
+	private Icon imgBannulerMM = new ImageIcon(this.getClass().getResource("\\images\\icones\\edit_annuler.png"));
+	private Icon imgBsuppressionMM = new ImageIcon(this.getClass().getResource("\\images\\icones\\delete.png"));
+	private Icon imgMBmodifierMM = new ImageIcon(this.getClass().getResource("\\images\\icones\\edit_valider.png"));
+	
+	private Icon imgBannulerAV = new ImageIcon(this.getClass().getResource("\\images\\icones\\annuler.png"));
+	private Icon imgBenregistrerAV = new ImageIcon(this.getClass().getResource("\\images\\icones\\valider.png"));
+	
+	private Icon imgBannulerMV = new ImageIcon(this.getClass().getResource("\\images\\icones\\edit_annuler.png"));
+	private Icon imgBsuppressionMV = new ImageIcon(this.getClass().getResource("\\images\\icones\\delete.png"));
+	private Icon imgMBmodifierMV = new ImageIcon(this.getClass().getResource("\\images\\icones\\edit_valider.png"));
+	
+	
+	
 	
 	/****************************** Panel **********************************/
 
@@ -98,6 +116,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JTextField TprenomMM = new JTextField();
     private JButton BannulerMM = new JButton("Annuler");
     private JButton BModifierMM = new JButton("Modifier");
+    private JButton BsuppressionMM = new JButton("Suppression");
     
     /************************ Les Panels Voiture  ************************/
     
@@ -143,6 +162,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     private JTextField TconsoMV = new JTextField();
     private JButton BannulerMV = new JButton("Annuler");
     private JButton BModifierMV = new JButton("Modifier");
+    private JButton BsuppressionMV = new JButton("Suppression");
  
     
 	public Fenetre()
@@ -207,7 +227,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 
 	      BannulerAM.setBounds(140, 180, 100, 20);
 	      PAjoutm.add(BannulerAM);
-	      BenregistrerAM.setBounds(300, 180, 100, 20);
+	      BenregistrerAM.setBounds(300, 180, 105, 20);
 	      PAjoutm.add(BenregistrerAM);
 	      
 	    /* Panel Modification Moniteur */
@@ -231,6 +251,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      PModifm.add(BannulerMM);
 	      BModifierMM.setBounds(300, 180, 100, 20);
 	      PModifm.add(BModifierMM);
+	      BsuppressionMM.setBounds(10 ,320, 110, 20);
+	      PModifm.add(BsuppressionMM);
 	      
 	      /************************ Les Panels Voiture ************************/
 	      
@@ -280,10 +302,10 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		    
 		    BannulerAV.setBounds(120 ,250, 100, 20);
 		    PAjoutv.add(BannulerAV);
-		    BenregistrerAV.setBounds(300, 250, 100, 20);
+		    BenregistrerAV.setBounds(300, 250, 105, 20);
 		    PAjoutv.add(BenregistrerAV);
 		    
-		  /* Panel Modification Moniteur */
+		  /* Panel Modification Voiture */
 			PModifv.setBounds(0, 0, 550, 400);
 			PModifv.setLayout(null);
 			PModifv.setVisible(false);
@@ -323,6 +345,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PModifv.add(BannulerMV);
 			BModifierMV.setBounds(300, 250, 100, 20);
 			PModifv.add(BModifierMV);
+			BsuppressionMV.setBounds(10 ,320, 110, 20);
+		    PModifv.add(BsuppressionMV);
 	      
 	      
 	    /* Ajout des panel sur le GetContent */
@@ -348,6 +372,22 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		  Mquitter.setIcon(ImgMquitter);
 		  Mapropos.setIcon(ImgMapropos);
 		  
+		  /* Ajout d'image sur les boutons */
+		  
+		  BannulerAM.setIcon(imgBannulerAM);
+		  BenregistrerAM.setIcon(imgBenregistrerAM);
+		  
+		  BannulerMM.setIcon(imgBannulerMM);
+		  BModifierMM.setIcon(imgMBmodifierMM);
+		  BsuppressionMM.setIcon(imgBsuppressionMM);
+		  
+		  BannulerAV.setIcon(imgBannulerAV);
+		  BenregistrerAV.setIcon(imgBenregistrerAV);
+		  
+		  BannulerMV.setIcon(imgBannulerMV);
+		  BModifierMV.setIcon(imgMBmodifierMV);
+		  BsuppressionMV.setIcon(imgBsuppressionMV);
+		  
 		  
 		  /* Bouton Barre Menu */
 
@@ -370,6 +410,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      /* Bouton Panel Modification Moniteur*/
 	      BModifierMM.addActionListener(this);
 	      BannulerMM.addActionListener(this);
+	      BsuppressionMM.addActionListener(this);
 	      
 	      /* Bouton Panel Ajout Voiture */
 	      BenregistrerAV.addActionListener(this);
@@ -378,6 +419,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	      /* Bouton Panel Modification Voiture */
 	      BModifierMV.addActionListener(this);
 	      BannulerMV.addActionListener(this);
+	      BsuppressionMV.addActionListener(this);
 	      
 	      
 	      BarreMenu.add(MenuClient);
@@ -496,6 +538,18 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			/* Panel Voiture */
 			PListev.setVisible(true);
 			PAjoutv.setVisible(false);
+			
+			this.TnomMM.setText("");
+			this.TprenomMM.setText("");
+		}
+		else if (ae == BsuppressionMM)
+		{
+			this.supprimerMoniteur();
+			
+			/* Panel Moniteur */
+			PListem.setVisible(true);
+			PAjoutm.setVisible(false);
+			PModifm.setVisible(false);
 			
 			this.TnomMM.setText("");
 			this.TprenomMM.setText("");
@@ -643,14 +697,11 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	    	   if (e.getClickCount() == 1) 
 	    	   { 
 	    		
-	    		/*JOptionPane.showMessageDialog (getParent(), "Quel est votre choix ?", "Moniteur", JOptionPane.QUESTION_MESSAGE);:µ*/
- 	    		//JOptionPane d = new JOptionPane(getParent(), "Quel est votre choix ?", "Moniteur", JOptionPane.QUESTION_MESSAGE)); 
-              
-	    		JOptionPane d = new JOptionPane();
-	    	// les textes figurant sur les boutons
-	    	String listeOptionMoniteur[]={ "Modification", "Suppression",};
-	    	
-	    	
+	    		   JOptionPane.showMessageDialog (getParent(), "Modification", "Voiture", JOptionPane.INFORMATION_MESSAGE);
+	    		   
+	    		TnomMM.setText(""+uneTableMon.getValueAt(uneTableMon.getSelectedRow(),1));
+	   			TprenomMM.setText(""+uneTableMon.getValueAt(uneTableMon.getSelectedRow(),2));
+	    		
  	    		/* Panel Moniteur */
  				PListem.setVisible(false);
  				PAjoutm.setVisible(false);
@@ -695,15 +746,35 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
             Moniteur unMoniteur = new Moniteur(idm, nomm, prenomm);
             uneLecon.modifierMoniteur(unMoniteur);
             JOptionPane.showMessageDialog(this, "Modification Effectué", "Insertion", JOptionPane.INFORMATION_MESSAGE);
-            
-            System.out.println(""+idm);
-            
+
             chargerTableauMon();
         }
        catch (NumberFormatException exp){
            JOptionPane.showMessageDialog(this, "Modification échouée", "Erreur", JOptionPane.ERROR_MESSAGE);
        }
     }
+	
+	public void supprimerMoniteur()
+    {
+        try{
+        	Object idMon = uneTableMon.getValueAt(uneTableMon.getSelectedRow(),0);
+            if(uneLecon.supprimerMoniteur(idMon) )
+            {
+                JOptionPane.showMessageDialog(this, "Suppression Effectuée", "Suppression", JOptionPane.OK_OPTION);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Suppression impossible", "Suppression", JOptionPane.OK_OPTION);
+            } 
+        }
+       catch (NumberFormatException exp){
+           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.OK_OPTION);
+       }
+        
+        chargerTableauMon();
+    }
+	
+	
+
 	
 
 	public void annulerMoniteur ()
@@ -754,6 +825,12 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
   	    		
      	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Voiture", JOptionPane.INFORMATION_MESSAGE);
      	    		
+     	    		TimmatriculationMV.setText(""+uneTableVoit.getValueAt(uneTableVoit.getSelectedRow(),1));
+     				TmodeleMV.setText(""+uneTableVoit.getValueAt(uneTableVoit.getSelectedRow(),2));
+     				TdateachatMV.setText(""+uneTableVoit.getValueAt(uneTableVoit.getSelectedRow(),3));
+     				TnbrkmMV.setText(""+uneTableVoit.getValueAt(uneTableVoit.getSelectedRow(),4));
+     				TconsoMV.setText(""+uneTableVoit.getValueAt(uneTableVoit.getSelectedRow(),5));
+     	    		
      	    		
      	    	
      	    		/* Panel Moniteur */
@@ -801,7 +878,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	    {
 	        try{
 	        	
-	        	 Object idv = uneTableMon.getValueAt(uneTableMon.getSelectedRow(),0);
+	        	 Object idv = uneTableVoit.getValueAt(uneTableVoit.getSelectedRow(),0);
 	        	 String immatriculation = TimmatriculationMV.getText();
 		         String modele = TmodeleMV.getText();
 		         String dateachat = TdateachatMV.getText();

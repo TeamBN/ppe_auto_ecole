@@ -118,9 +118,9 @@ public class Lecon
 				}
 		}
 		
-		public static void supprimerMoniteur (int code)
+		public boolean supprimerMoniteur (Object idMon)
 		{
-			String requete ="";
+			String requete = "Delete from moniteur where idm="+idMon+"";
 				try
 				{
 					BDD uneBDD = new BDD ();
@@ -129,11 +129,14 @@ public class Lecon
 					unStat.execute(requete);
 					unStat.close();
 					uneBDD.seConnecter();
+					return true;
 				}
 				catch(SQLException exp)
 				{
 					System.out.println("Erreur d'execution de la requete:" + requete);
+					return false;
 				}
+				
 		}
 		
 		public LinkedList<Moniteur> getLesMoniteurs(){
