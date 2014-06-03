@@ -430,34 +430,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
             
 			chargerTableauMon();
              
-            //action sur la liste des moniteurs
-             uneTableMon.addMouseListener(new MouseAdapter() {
-   	    	 public void mouseClicked(MouseEvent e)
-   	    	 {
-   	            
-   	    	   if (e.getClickCount() == 1) 
-   	    	   { 
-   	    		
-      	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Moniteur", JOptionPane.INFORMATION_MESSAGE);
-      	    		
-      	    		
-      	    	
-      	    		/* Panel Moniteur */
-      				PListem.setVisible(false);
-      				PAjoutm.setVisible(false);
-      				PModifm.setVisible(true);
-      				
-      				/* Panel Voiture */
-      				PAjoutv.setVisible(false);
-      				
-   	    	   }
-   	    	   else 
-   	    	    {
-   	    	    	 
-   	    	    	 	
-   	    	    }
-   	    	   }
-   	    	});
+            
    	    
 		}
 		else if (ae == MajouterMoniteur)
@@ -539,37 +512,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			PAjoutv.setVisible(false);
 			
 			chargerTableauVoit();
-            
-          //action sur la liste des voitures
-            uneTableVoit.addMouseListener(new MouseAdapter() {
-  	    	 public void mouseClicked(MouseEvent e)
-  	    	 {
-  	            
-  	    	   if (e.getClickCount() == 1) 
-  	    	   { 
-  	    		
-     	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Voiture", JOptionPane.INFORMATION_MESSAGE);
-     	    		
-     	    		
-     	    	
-     	    		/* Panel Moniteur */
-     				PListem.setVisible(false);
-     				PAjoutm.setVisible(false);
-     				PModifm.setVisible(false);
-     				
-     				/* Panel Voiture */
-     				PListev.setVisible(false);
-     				PAjoutv.setVisible(false);
-     				PModifv.setVisible(true);
-     				
-  	    	   }
-  	    	   else 
-  	    	    {
-  	    	    	 
-  	    	    	 	
-  	    	    }
-  	    	   }
-  	    	});
    	 
 		}
 		else if (ae == MajouterVoiture)
@@ -666,7 +608,7 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.TconsoMV.setText("");
 		}
 	}
-	
+
 	/********** Methodes Moniteur ********************/
 	public Object [][] listeMoniteurs()
 	{
@@ -692,6 +634,36 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		uneScrollm.setBounds(20, 50, 500, 250);
 		PListem.removeAll();
         PListem.add(uneScrollm);
+        
+      //action sur la liste des moniteurs
+        uneTableMon.addMouseListener(new MouseAdapter() {
+	    	 public void mouseClicked(MouseEvent e)
+	    	 {
+	            
+	    	   if (e.getClickCount() == 1) 
+	    	   { 
+	    		
+	    		/*JOptionPane.showMessageDialog (getParent(), "Quel est votre choix ?", "Moniteur", JOptionPane.QUESTION_MESSAGE);:µ*/
+ 	    		//JOptionPane d = new JOptionPane(getParent(), "Quel est votre choix ?", "Moniteur", JOptionPane.QUESTION_MESSAGE)); 
+              
+	    		JOptionPane d = new JOptionPane();
+	    	// les textes figurant sur les boutons
+	    	String listeOptionMoniteur[]={ "Modification", "Suppression",};
+	    	
+	    	
+ 	    		/* Panel Moniteur */
+ 				PListem.setVisible(false);
+ 				PAjoutm.setVisible(false);
+ 				PModifm.setVisible(true);
+ 				
+	    	   }
+	    	   else 
+	    	    {
+	    	    	 
+	    	    	 	
+	    	    }
+	    	   }
+	    	});
 		
 	}
 	
@@ -771,6 +743,37 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			uneScrollv.setBounds(20, 50, 500, 250);
 			PListev.removeAll();
 	        PListev.add(uneScrollv);
+	        
+	      //action sur la liste des voitures
+            uneTableVoit.addMouseListener(new MouseAdapter() {
+  	    	 public void mouseClicked(MouseEvent e)
+  	    	 {
+  	            
+  	    	   if (e.getClickCount() == 1) 
+  	    	   { 
+  	    		
+     	    		JOptionPane.showMessageDialog (getParent(), "Modification", "Voiture", JOptionPane.INFORMATION_MESSAGE);
+     	    		
+     	    		
+     	    	
+     	    		/* Panel Moniteur */
+     				PListem.setVisible(false);
+     				PAjoutm.setVisible(false);
+     				PModifm.setVisible(false);
+     				
+     				/* Panel Voiture */
+     				PListev.setVisible(false);
+     				PAjoutv.setVisible(false);
+     				PModifv.setVisible(true);
+     				
+  	    	   }
+  	    	   else 
+  	    	    {
+  	    	    	 
+  	    	    	 	
+  	    	    }
+  	    	   }
+  	    	});
 			
 		}
 		public void insererVoiture ()
