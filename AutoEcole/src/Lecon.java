@@ -200,9 +200,7 @@ public class Lecon
 		public void modifierVoiture(Voiture uneVoit)
 		{
 			String requete ="Update voiture set immatriculation='"+uneVoit.getImmatriculation()+"', modele='"+uneVoit.getModele()+"', dateachat='"+uneVoit.getDateachat()+"', nbrkm="+uneVoit.getNbrkm()+", conso="+uneVoit.getConso()+"WHERE idv="+uneVoit.getIdv()+";";
-			
-			
-	
+
 				try
 				{
 					BDD uneBDD = new BDD ();
@@ -218,9 +216,9 @@ public class Lecon
 				}
 		}
 		
-		public static void supprimerVoiture (int code)
+		public boolean supprimerVoiture (Object idVoit)
 		{
-			String requete ="";
+			String requete = "Delete from voiture where idv="+idVoit+"";
 				try
 				{
 					BDD uneBDD = new BDD ();
@@ -229,11 +227,14 @@ public class Lecon
 					unStat.execute(requete);
 					unStat.close();
 					uneBDD.seConnecter();
+					return true;
 				}
 				catch(SQLException exp)
 				{
 					System.out.println("Erreur d'execution de la requete:" + requete);
+					return false;
 				}
+				
 		}
 			
 		public LinkedList<Voiture> getLesVoitures(){

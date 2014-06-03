@@ -661,6 +661,21 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 			this.TnbrkmMV.setText("");
 			this.TconsoMV.setText("");
 		}
+		else if (ae == BsuppressionMV)
+		{
+			this.supprimerVoiture();
+			
+			/* Panel Moniteur */
+			PListev.setVisible(true);
+			PAjoutv.setVisible(false);
+			PModifv.setVisible(false);
+			
+			this.TimmatriculationMV.setText("");
+			this.TmodeleMV.setText("");
+			this.TdateachatMV.setText("");
+			this.TnbrkmMV.setText("");
+			this.TconsoMV.setText("");
+		}
 	}
 
 	/********** Methodes Moniteur ********************/
@@ -773,10 +788,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
         chargerTableauMon();
     }
 	
-	
-
-	
-
 	public void annulerMoniteur ()
 	 {
 		 chargerTableauMon();
@@ -895,6 +906,25 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	       catch (NumberFormatException exp){
 	           JOptionPane.showMessageDialog(this, "Modification échouée", "Erreur", JOptionPane.ERROR_MESSAGE);
 	       }
+	    }
+		
+		public void supprimerVoiture()
+	    {
+	        try{
+	        	Object idVoit = uneTableVoit.getValueAt(uneTableVoit.getSelectedRow(),0);
+	            if(uneLecon.supprimerVoiture(idVoit) )
+	            {
+	                JOptionPane.showMessageDialog(this, "Suppression Effectuée", "Suppression", JOptionPane.OK_OPTION);
+	            }
+	            else {
+	                JOptionPane.showMessageDialog(this, "Suppression impossible", "Suppression", JOptionPane.OK_OPTION);
+	            } 
+	        }
+	       catch (NumberFormatException exp){
+	           JOptionPane.showMessageDialog(this, "Erreur de données", "Erreur", JOptionPane.OK_OPTION);
+	       }
+	        
+	        chargerTableauVoit();
 	    }
 		
 		public void annulerVoiture ()
