@@ -1,8 +1,14 @@
 <?php 
 session_start();
 
-require_once("includes/config.php");
-
+try
+{
+	$bdd=new PDO('mysql:host=localhost;dbname=autoecole', 'root', '');
+}
+catch (Exception $e)
+{
+	die('Erreur : ' . $e->getMessage());
+}
 
 
 $login = (stripslashes($_POST['login']));

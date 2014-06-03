@@ -56,9 +56,10 @@ error_reporting(E_ALL);*/
 				<div class="bloc-content">
 					<div class="bloc-content-4col">
 						<h2>
-							<iframe src="https://www.google.com/calendar/embed?src=28nff4dh0asfcjjdublqlhka5o%40group.calendar.google.com&ctz=Europe/Paris"
+							<!--<iframe src="https://www.google.com/calendar/embed?src=28nff4dh0asfcjjdublqlhka5o%40group.calendar.google.com&ctz=Europe/Paris"
 							style="border: 0" width="600" height="400" frameborder="0" scrolling="no">
-							</iframe>
+							</iframe>-->
+							<<?php /*require("CalendrierPHP/index.php"); */?>
 						</h2>
 					</div>
 				</div>

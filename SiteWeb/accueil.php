@@ -9,7 +9,14 @@ if (!isset($_SESSION['nbrate']))
 	$_SESSION['nbrate']=0;
 }
 
-require_once("includes/config.php");
+try
+{
+	$bdd= new PDO('mysql:host=localhost;dbname=autoecole', 'root', '');
+}
+catch (Exception $e)
+{
+	die('Erreur : ' . $e->getMessage());
+}
 
 /*ini_set('display_errors', '1');
 error_reporting(E_ALL);*/
