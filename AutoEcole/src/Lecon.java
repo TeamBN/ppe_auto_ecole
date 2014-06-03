@@ -36,7 +36,7 @@ public class Lecon
 				int idm = unRes.getInt("idm");
 				String nomm = unRes.getString("nomm");
 				String prenomm = unRes.getString("prenomm");
-				Moniteur unMoniteur = new Moniteur(idm, prenomm, nomm);
+				Moniteur unMoniteur = new Moniteur(idm, nomm, prenomm);
 				this.LesMoniteurs.add(unMoniteur);
 			}
 			unRes.close();
