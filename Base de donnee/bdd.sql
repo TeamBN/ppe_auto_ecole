@@ -52,8 +52,9 @@ Titre_lecon varchar(20) not null,
 IdM int(11) not null, Foreign Key (IdM) References Moniteur (IdM),
 IdC int not null, Foreign Key (IdC) References Client (IdC),
 IdV int(3), FOREIGN KEY (IdV) REFERENCES Voiture (IdV),
-D_Debut DATETIME not null,
-D_Fin DATETIME not null
+Date_lecon DATE not null,
+H_debut TIME not null,
+H_fin TIME not null
 )
 ENGINE = InnoDB;
 
