@@ -1,7 +1,7 @@
 
 public class Moniteur {
 	
-	private int idm;
+	private Object idm;
 	private String nomm;
 	private String prenomm;
 	
@@ -12,23 +12,23 @@ public class Moniteur {
 		this.prenomm="";
 	}
 
-	public Moniteur(int idm, String nomm, String prenomm )
+	public Moniteur(Object idm, String nomm, String prenomm )
 	{
 		this.idm = idm;
 		this.nomm = nomm;
 		this.prenomm = prenomm;
 	}
 	
-	public int getIdm() {
+	public String getNomm() {
+		return nomm;
+	}
+
+	public Object getIdm() {
 		return idm;
 	}
 
-	public void setIdm(int idm) {
+	public void setIdm(Object idm) {
 		this.idm = idm;
-	}
-
-	public String getNomm() {
-		return nomm;
 	}
 
 	public void setNomm(String nomm) {

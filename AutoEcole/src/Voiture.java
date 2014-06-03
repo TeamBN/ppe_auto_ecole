@@ -1,7 +1,7 @@
 public class Voiture {
 	
 	protected String immatriculation, modele, dateachat;
-	protected int idv;
+	protected Object idv;
 	protected float conso, nbrkm;
 	
 	public Voiture ()
@@ -15,7 +15,7 @@ public class Voiture {
 		this.conso = 0;
 	}
 
-	public Voiture (int idv, String immatriculation, String modele, String dateachat, float nbrkm, float conso){
+	public Voiture (Object idv, String immatriculation, String modele, String dateachat, float nbrkm, float conso){
 		//initialise les attributs de la classe avec les valeurs en arguments
 		this.idv = idv;
 		this.immatriculation = immatriculation;
@@ -49,7 +49,7 @@ public class Voiture {
 		this.dateachat = dateachat;
 	}
 
-	public int getIdv() {
+	public Object getIdv() {
 		return idv;
 	}
 
