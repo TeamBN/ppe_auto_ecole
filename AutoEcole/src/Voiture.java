@@ -53,7 +53,7 @@ public class Voiture {
 		return idv;
 	}
 
-	public void setIdv(int idv) {
+	public void setIdv(Object idv) {
 		this.idv = idv;
 	}
 
