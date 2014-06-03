@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import javax.imageio.plugins.bmp.BMPImageWriteParam;
 import javax.imageio.*;
 import javax.swing.*;
+
 import java.awt.Toolkit;
 
 public class Fenetre extends JFrame implements ActionListener, ItemListener
@@ -449,13 +450,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
       				/* Panel Voiture */
       				PAjoutv.setVisible(false);
       				
-      				int ligneListeMon = uneTableMon.getSelectedRow();
-          			//on récupére la valeur de la première colonne de la ligne sélectionné
-          			uneTableMon.getValueAt(ligneListeMon, 0);
-          				
-          			System.out.println(""+uneTableMon.getValueAt(ligneListeMon, 0));
-          			
-      	    	 	
    	    	   }
    	    	   else 
    	    	    {
@@ -520,7 +514,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		else if (ae == BannulerMM)
 		{
 			this.annulerMoniteur();
-			PListem.removeAll();
 			
 			/* Panel Moniteur */
 			PListem.setVisible(true);
@@ -569,12 +562,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
      				PAjoutv.setVisible(false);
      				PModifv.setVisible(true);
      				
-     				int ligneListeVoit = uneTableVoit.getSelectedRow();
-          			//on récupére la valeur de la première colonne de la ligne sélectionné
-     				uneTableVoit.getValueAt(ligneListeVoit, 0);
-          				
-          			System.out.println(""+uneTableVoit.getValueAt(ligneListeVoit, 0));
-          			
   	    	   }
   	    	   else 
   	    	    {
@@ -600,7 +587,6 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		else if (ae == BenregistrerAV)
 		{
 			this.insererVoiture();
-			PListev.removeAll();
 			
 			/* Panel Moniteur */
 			PListem.setVisible(false);
@@ -731,13 +717,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
     {
         try{
         	
-        	
-        	int idmm = uneTableMon.getSelectedRow()+1;
+        	Object idm = uneTableMon.getValueAt(uneTableMon.getSelectedRow(),0);
             String nomm = TnomMM.getText();
             String prenomm = TprenomMM.getText();
-            Moniteur unMoniteur = new Moniteur(idmm, nomm, prenomm);
+            Moniteur unMoniteur = new Moniteur(idm, nomm, prenomm);
             uneLecon.modifierMoniteur(unMoniteur);
             JOptionPane.showMessageDialog(this, "Modification Effectué", "Insertion", JOptionPane.INFORMATION_MESSAGE);
+            
+            System.out.println(""+idm);
             
             chargerTableauMon();
         }
@@ -746,24 +733,14 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
        }
     }
 	
-	/* Méthodes des boutons "annuler" */
-	
-	 public void annulerMoniteur ()
+
+	public void annulerMoniteur ()
 	 {
 		 chargerTableauMon();
 
 		 PListem.setVisible(true);
 		 PAjoutm.setVisible(false);
 	     PModifm.setVisible(false);
-	 }
-	 
-	 public void annulerVoiture ()
-	 {
-		 chargerTableauVoit();
-
-		 PListev.setVisible(true);
-		 PAjoutv.setVisible(false);
-	     PModifv.setVisible(false);
 	 }
 	 
 	 /********** Methodes Voiture ********************/
@@ -820,7 +797,8 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 		public void modifierVoiture ()
 	    {
 	        try{
-	        	 int idv = uneTableVoit.getSelectedRow()+1; 
+	        	
+	        	 Object idv = uneTableMon.getValueAt(uneTableMon.getSelectedRow(),0);
 	        	 String immatriculation = TimmatriculationMV.getText();
 		         String modele = TmodeleMV.getText();
 		         String dateachat = TdateachatMV.getText();
@@ -838,6 +816,15 @@ public class Fenetre extends JFrame implements ActionListener, ItemListener
 	           JOptionPane.showMessageDialog(this, "Modification échouée", "Erreur", JOptionPane.ERROR_MESSAGE);
 	       }
 	    }
+		
+		public void annulerVoiture ()
+		 {
+			 chargerTableauVoit();
+
+			 PListev.setVisible(true);
+			 PAjoutv.setVisible(false);
+		     PModifv.setVisible(false);
+		 }
 	public void itemStateChanged(ItemEvent arg0) 
 	{ //TODO
 		
