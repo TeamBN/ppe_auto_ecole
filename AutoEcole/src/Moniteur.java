@@ -18,10 +18,6 @@ public class Moniteur {
 		this.nomm = nomm;
 		this.prenomm = prenomm;
 	}
-	
-	public String getNomm() {
-		return nomm;
-	}
 
 	public Object getIdm() {
 		return idm;
@@ -29,6 +25,10 @@ public class Moniteur {
 
 	public void setIdm(Object idm) {
 		this.idm = idm;
+	}
+
+	public String getNomm() {
+		return nomm;
 	}
 
 	public void setNomm(String nomm) {
@@ -43,3 +43,5 @@ public class Moniteur {
 		this.prenomm = prenomm;
 	}
 }
+	
+	
