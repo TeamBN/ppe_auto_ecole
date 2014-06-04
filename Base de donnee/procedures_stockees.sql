@@ -164,3 +164,53 @@ DELIMITER ;
 END // 
 DELIMITER ;
 */
+
+
+
+/* ------------------------- Lecon ---------------------------- */
+
+
+drop procedure if exists temps_lecon;
+DELIMITER //
+CREATE Procedure temps_lecon()
+BEGIN
+	
+	DECLARE nb int;
+	DECLARE maxi int;
+	DECLARE caca int;
+	
+	SET nb=0;
+	SELECT MAX(Id_lecon) INTO maxi FROM Lecon;
+	
+	IF maxi <> 0
+	THEN
+		
+		WHILE nb <= maxi
+		DO
+				/* 
+				(SELECT Tps_lecon FROM lecon WHERE Id_lecon = nb) = 
+				(SELECT (TIMEDIFF((SELECT H_fin FROM lecon WHERE Id_lecon = nb), 
+				(SELECT H_debut FROM lecon WHERE Id_lecon = nb)))); 
+				*/
+			/*
+			SET (SELECT Tps_lecon FROM lecon WHERE Id_lecon=nb) =
+			SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF((SELECT H_fin FROM lecon WHERE Id_lecon = nb), (SELECT H_Debut FROM lecon WHERE Id_lecon = nb))))) 
+			*/
+            
+            
+              SELECT SUM(TIME_TO_SEC(TIMEDIFF(H_fin, H_Debut))) INTO @tps
+              FROM lecon
+              WHERE Id_lecon = nb;
+             
+			UPDATE lecon
+            SET Tps_lecon = SEC_TO_TIME(@tps)
+            WHERE Id_lecon = nb;
+            
+			SET nb = nb +1;
+		END WHILE;
+	
+	END IF;
+
+END //
+DELIMITER ;
+

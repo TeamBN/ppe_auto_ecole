@@ -86,16 +86,16 @@ VALUES
 
 INSERT INTO Moniteur(IdM, NomM, PrenomM)
 VALUES
-(1, 'plafe', 'jean'),
-(2, 'bozan', 'mathieu'),
-(3, 'tifu', 'richard'),
-(4, 'eden', 'adam'),
-(5, 'girolle', 'stefanie'),
-(6, 'clover', 'lamy'),
-(7, 'ficache', 'samy'),
-(8, 'kookla', 'james'),
-(9, 'seaurme', 'anna'),
-(10, 'lujere', 'yves');
+(null, 'plafe', 'jean'),
+(null, 'bozan', 'mathieu'),
+(null, 'tifu', 'richard'),
+(null, 'eden', 'adam'),
+(null, 'girolle', 'stefanie'),
+(null, 'clover', 'lamy'),
+(null, 'ficache', 'samy'),
+(null, 'kookla', 'james'),
+(null, 'seaurme', 'anna'),
+(null, 'lujere', 'yves');
 
 
 INSERT INTO voiture(Immatriculation, Modele, DateAchat, NbrKm, Conso) VALUES

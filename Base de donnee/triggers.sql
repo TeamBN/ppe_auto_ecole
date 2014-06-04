@@ -1,4 +1,4 @@
-﻿------------------------------------------Table ExamenP---------------------------------------------
+﻿/*------------------------------------------Table ExamenP---------------------------------------------
 
 -- Vérifier l'obtention du code dans les 24 dernier mois avant le passage du permis, et la majorité du client.
 --Rajouter +1 au nombre de passage de permis si un client est déjà sur la table, sinon 1.
@@ -354,17 +354,26 @@ FOR EACH ROW
 BEGIN
 	
 	DECLARE nbs int;
+	DECLARE maxi int;
 	
 		SELECT COUNT(*) INTO nbs FROM Moniteur WHERE NomM=new.NomM AND PrenomM=new.PrenomM;
-		
+		SELECT MAX(IdM) FROM Moniteur into maxi;
 		IF nbs > 0 
 			THEN
 				DELETE FROM `moniteur deja existant`;
 		ELSE
-			INSERT INTO Identifiants(MdP, Login, IdM) VALUES(
-			new.NomM,
-			new.PrenomM,
-			new.IdM);
+			IF maxi > 0
+			THEN 
+				INSERT INTO Identifiants(MdP, Login, IdM) VALUES(
+				new.NomM,
+				new.PrenomM,
+				maxi + 1);
+			ELSE
+				INSERT INTO Identifiants(MdP, Login, IdM) VALUES(
+				new.NomM,
+				new.PrenomM,
+				1);
+			END IF;
 		END IF;
 END // 
 DELIMITER ;
@@ -398,7 +407,7 @@ BEGIN
 	
 	
 END // 
-DELIMITER ; 
+DELIMITER ;
 
 
 
@@ -477,3 +486,28 @@ END IF;
 END //
 DELIMITER ;
 
+
+/* ------------------------- Lecon ---------------------------- */
+
+
+DROP TRIGGER IF EXISTS Before_Insert_lecon;
+DELIMITER //
+CREATE TRIGGER Before_Insert_lecon
+BEFORE INSERT ON Lecon
+FOR EACH ROW
+BEGIN
+
+	DECLARE nb int;
+	
+	SELECT MAX(Id_lecon) INTO nb FROM Lecon;
+	
+	IF nb <> 0
+	THEN
+		SET new.Id_lecon= nb+1;
+	
+	ELSE
+		SET new.Id_lecon=1;	
+	
+	END IF;
+END //
+DELIMITER ;

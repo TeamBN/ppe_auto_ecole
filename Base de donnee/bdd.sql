@@ -54,7 +54,8 @@ IdC int not null, Foreign Key (IdC) References Client (IdC),
 IdV int(3), FOREIGN KEY (IdV) REFERENCES Voiture (IdV),
 Date_lecon DATE not null,
 H_debut TIME not null,
-H_fin TIME not null
+H_fin TIME not null,
+Tps_lecon TIME
 )
 ENGINE = InnoDB;
 
@@ -120,5 +121,5 @@ CREATE TABLE Identifiants (
 Id_Identifiants int(3) not null Auto_Increment Primary Key,
 MdP varchar(10) default 0,
 Login varchar(10) default 0,
-IdM int(3) not null)
+IdM int(3))
 Engine = InnoDB;
